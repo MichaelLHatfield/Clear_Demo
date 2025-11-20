@@ -8,12 +8,12 @@ Imported.VisuMZ_1_MessageCore = true;
 
 var VisuMZ = VisuMZ || {};
 VisuMZ.MessageCore = VisuMZ.MessageCore || {};
-VisuMZ.MessageCore.version = 1.37;
+VisuMZ.MessageCore.version = 1.54;
 
 //=============================================================================
  /*:
  * @target MZ
- * @plugindesc [RPG Maker MZ] [Tier 1] [Version 1.37] [MessageCore]
+ * @plugindesc [RPG Maker MZ] [Tier 1] [Version 1.54] [MessageCore]
  * @author VisuStella
  * @url http://www.yanfly.moe/wiki/Message_Core_VisuStella_MZ
  * @orderAfter VisuMZ_0_CoreEngine
@@ -92,6 +92,198 @@ VisuMZ.MessageCore.version = 1.37;
  * ---
  *
  * ============================================================================
+ * Text Language Information
+ * ============================================================================
+ *
+ * As of Message Core version 1.46, Text Language has been added. 
+ * 
+ * The "Text Language" feature allows your players to switch between different
+ * languages for your game to allow people from around the globe to enjoy what
+ * story you have to tell.
+ * 
+ * Disclaimers: This is not an automatic translation tool. Translations made
+ * through the "Text Language" feature of the VisuStella MZ Message Core
+ * will require manual input by the game developer.
+ * 
+ * As of Message Core version 1.53, we've decided to add support for TSV.
+ * 
+ * This is because we have done our research and decided that CSV's are too
+ * restricted to use due to their default nature of wanting to use commas as
+ * separators. Thus, we've decided to switch to TSV where the default separator
+ * is a tab space, something that is almost never used in RPG Maker text.
+ *
+ * ---
+ * 
+ * === How to Enable Switching ===
+ * 
+ * Text Language is NOT enabled by default. Here's what you have to do:
+ * 
+ * #1. Open up the Message Core's Plugin Parameters
+ * #2. Plugin Parameters > Text Language Settings > Enable Switching?
+ * #3. Change the "Enable Switching?" parameter setting to "true".
+ * #4. Adjust any other settings as needed.
+ * #5. Save the Plugin Parameter changes.
+ * #6. Save your game.
+ * 
+ * Now, it's time to get the CSV/TSV file that will contain all of the text
+ * used to translate your game's script.
+ * 
+ * #1. Play test your game. Make sure Play test mode is NOT disabled.
+ * #2. A popup will appear asking to create a language CSV/TSV file.
+ * #3. Click "OK" and let the plugin do its thing.
+ * #4. The project's /data/ folder will appear with Language.csv/tsv made.
+ * #5. The plugin will then ask you to restart your game.
+ * 
+ * '''IMPORTANT!''' The separator used for the CSV file must be a semicolon (;)
+ * and not a comma (,) as to reduce the amount of punctuation conflicts. Keep
+ * this in mind as most CSV editors will default to comma (,) instead of the
+ * semicolon (;) for their separator.
+ * 
+ * ---
+ * 
+ * === How to Edit the Language CSV/TSV ===
+ * 
+ * The Language CSV/TSV is structured as a normal CSV/TSV file would be, which
+ * also means it can be modified in programs like Microsoft Excel or Google
+ * Sheets. We recommend using either of those programs to modify the text.
+ * 
+ * We do not recommend modifying the CSV/TSV file in programs like notepad
+ * directly due to the way certain things like commas (,) and tabs are handled
+ * and how easy it is to be error-prone.
+ * 
+ * The table will appear something like this at first:
+ * 
+ *     Key        English    Chinese    Japanese     Korean
+ *     Greeting   Hello      你好       こんにちは    안녕하세요
+ *     Farewell   Good-bye   再见       さようなら    안녕히
+ *     Wow        Wow        哇         ワオ          와우
+ * 
+ * The "Key" column refers to the reference key used to determine which lines
+ * will be inserted into the text. The columns with the languages will utilize
+ * the respective phrases for that language.
+ * 
+ * You can remove columns containing languages that you aren't planning to
+ * translate for your game.
+ * 
+ * ---
+ * 
+ * === Things to Keep in Mind ===
+ * 
+ * When adding text to the CSV/TSV file via the spreadsheet editor (Excel or
+ * Google Sheets), there's a few things to keep in mind.
+ * 
+ * ---
+ * 
+ * ==== How to Load the CSV/TSV in Google Sheets ====
+ * 
+ * If you are using Google Sheets and wish to edit the CSV/TSV without it
+ * converting all the separators into commas, here's what you do:
+ * 
+ * #1. Go to "https://sheets.google.com"
+ * #2. Create a "Blank spreadsheet"
+ * #3. File > Import > Upload > Select the CSV/TSV file that was created in
+ *     your game project's /data/ folder. You may need to select "All Files"
+ *     for file type if uploading a TSV.
+ * #4. For "Separator Type", if you are using CSV, change it to "Custom" and
+ *     insert the Semicolon ";". Otherwise, if you are using TSV, select "tab"
+ *     as your separator type.
+ * #5. Uncheck "Convert text to numbers, dates, and formulas"
+ * 
+ * ==== How to Load the CSV/TSV in VS Code ===
+ * 
+ * #1. Go to "https://code.visualstudio.com/"
+ * #2. Download and install it
+ * #3. Open up VS Code and go to View > Extensions
+ * #4. Search for an extension called "Edit CSV"
+ * #5. Load the CSV/TSV file into VS Code and view with the CSV Editor
+ * #6. Click the button that says "Edit CSV" in the upper right
+ * 
+ * ==== Line Breaks ====
+ * 
+ * When you want to insert line breaks into the translated phrases, use the
+ * <br> text code. This is best used for text that is to be transferred into
+ * the message window or help window.
+ * 
+ * ==== Text Codes ====
+ * 
+ * Text codes like \C[2] can be inserted normally. However, they only work in
+ * windows that support text codes, such as the message window or help window.
+ * Otherwise, the text codes will not transfer over properly.
+ * 
+ * ==== Semicolons (CSV Only) ====
+ * 
+ * Due to the nature of the CSV file, we used the semicolon (;) as the
+ * separator. As such, semicolons should not be used in the text entries.
+ * Though some sentences will work with the semicolon, not all of them will. If
+ * you do want to use a semicolon, use the text code <semicolon> instead.
+ * 
+ *   Example:
+ * 
+ *   "The pancakes were delicious<semicolon> they were fluffy and sweet."
+ * 
+ * Other variations of the semicolon text code are <semi> and <semi-colon>.
+ * The <semicolon> text code and variants only work with the Language CSV and
+ * are ignored otherwise when typed in a regular message box entry.
+ * 
+ * ---
+ * 
+ * ==== Macros and Language Switches ====
+ * 
+ * For those using both text macros and text language switches, macros will be
+ * converted to text before language switches as it allows for better text
+ * transitions that way.
+ * 
+ * ---
+ * 
+ * === How to Use the Reference Keys ===
+ * 
+ * Remember the "Key" column and the reference keys? Those are used to
+ * determine which lines will be inserted into the text for the message window
+ * and just about any other window. However, there's a specific way these keys
+ * must be used in order for them to work.
+ * 
+ * The "text code" format works like this. Use any of the following:
+ * 
+ *   \tl{keyName}
+ *   \translate{keyName}
+ *   \loc{keyName}
+ *   \locale{keyName}
+ *   \localize{keyName}
+ * 
+ * or for those coming from different translation plugins but want to switch
+ * over to the VisuStella MZ Message Core's translation system:
+ * 
+ *   ${keyName}
+ * 
+ * For example, to use one of the default keys made with the Language CSV/TSV:
+ * 
+ *   \tl{Greeting}
+ * 
+ * This will yield "Hello" in English, "你好" in Chinese, "こんにちは" in
+ * Japanese, and "안녕하세요" in Korean.
+ * 
+ * Key names are not case sensitive and any trailing spaces will be removed
+ * from them in order to make sure the CSV/TSV table is stable to reference any
+ * translated text from.
+ * 
+ * You can insert these language "text codes" into item names, skill names,
+ * etc. as well as system entries like for Attack, Defense, etc.
+ * 
+ * ---
+ * 
+ * === Naming Weapon Types, Armor Types, Equip Types, Item Categories ===
+ * 
+ * You might have noticed that if you've decided to use \tl{keyName} for weapon
+ * or other database types, other parts of the game will error out. Don't
+ * worry, for these, you don't have to change the currently used database name.
+ * Go straight to the CSV/TSV and insert in a new key for that particular
+ * database name. For example, the equip type "Accessory" will use "Accessory"
+ * as the automatic key to look for a translated phrase. If there isn't any in
+ * the CSV/TSV file, then the default database text entry will be used.
+ * 
+ * ---
+ *
+ * ============================================================================
  * Available Text Codes
  * ============================================================================
  *
@@ -157,14 +349,20 @@ VisuMZ.MessageCore.version = 1.37;
  * <i>                  Makes subsequent text italic.
  * </i>                 Removes italic from subsequent text.
  * 
- * <left>               Makes subsequent text left-aligned.
+ * <left>               Makes subsequent text left-aligned. *Note1*
  * </left>              Removes left-alignment for subsequent text.
- * <center>             Makes subsequent text center-aligned.
+ * <center>             Makes subsequent text center-aligned. *Note1*
  * </center>            Removes center-alignment for subsequent text.
- * <right>              Makes subsequent text right-aligned.
+ * <right>              Makes subsequent text right-aligned. *Note1*
  * </right>             Removes right-alignment for subsequent text.
  *
- * Note1: Use at line-start.
+ * Note1: Use at line-start. Does not work with Word Wrap.
+ *
+ * ---
+ * 
+ * ------------------   -------------------------------------------------------
+ * Text Code            Effect (Global)
+ * ------------------   -------------------------------------------------------
  *
  * <ColorLock>          Text codes can't change text color for subsequent text.
  * </ColorLock>         Removes Color Lock property.
@@ -175,10 +373,90 @@ VisuMZ.MessageCore.version = 1.37;
  * <line break>         Adds a line break. Requires Word Wrap enabled.
  *
  * Note2: Some windows cannot use Word Wrap such as the Choice Window.
+ * Word Wrap also cannot be used together with <left>, <center>, or <right> and
+ * will disable itself if text alignment text codes are detected.
+ *
+ * ---
+ * 
+ * ------------------   -------------------------------------------------------
+ * Text Code            Effect (Global)
+ * ------------------   -------------------------------------------------------
  *
  * \picture<x>          Draws picture x (filename) at current text position.
  * \CenterPicture<x>    Draws picture x (filename) centered at the window.
+ * 
+ * While these text codes are available globally, they are best suited for use
+ * in the message window or any other window that does not change its contents.
+ * The reason being is because the picture drawn is drawn into the background
+ * of the window.
+ * 
+ * Therefore, we do not recommend using this in windows that change contents
+ * often like Help Windows or Quest Descriptions. Instead, we recommend using
+ * icons instead.
+ * 
+ * As of the version 1.53 update, the Help Window now supports both of these
+ * text codes. However, we still recommend using icons over using pictures as
+ * there will be loading delays.
  *
+ * ---
+ * 
+ * ------------------   -------------------------------------------------------
+ * Text Code            Effect (Map Name)
+ * ------------------   -------------------------------------------------------
+ * <left>               Makes map name align to left side of screen.
+ * <center>             Makes map name align to horizontally center of screen.
+ * <right>              Makes map name align to right side of screen.
+ * 
+ * <top>                Makes map name align to top of screen.
+ * <middle>             Makes map name align to vertically middle of screen.
+ * <bottom>             Makes map name align to bottom of screen.
+ * 
+ * <X: +n>              Adjusts the horizontal position of map name by n.
+ * <X: -n>              Adjusts the horizontal position of map name by n.
+ * 
+ * <Y: +n>              Adjusts the vertical position of map name by n.
+ * <Y: -n>              Adjusts the vertical position of map name by n.
+ * 
+ * Note: All of these text codes require VisuMZ_0_CoreEngine installed and its
+ * "Map Name Text Code" plugin parameter enabled.
+ * 
+ * ---
+ * 
+ * ------------------   -------------------------------------------------------
+ * Text Code            Effect (Global)
+ * ------------------   -------------------------------------------------------
+ * <Caps>               Makes all text after this capitalized.
+ *                      Turns off other auto-text case modes.
+ *                      ie: "hello world" becomes "HELLO WORLD"
+ * </Caps>              Turns off auto text-casing effects.
+ * 
+ * <Upper>              Makes the first letter of any word after a space to be
+ *                      capitalized. Other letters are left alone.
+ *                      Turns off other auto-text case modes.
+ *                      ie. "old mcDonald" becomes "Old McDonald"
+ * </Upper>             Turns off auto text-casing effects.
+ * 
+ * <Lower>              Makes all text after this lowercase.
+ *                      Turns off other auto-text case modes.
+ *                      ie: "THE QUICK BROWN FOX" becomes "the quick brown fox"
+ * </Lower>             Turns off auto text-casing effects.
+ * 
+ * <Alt>                Makes all text after this alternate between uppercase
+ *                      and lowercase. Turns off other auto-text case modes.
+ *                      ie: "Hello" becomes "HeLlO"
+ * </Alt>               Turns off auto text-casing effects.
+ * 
+ * <Chaos>              Makes all text after this randomize between uppercase
+ *                      and lowercase. Turns off other auto-text case modes.
+ *                      ie: "Wassup" becomes "waSsUP" or "WasSuP"
+ * </Chaos>             Turns off auto text-casing effects.
+ * 
+ * **Clarity:** In case you're wondering, the text codes </Caps>, </Upper>,
+ * </Lower>, </Alt>, and </Chaos> all do the same thing and can be used
+ * interchangeably with each other. For example, you can do this:
+ * <Caps>hello world</Lower> and it would still accomplish the same effect, but
+ * you won't do that because you're not a monster of a developer.
+ * 
  * ---
  *
  * ------------------   -------------------------------------------------------
@@ -265,6 +543,109 @@ VisuMZ.MessageCore.version = 1.37;
  *                                Applies to whole choice window.
  * <Choice Indent: x>             Sets the indent to x value. Applies to
  *                                current choice selection only.
+ * 
+ * <BgColor: x>                   Requires VisuMZ_0_CoreEngine! Sets background
+ *                                color of this choice to 'x' text color. This
+ *                                will be combined with a fading
+ * <BgColor: x,y>                 Requires VisuMZ_0_CoreEngine! Sets background
+ *                                color of this choice to 'x' to 'y' gradient
+ *                                text color.
+ * <BgColor: #rrggbb>             Requires VisuMZ_0_CoreEngine! Sets background
+ *                                color of this choice to '#rrggbb' color using
+ *                                hex color values.
+ * <BgColor: #rrggbb, #rrggbb>    Requires VisuMZ_0_CoreEngine! Sets background
+ *                                color of this choice to '#rrggbb' gradient
+ *                                using hex color values.
+ * 
+ * <Help> text </Help>            Makes a help window appear and have it show
+ *                                'text' in its contents. The help window will
+ *                                disappear if no text is displayed.
+ * 
+ * <Shuffle>                      Shuffles the order of all choices. Any cancel
+ *                                shortcuts other than "Branch" will be undone.
+ * <Shuffle: x>                   Shuffles the order of all choices and only
+ *                                x number of them will appear. Any cancel
+ *                                shortcuts other than "Branch" will be undone.
+ *                                Hidden choices do not count towards x number.
+ *
+ * ---
+ *
+ * -----------------------------  ---------------------------------------------
+ * Text Code                      Background Effects (Choice Window Only)
+ * -----------------------------  ---------------------------------------------
+ * 
+ * <BgImg: filename>              Creates a background image from img/pictures/
+ *                                stretched across the choice rectangle.
+ * <BgImg LowerLeft: filename>    Creates a background image from img/pictures/
+ *                                scaled to the lower left of choice rect.
+ * <BgImg LowerCenter: filename>  Creates a background image from img/pictures/
+ *                                scaled to the lower center of choice rect.
+ * <BgImg LowerRight: filename>   Creates a background image from img/pictures/
+ *                                scaled to the lower right of choice rect.
+ * <BgImg MidLeft: filename>      Creates a background image from img/pictures/
+ *                                scaled to the middle left of choice rect.
+ * <BgImg Center: filename>       Creates a background image from img/pictures/
+ *                                scaled to the center of choice rect.
+ * <BgImg MidRight: filename>     Creates a background image from img/pictures/
+ *                                scaled to the middle right of choice rect.
+ * <BgImg UpperLeft: filename>    Creates a background image from img/pictures/
+ *                                scaled to the upper left of choice rect.
+ * <BgImg UpperCenter: filename>  Creates a background image from img/pictures/
+ *                                scaled to the upper center of choice rect.
+ * <BgImg UpperRight: filename>   Creates a background image from img/pictures/
+ *                                scaled to the upper right of choice rect.
+ * 
+ * *Note:* For the <BgImg: filename> text code variants, even if the background
+ * image is smaller than the choice contents, it will overscale to match its
+ * choice rectangle dimensions.
+ * 
+ * *Note:* Using a background image will clear the dimmed background rectangle
+ * that is normally behind each selectable choice.
+ * 
+ * *Note:* Each choice can only have one background image but can use a
+ * combination of one background and one foreground image.
+ * 
+ * *Note:* Images in the background will appear behind the select cursor.
+ *
+ * ---
+ *
+ * -----------------------------  ---------------------------------------------
+ * Text Code                      Foreground Effects (Choice Window Only)
+ * -----------------------------  ---------------------------------------------
+ * 
+ * <FgImg: filename>              Creates a foreground image from img/pictures/
+ *                                stretched across the choice rectangle.
+ * <FgImg LowerLeft: filename>    Creates a foreground image from img/pictures/
+ *                                scaled to the lower left of choice rect.
+ * <FgImg LowerCenter: filename>  Creates a foreground image from img/pictures/
+ *                                scaled to the lower center of choice rect.
+ * <FgImg LowerRight: filename>   Creates a foreground image from img/pictures/
+ *                                scaled to the lower right of choice rect.
+ * <FgImg MidLeft: filename>      Creates a foreground image from img/pictures/
+ *                                scaled to the middle left of choice rect.
+ * <FgImg Center: filename>       Creates a foreground image from img/pictures/
+ *                                scaled to the center of choice rect.
+ * <FgImg MidRight: filename>     Creates a foreground image from img/pictures/
+ *                                scaled to the middle right of choice rect.
+ * <FgImg UpperLeft: filename>    Creates a foreground image from img/pictures/
+ *                                scaled to the upper left of choice rect.
+ * <FgImg UpperCenter: filename>  Creates a foreground image from img/pictures/
+ *                                scaled to the upper center of choice rect.
+ * <FgImg UpperRight: filename>   Creates a foreground image from img/pictures/
+ *                                scaled to the upper right of choice rect.
+ * 
+ * *Note:* For the <FgImg: filename> text code variants, unlike the background
+ * variant, the foreground image will not overscale past its original size.
+ * Instead, it will maintain its original size or be smaller, so long as it can
+ * be scaled to exist within the choice rectangle unless it is intended to be
+ * stretched by using the <FgImg: filename> variant.
+ * 
+ * *Note:* Text is then written on top of the foreground image.
+ * 
+ * *Note:* Each choice can only have one foreground image but can use a
+ * combination of one background and one foreground image.
+ * 
+ * *Note:* Images in the foreground will appear behind the select cursor.
  *
  * ---
  *
@@ -322,6 +703,19 @@ VisuMZ.MessageCore.version = 1.37;
  * <Menu Button>        Display's VisuMZ_0_CoreEngine's button assist text.
  * <Page Up Button>     Display's VisuMZ_0_CoreEngine's button assist text.
  * <Page Down Button>   Display's VisuMZ_0_CoreEngine's button assist text.
+ * 
+ * ---
+ * 
+ * === Random Text Pool ===
+ * 
+ * <RNG> text1 | text2 | text3 </RNG>
+ * 
+ * Using the above text code format in a Show Message entry, you can get a
+ * random result out of the various inserted texts. Use "|" (without quotes) as
+ * a separator between text entries. You can have unlimited entries. The result
+ * will have any excess white space trimmed.
+ * 
+ * This text code cannot be inserted into a macro and parsed properly.
  * 
  * ---
  *
@@ -407,6 +801,10 @@ VisuMZ.MessageCore.version = 1.37;
  *
  * \TextDelay[x]        Sets delay in frames between characters to x frames.
  * 
+ * Note: These text codes only work with the Message Window. Keep in mind that
+ *   even if some windows might look like the Message Window, it may not
+ *   necessarily be one.
+ * 
  * ---
  * 
  * As these text codes can be added, removed, and/or altered, their functions
@@ -462,13 +860,27 @@ VisuMZ.MessageCore.version = 1.37;
  * === Choice Plugin Commands ===
  * 
  * ---
+ * 
+ * Choices: Distance
+ * - Change the distance from choice window to the message window.
+ * 
+ *   Distance:
+ *   - Change distance between the choice and message windows.
+ *   - Default distance is 0.
+ *   - Use negative to center align with remaining space.
+ * 
+ * ---
  *
- * Choice: Properties
- *   Change the properties found in the Show Choices event command.
+ * Choices: Properties
+ * - Change the properties found in the Show Choices event command.
  *
  *   Line Height:
  *   - Change the line height for the show choices.
  *   - Leave at 0 to keep this unchanged.
+ * 
+ *   Minimum Choice Width:
+ *   - What is the minimum width size for each choice?
+ *   - 96 is the default width.
  *
  *   Max Rows:
  *   - Maximum number of choice rows to be displayed.
@@ -481,6 +893,66 @@ VisuMZ.MessageCore.version = 1.37;
  *   Text Alignment:
  *   - Text alignment for Show Choice window.
  *
+ * ---
+ * 
+ * === Select Plugin Commands ===
+ * 
+ * ---
+ * 
+ * Select: Weapon
+ * - Opens the Event Select Item Window to let the player pick a weapon to
+ *   choose from.
+ * - Can be opened while the Message Window is open.
+ * 
+ *   Variable ID:
+ *   - This variable will be used to record the ID of the selected weapon.
+ *   - It will result in 0 otherwise.
+ * 
+ *   Weapon Type ID:
+ *   - Reduce all the weapons to a specific weapon type.
+ *   - Leave at 0 to not use filters.
+ * 
+ * ---
+ * 
+ * Select: Armor
+ * - Opens the Event Select Item Window to let the player pick an armor to
+ *   choose from.
+ * - Can be opened while the Message Window is open.
+ * 
+ *   Variable ID:
+ *   - This variable will be used to record the ID of the selected armor.
+ *   - It will result in 0 otherwise.
+ * 
+ *   Armor Type ID:
+ *   - Reduce all the armors to a specific armor type.
+ *   - Leave at 0 to not use filters.
+ * 
+ *   Equip Type ID:
+ *   - Reduce all the armors to a specific equip type.
+ *   - Leave at 0 to not use filters.
+ * 
+ * ---
+ * 
+ * Select: Skill
+ * - Opens the Event Select Item Window to let the player pick a skill to
+ *   choose from.
+ * - Requires VisuMZ_1_SkillsStatesCore!
+ * - Can be opened while the Message Window is open.
+ * - Skills will not be listed if they are hidden by the actor.
+ * - Skills will not be listed if the actor lacks access to their Skill Type.
+ * 
+ *   Variable ID:
+ *   - This variable will be used to record the ID of the selected skill.
+ *   - It will result in 0 otherwise.
+ * 
+ *   Actor ID:
+ *   - Select an actor to get the skill list from.
+ *   - Use 0 to select from the party leader.
+ * 
+ *   Skill Type ID:
+ *   - Reduce all the skills to a specific skill type.
+ *   - Leave at 0 to not use filters.
+ * 
  * ---
  * 
  * === Picture Plugin Commands ===
@@ -569,6 +1041,17 @@ VisuMZ.MessageCore.version = 1.37;
  * 
  *   Default Outline Width:
  *   - Changes the default outline width to this many pixels thick.
+ * 
+ *   Each Message Start:
+ *   Each Message End:
+ *   - This is text that is added at the start/end of each message.
+ *   - You may use text codes.
+ *   - Keep in mind that if a message extends to a different page (due to word
+ *     wrap, excess lines, etc), that does not mean the starting text will
+ *     be added to where the next page begins or the ending text will be added
+ *     where the previous page ends.
+ *   - Can be used for things like adding "<center>" to the start of each 
+ *     message without having to type it every time.
  *
  * ---
  *
@@ -591,6 +1074,10 @@ VisuMZ.MessageCore.version = 1.37;
  *
  *   Line Height:
  *   - What is the default line height for Show Choices?
+ * 
+ *   Minimum Choice Width:
+ *   - What is the minimum choice width for each choice?
+ *   - 96 is the default width.
  *
  *   Max Rows:
  *   - Maximum number of rows to visibly display?
@@ -685,6 +1172,43 @@ VisuMZ.MessageCore.version = 1.37;
  *   - These are lists of all the words that will be automatically colored with
  *     the x text color.
  *
+ * ---
+ *
+ * ============================================================================
+ * Plugin Parameters: Custom Font Manager
+ * ============================================================================
+ *
+ * Custom fonts that aren't the message or number fonts cannot be used without
+ * registration. If you try to use custom fonts in RPG Maker MZ without
+ * registering their font family first, you will find out that they will not
+ * work. These plugin parameters allow you to register your game's custom fonts
+ * here.
+ * 
+ * ---
+ * 
+ * Settings:
+ * 
+ *   Font Family:
+ *   - This will be what's used by RPG Maker MZ and plugins to reference this
+ *     specific font.
+ *   - NO filename extensions!
+ * 
+ *   Filename:
+ *   - What is the filename of the custom font you would like to use?
+ *   - Located inside the project's "fonts" folder.
+ * 
+ * ---
+ * 
+ * Examples:
+ * 
+ *   Font Family: WildWords
+ *   Filename: WildWords-Regular.ttf
+ * 
+ * How you would use this in other plugins as a preface to the font face or
+ * font family would be to use "WildWords" as the font face/family name. Then
+ * RPG Maker MZ will use its own innate FontManager to refer that to the
+ * "WildWords-Regular.ttf" file found in the game's "fonts" folder.
+ * 
  * ---
  *
  * ============================================================================
@@ -800,6 +1324,242 @@ VisuMZ.MessageCore.version = 1.37;
  * ---
  *
  * ============================================================================
+ * Plugin Parameters: Text Language Settings
+ * ============================================================================
+ *
+ * The "Text Language" feature allows your players to switch between different
+ * languages for your game to allow people from around the globe to enjoy what
+ * story you have to tell.
+ * 
+ * Disclaimers: This is not an automatic translation tool. Translations made
+ * through the "Text Language" feature of the VisuStella MZ Message Core
+ * will require manual input by the game developer.
+ * 
+ * See the "Text Language Information" for more information.
+ *
+ * ---
+ * 
+ * Main Settings:
+ * 
+ *   Enable Switching?:
+ *   - Enable language switching settings for this plugin?
+ * 
+ *   File Type:
+ *   - Which file type do you wish to use?
+ *     - CSV (Legacy)
+ *     - TSV (Recommended)
+ * 
+ *   CSV Filename:
+ *   - What is the filename of the CSV file to read from?
+ *   - Located within the project's /data/ folder.
+ * 
+ *   TSV Filename:
+ *   - What is the filename of the TSV file to read from?
+ *   - Located within the project's /data/ folder.
+ * 
+ * ---
+ * 
+ * Options:
+ * 
+ *   Add Option?:
+ *   - Add the 'Text Language' option to the Options menu?
+ * 
+ *   Adjust Window Height:
+ *   - Automatically adjust the options window height?
+ * 
+ *   Option Name:
+ *   - Command name of the option.
+ * 
+ * ---
+ * 
+ * Languages:
+ * 
+ *   Default Language:
+ *   - What is the default language used for this game?
+ * 
+ *   Supported Languages:
+ *   - What are all the supported languages supported by this game's
+ *     script?
+ *   - Remove any that aren't translated.
+ * 
+ * ---
+ * 
+ * Language Names:
+ * 
+ *   Bengali:
+ *   Chinese (Simplified):
+ *   Chinese (Traditional):
+ *   Czech:
+ *   Danish:
+ *   Dutch:
+ *   English:
+ *   Finnish:
+ *   French:
+ *   German:
+ *   Greek:
+ *   Hindi:
+ *   Hungarian:
+ *   Indonesian:
+ *   Italian:
+ *   Japanese:
+ *   Korean:
+ *   Norwegian:
+ *   Polish:
+ *   Portuguese:
+ *   Romanian:
+ *   Russian:
+ *   Slovak:
+ *   Spanish:
+ *   Swedish:
+ *   Tamil:
+ *   Thai:
+ *   Turkish:
+ *   - How does this language appear in the in-game options?
+ * 
+ * ---
+ *
+ * ============================================================================
+ * Plugin Parameters: Language Fonts
+ * ============================================================================
+ *
+ * Different default fonts used for different languages. This allows different
+ * stylistic choices to be made for different languages in case the current
+ * font you're using doesn't have support for other language types.
+ * 
+ * Keep in mind that players can override this with Options Core if they select
+ * a text option other than 'Default' for the 'Text Font' option.
+ * 
+ * Make sure any new custom fonts used for different languages are registered
+ * with the 'Custom Font Manager' found in this plugin's Plugin Parameters.
+ *
+ * ---
+ * 
+ * Languages:
+ * 
+ *   Bengali:
+ *   Chinese (Simplified):
+ *   Chinese (Traditional):
+ *   Czech:
+ *   Danish:
+ *   Dutch:
+ *   English:
+ *   Finnish:
+ *   French:
+ *   German:
+ *   Greek:
+ *   Hindi:
+ *   Hungarian:
+ *   Indonesian:
+ *   Italian:
+ *   Japanese:
+ *   Korean:
+ *   Norwegian:
+ *   Polish:
+ *   Portuguese:
+ *   Romanian:
+ *   Russian:
+ *   Slovak:
+ *   Spanish:
+ *   Swedish:
+ *   Tamil:
+ *   Thai:
+ *   Turkish:
+ *   - What font face is used for this language?
+ *   - Make sure it is registered under Custom Font Manager.
+ * 
+ * ---
+ *
+ * ============================================================================
+ * Plugin Parameters: Language Images
+ * ============================================================================
+ *
+ * Allows different images to be used when different languages are used. This
+ * is for images that have text on it that you want to appear in different
+ * languages based on the text language selected by the player.
+ * 
+ * There are two ways this works:
+ * 
+ *   #1: Folder Name
+ *   - The name of the folder containing those images will be named something
+ *     like "Scrolls[XX]"
+ *   - When a different language is picked, like English, it can reference
+ *     the 'Scrolls[EN]' folder instead. If Japanese is used, it can refer to
+ *     the 'Scrolls[JP]' folder as well.
+ *   - The text used to replace the [XX] in the folder name can be determined
+ *     in the Plugin Parameters.
+ *     - Make sure you change the settings for each language you wish to use to
+ *       have translated images for.
+ * 
+ *   #2: Filename
+ *   - The filename of the image to be translated can be named something like
+ *     ReidProfile[XX].png
+ *   - When a different language is picked, like English, it will reference the
+ *     'ReidProfile[EN].png' image instead. For Japanese, it will reference the
+ *     'ReidProfile[JP].png' as well.
+ *   - The text used to replace the [XX] in the filename can be determined in
+ *     the Plugin Parameters.
+ *     - Make sure you change the settings for each language you wish to use to
+ *       have translated images for.
+ *
+ * ---
+ * 
+ * Settings
+ * 
+ *   Convert Default?
+ *   - ON: Default language uses converted marker.
+ *   - OFF: Default languages uses [XX] as marker.
+ * 
+ * Here's an explanation of what this does:
+ * 
+ *   - The default language picked is English and the player has English picked
+ *     as their desired language.
+ *   - If the "Convert Default?" Plugin Parameter is ON, then 'ReidProfile[XX]'
+ *     will reference and look for the 'ReidProfile[EN]' image.
+ *   - If the "Convert Default?" Plugin Parameter is OFF, 'ReidProfile[XX]' is
+ *     then used for the English language instead of 'ReidProfile[EN]'.
+ *     - This is to avoid duplicate images and save on file space.
+ *   - The reasoning behind the [XX] is that there needs to be an anchor image
+ *     used for the RPG Maker MZ client in order to have something to reference
+ *     before branching out to different languages.
+ * 
+ * ---
+ * 
+ * Languages 
+ * 
+ *   Bengali:
+ *   Chinese (Simplified):
+ *   Chinese (Traditional):
+ *   Czech:
+ *   Danish:
+ *   Dutch:
+ *   English:
+ *   Finnish:
+ *   French:
+ *   German:
+ *   Greek:
+ *   Hindi:
+ *   Hungarian:
+ *   Indonesian:
+ *   Italian:
+ *   Japanese:
+ *   Korean:
+ *   Norwegian:
+ *   Polish:
+ *   Portuguese:
+ *   Romanian:
+ *   Russian:
+ *   Slovak:
+ *   Spanish:
+ *   Swedish:
+ *   Tamil:
+ *   Thai:
+ *   Turkish:
+ *   - This text will replace [XX] with in image folder names and filenames
+ *     when this language is selected.
+ * 
+ * ---
+ *
+ * ============================================================================
  * Plugin Parameters: Text Speed Option Settings
  * ============================================================================
  *
@@ -845,9 +1605,15 @@ VisuMZ.MessageCore.version = 1.37;
  * method is by enabling it by default with the Plugin Parameters.
  * 
  * Word wrap only supports left-to-right alphabetical languages that utilize
- * spaces. It does not support any Asian languages that do not utilize spaces,
- * such as Chinese, Japanese, Korean, etc.
- *
+ * spaces.
+ * 
+ * Word Wrap also cannot be used together with <left>, <center>, or <right> and
+ * will disable itself if text alignment text codes are detected.
+ * 
+ * As of the v1.44 update, some Asian languages such as Chinese and Japanese
+ * are now supported for word wrap. Korean language is only supported if spaces
+ * are used.
+ * 
  * ---
  *
  * Enable Word Wrap
@@ -931,6 +1697,293 @@ VisuMZ.MessageCore.version = 1.37;
  * ============================================================================
  * Changelog
  * ============================================================================
+ * 
+ * Version 1.54: May 15, 2025
+ * * Bug Fixes!
+ * ** Fixed a bug where the text width of translated text was not taken into
+ *    account. Fix made by Arisu
+ * 
+ * Version 1.53: February 20, 2025, 2025
+ * * Bug Fixes!
+ * ** Fixed an error with text language translations not working properly for
+ *    the last listed language in the translation sheet. Fix made by Irina.
+ * * Compatibility Update!
+ * ** Updated for RPG Maker MZ Core Scripts 1.9.0!
+ * *** Removed picture limit of 100 from Picture-related Plugin Commands.
+ * * Documentation Update!
+ * ** Help file updated for new features.
+ * ** Text Language Information section included for TSV.
+ * ** Updated text code note for \picture<x> and \CenterPicture<x>
+ * *** As of the version 1.53 update, the Help Window now supports both of
+ *     these text codes. However, we still recommend using icons over using
+ *     pictures as there will be loading delays.
+ * * Plugin Parameters
+ * ** New plugin parameters added by Irina:
+ * *** Parameters > Text Language Settings > File Type:
+ * **** Which file type do you wish to use?
+ * ***** CSV (Legacy)
+ * ***** TSV (Recommended)
+ * *** Parameters > Text Language Settings > TSV Filename
+ * **** What is the filename of the TSV file to read from?
+ * **** Located within the project's /data/ folder.
+ * * Feature Updates!
+ * ** We have done our research and decided that CSV's are too restricted to
+ *    use due to their default nature of wanting to use commas as separators.
+ *    Thus, we've decided to switch to TSV where the default separator is a tab
+ *    space, something that is almost never used in RPG Maker text.
+ * ** CSV support will remain as a legacy option but TSV will be recommended as
+ *    the main text languaging switching filetype.
+ * ** When creating a new Language TSV, the plugin will check if a Language CSV
+ *    exists and asks you if you wish to convert the existing CSV to TSV. The
+ *    original CSV file will remain intact as a backup.
+ * 
+ * Version 1.52: December 19, 2024
+ * * Documentation Update!
+ * ** Help file updated for new features.
+ * * New Features!
+ * ** New Text Codes added by Arisu:
+ * *** <left>
+ * *** <center>
+ * *** <right>
+ * **** When used in the Map Name, instead of aligning the text which is
+ *      centered by default, the text code will align the horizontal position
+ *      of the name displayed on the screen.
+ * *** <top>
+ * *** <middle>
+ * *** <bottom>
+ * **** When used in the Map Name, the text code will align the vertical
+ *      position of the name displayed on the screen.
+ * *** <X: +n>
+ * *** <X: -n>
+ * *** <Y: +n>
+ * *** <Y: -n>
+ * **** Adjusts the horizontal/vertical position of map name by 'n' value.
+ * *** All of these text codes require VisuMZ_0_CoreEngine installed and its
+ *     "Map Name Text Code" plugin parameter enabled.
+ * 
+ * Version 1.51: October 17, 2024
+ * * Bug Fixes!
+ * ** Fixed a bug where \LastGainObj text code did not work with text language
+ *    key codes. Fix made by Irina.
+ * * Documentation Update!
+ * ** Help file updated for new features.
+ * ** Added note to Text Language Information > How to Enable Switching
+ * *** IMPORTANT! The separator used for the CSV file must be a semicolon (;)
+ *     and not a comma (,) as to reduce the amount of punctuation conflicts.
+ *     Keep this in mind as most CSV editors will default to comma (,) instead
+ *     of the semicolon (;) for their separator.
+ * ** Added note to Text Language Information > Naming Weapon Types, etc:
+ * *** You might have noticed that if you've decided to use \tl{keyName} for
+ *     weapon or other database types, other parts of the game will error out.
+ *     Don't worry, for these, you don't have to change the currently used
+ *     database name. Go straight to the CSV and insert in a new key for that
+ *     particular database name. For example, the equip type "Accessory" will
+ *     use "Accessory" as the automatic key to look for a translated phrase. If
+ *     there isn't any in the CSV file, then the default database text entry
+ *     will be used.
+ * * New Features!
+ * ** New Plugin Parameters added by Irina:
+ * *** Parameters > Text Language Settings > Language Fonts
+ * **** Different default fonts used for different languages. This allows
+ *      different stylistic choices to be made for different languages in case
+ *      the current font you're using doesn't have support for other language
+ *      types.
+ * **** Keep in mind that players can override this with Options Core if they
+ *      select a text option other than 'Default' for the 'Text Font' option.
+ * **** Make sure any new custom fonts used for different languages are
+ *      registered with the 'Custom Font Manager' found in this plugin's Plugin
+ *      Parameters.
+ * *** Parameters > Text Language Settings > Language Images
+ * **** Allows different images to be used when different languages are used.
+ *      This is for images that have text on it that you want to appear in
+ *      different languages based on the text language selected by the player.
+ * 
+ * Version 1.50: July 18, 2024
+ * * Documentation Update!
+ * ** Help file updated for new features.
+ * * New Features!
+ * ** New text codes added by Irina:
+ * *** <Caps> </Caps>
+ * *** <Upper> </Upper>
+ * *** <Lower> </Lower>
+ * **** Auto-text case textcodes will automatically adjust text inserted
+ *      between them to respectively be completely capitalized, first-letter
+ *      capitalized, or completely lowercase.
+ * **** More information in the help file.
+ * *** <Alt> </Alt>
+ * **** Alternates between uppercase and lowercase for letters.
+ * *** <Chaos> </Chaos>
+ * **** Randomly uses uppercase and lowercase for letters.
+ * 
+ * 
+ * Version 1.49: May 16, 2024
+ * * Bug Fixes!
+ * ** Fixed a problem where using text codes to get database object names did
+ *    not apply translated text.
+ * * Documentation Update!
+ * ** Added note for Message Window Only text code effects:
+ * *** These text codes only work with the Message Window. Keep in mind that
+ *     even if some windows might look like the Message Window, it may not
+ *     necessarily be one.
+ * * Feature Update!
+ * ** Added a failsafe for when Choice List Window doesn't have any viable
+ *    options (due to being hidden or disabled). Update made by Irina.
+ * ** Added a failsafe for Language CSV when empty rows are added.
+ * ** Updated some default Text Code actions in order to make sure they're only
+ *    used by the Message Window and not anything else. Update made by Irina.
+ * 
+ * Version 1.48: April 18, 2024
+ * * Bug Fixes!
+ * ** Added fail safe for help description checks parsing from objects without
+ *    help descriptions normally. Fix made by Irina.
+ * 
+ * Version 1.47: February 15, 2024
+ * * Documentation Update!
+ * ** Help file updated for new features.
+ * * New Features!
+ * ** New Plugin Parameters added by Irina:
+ * *** Plugin Parameters > Custom Font Manager
+ * **** Register custom fonts here.
+ * **** Custom fonts that aren't the message or number fonts cannot be used
+ *      without registration.
+ * **** See help file for more information.
+ * 
+ * Version 1.46: January 18, 2024
+ * * Bug Fixes!
+ * ** Fixed a bug where script calls used to create message choices would not
+ *    work properly. Fix made by Irina.
+ * * Documentation Update!
+ * ** Help file updated for new features.
+ * * New Features!
+ * ** Text Language Switching added by Irina:
+ * *** Plugin Parameters > Text Language Settings
+ * **** The "Text Language" feature allows your players to switch between
+ *      different languages for your game to allow people from around the globe
+ *      to enjoy what story you have to tell.
+ * **** Disclaimers: This is not an automatic translation tool. Translations
+ *      made through the "Text Language" feature of the VisuStella MZ Message
+ *      Core will require manual input by the game developer.
+ * **** Read more about it in detail within the "Text Language Information"
+ *      section in the help file.
+ * ** New Plugin Parameter added by Irina:
+ * *** Choices: Distance
+ * **** Change the distance from choice window to the message window.
+ * ** New parameter added to Plugin Command "Choices: Properties" by Irina:
+ * *** Minimum Choice Width
+ * **** What is the minimum width size for each choice?
+ * ** New Plugin Parameter for "Message Window" added by Irina:
+ * *** Parameters > Message Window: Choice List Window> Minimum Choice Width
+ * **** What is the minimum width size for each choice?
+ * ** New Text Codes for Choice Window added by Irina:
+ * *** <BgImg: filename> and variants
+ * *** <FgImg: filename> and variants
+ * **** These text codes allow adding a background or foreground image to a
+ *      choice rectangle in stretched/scaled size.
+ * 
+ * Version 1.45: December 14, 2023
+ * * Bug Fixes!
+ * ** Punctuation was, for some reason, excluded when using Wordwrap with
+ *    Japanese and Chinese languages. This should be fixed now. Fixed by Irina.
+ * * Documentation Update!
+ * ** Help file updated for new features.
+ * ** Added clarity to the <left>, <center>, and <right> being unable to be
+ *    used together with word wrap.
+ * *** Word Wrap also cannot be used together with <left>, <center>, or <right>
+ *     and will disable itself if text alignment text codes are detected.
+ * * Feature Update!
+ * ** Wordwrap <br> now works properly with Japanese and Chinese languages.
+ * * New Features!
+ * ** New Plugin Parameters added by Irina:
+ * *** Plugin Parameters > General Settings > Each Message Start
+ * *** Plugin Parameters > General Settings > Each Message End
+ * **** This is text that is added at the start/end of each message.
+ * **** Keep in mind that if a message extends to a different page (due to word
+ *      wrap, excess lines, etc), that does not mean the starting text will
+ *      be added to where the next page begins or the ending text will be added
+ *      where the previous page ends.
+ * **** Can be used for things like adding "<center>" to the start of each 
+ *      message without having to type it every time.
+ * 
+ * Version 1.44: October 12, 2023
+ * * Documentation Update!
+ * ** Help file updated for new features.
+ * ** Updated "Plugin Parameters: Word Wrap Settings" section:
+ * *** As of the v1.44 update, some Asian languages such as Chinese and
+ *     Japanese are now supported for word wrap. Korean language is only
+ *     supported if spaces are used.
+ * * Feature Update!
+ * ** Word Wrap is now supported for Japanese and Chinese languages.
+ * ** Feature updated by Irina and sponsored by AndyL.
+ * * New Features!
+ * ** New text codes added by Irina for "Show Choices" event command.
+ * *** <Shuffle>
+ * **** Shuffles the order of all choices. Any cancel shortcuts other than
+ *      "Branch" will be undone.
+ * *** <Shuffle: x>
+ * **** Shuffles the order of all choices and only x number of them appear. Any
+ *      cancel shortcuts other than "Branch" will be undone. Hidden choices do
+ *      not count towards x number.
+ * 
+ * Version 1.43: April 13, 2023
+ * * Compatibility Update!
+ * ** Fixed incompatibilities with auto message positioning with the Map Zoom
+ *    plugin. Update made by Irina.
+ * 
+ * Version 1.42: March 16, 2023
+ * * Bug Fixes!
+ * ** Fixed some text codes that would capture way too much data than intended.
+ *    Fix made by Irina.
+ * * Documentation Update!
+ * ** Help file updated for new features.
+ * * New Features!
+ * ** New text code added by Irina for Show Choice Window only:
+ * *** <Help> text </Help>
+ * **** Makes a help window appear and have it show 'text' in its contents.
+ * **** The help window will disappear if no text is displayed.
+ * ** New Plugin Commands added by Arisu:
+ * *** Select: Weapon
+ * *** Select: Armor
+ * *** Select: Skill
+ * **** Opens the Event Select Item Window to let the player pick a weapon,
+ *      armor, or skill to choose from. The selected object will have its ID
+ *      recorded in a variable. These can be opened while the Message Window is
+ *      opened just like the event "Select Item".
+ * 
+ * Version 1.41: December 15, 2022
+ * * Compatibility Update!
+ * ** Added compatibility functionality for future plugins.
+ * * Documentation Update!
+ * ** Help file updated for new features.
+ * * New Features!
+ * ** New text codes added by Irina!
+ * *** For the Choice Window Only text codes:
+ * **** <BgColor: x>
+ * **** <BgColor: x, y>
+ * **** <BgColor: #rrggbb>
+ * **** <BgColor: #rrggbb, #rrggbb>
+ * ***** Requires VisuMZ_0_CoreEngine! Sets the background color of this choice
+ *       to 'x' text color, 'x' to 'y' gradient text color, or using '#rrggbb'
+ *       hex color values.
+ * 
+ * Version 1.40: November 3, 2022
+ * * Documentation Update!
+ * ** Help file updated for new features.
+ * * New Feature!
+ * ** New text code added by Irina:
+ * *** <RNG> text1 | text2 | text3 </RNG>
+ * **** Using the above text code format in a Show Message entry, you can get a
+ *      random result out of the various inserted texts. Use "|" (without
+ *      quotes) as a separator between text entries. You can have unlimited
+ *      entries. The result will have any excess white space trimmed.
+ * **** This text code cannot be inserted into a macro and parsed properly.
+ * 
+ * Version 1.39: September 22, 2022
+ * * Bug Fixes!
+ * ** Macros now support quotes (' and ") in the STR: Text. Fix made by Irina.
+ * 
+ * Version 1.38: July 21, 2022
+ * * Optimization Update!
+ * ** Plugin should run more optimized.
  * 
  * Version 1.37: June 9, 2022
  * * Documentation Update!
@@ -1277,6 +2330,12 @@ VisuMZ.MessageCore.version = 1.37;
  *
  * @ --------------------------------------------------------------------------
  *
+ * @command Separator_Begin
+ * @text -
+ * @desc -
+ *
+ * @ --------------------------------------------------------------------------
+ *
  * @command MessageWindowProperties
  * @text Message: Properties
  * @desc Change the various properties of the Message Window.
@@ -1330,17 +2389,43 @@ VisuMZ.MessageCore.version = 1.37;
  *
  * @ --------------------------------------------------------------------------
  *
+ * @command Separator_Choice
+ * @text -
+ * @desc -
+ *
+ * @ --------------------------------------------------------------------------
+ *
+ * @command ChoiceWindowDistance
+ * @text Choices: Distance
+ * @desc Change the distance from choice window to the message window.
+ *
+ * @arg Distance:eval
+ * @text Distance
+ * @desc Change distance between the choice and message windows.
+ * Default distance is 0. Use negative to center align.
+ * @default +0
+ *
+ * @ --------------------------------------------------------------------------
+ *
  * @command ChoiceWindowProperties
  * @text Choices: Properties
  * @desc Change the properties found in the Show Choices event command.
  *
  * @arg LineHeight:num
- * @text Line Height
+ * @text Choice Line Height
  * @type number
  * @min 0
  * @desc Change the line height for the show choices.
  * Leave at 0 to keep this unchanged.
  * @default 36
+ *
+ * @arg MinWidth:num
+ * @text Minimum Choice Width
+ * @type number
+ * @min 0
+ * @desc What is the minimum width size for each choice?
+ * 96 is the default width.
+ * @default 96
  *
  * @arg MaxRows:num
  * @text Max Rows
@@ -1374,6 +2459,106 @@ VisuMZ.MessageCore.version = 1.37;
  *
  * @ --------------------------------------------------------------------------
  *
+ * @command Separator_Select
+ * @text -
+ * @desc -
+ *
+ * @ --------------------------------------------------------------------------
+ *
+ * @command SelectWeapon
+ * @text Select: Weapon
+ * @desc Opens the Event Select Item Window to let the player
+ * pick a weapon to choose from.
+ *
+ * @arg VariableID:num
+ * @text Variable ID
+ * @type number
+ * @min 0
+ * @desc This variable will be used to record the ID of the
+ * selected weapon. It will result in 0 otherwise.
+ * @default 1
+ *
+ * @arg WeaponTypeID:num
+ * @text Weapon Type ID
+ * @type number
+ * @min 0
+ * @max 100
+ * @desc Reduce all the weapons to a specific weapon type.
+ * Leave at 0 to not use filters.
+ * @default 0
+ *
+ * @ --------------------------------------------------------------------------
+ *
+ * @command SelectArmor
+ * @text Select: Armor
+ * @desc Opens the Event Select Item Window to let the player
+ * pick an armor to choose from.
+ *
+ * @arg VariableID:num
+ * @text Variable ID
+ * @type number
+ * @min 0
+ * @desc This variable will be used to record the ID of the
+ * selected armor. It will result in 0 otherwise.
+ * @default 1
+ *
+ * @arg ArmorTypeID:num
+ * @text Armor Type ID
+ * @type number
+ * @min 0
+ * @max 100
+ * @desc Reduce all the armors to a specific armor type.
+ * Leave at 0 to not use filters.
+ * @default 0
+ *
+ * @arg EquipTypeID:num
+ * @text Equip Type ID
+ * @type number
+ * @min 0
+ * @max 100
+ * @desc Reduce all the armors to a specific equip type.
+ * Leave at 0 to not use filters.
+ * @default 0
+ *
+ * @ --------------------------------------------------------------------------
+ *
+ * @command SelectSkill
+ * @text Select: Skill
+ * @desc Opens the Event Select Item Window to let the player
+ * pick a skill to choose from. Requires VisuMZ_1_SkillsStatesCore!
+ *
+ * @arg VariableID:num
+ * @text Variable ID
+ * @type number
+ * @min 0
+ * @desc This variable will be used to record the ID of the
+ * selected skill. It will result in 0 otherwise.
+ * @default 1
+ *
+ * @arg ActorID:num
+ * @text Actor ID
+ * @type actor
+ * @desc Select an actor to get the skill list from.
+ * Use 0 to select from the party leader.
+ * @default 0
+ *
+ * @arg SkillTypeID:num
+ * @text Skill Type ID
+ * @type number
+ * @min 0
+ * @max 100
+ * @desc Reduce all the skills to a specific skill type.
+ * Leave at 0 to not use filters.
+ * @default 0
+ *
+ * @ --------------------------------------------------------------------------
+ *
+ * @command Separator_Picture
+ * @text -
+ * @desc -
+ *
+ * @ --------------------------------------------------------------------------
+ *
  * @command PictureTextChange
  * @text Picture: Change Text
  * @desc Change text for target picture(s) to show.
@@ -1383,7 +2568,6 @@ VisuMZ.MessageCore.version = 1.37;
  * @text Picture ID(s)
  * @type number[]
  * @min 1
- * @max 100
  * @desc The ID(s) of the picture(s) to set text to.
  * @default ["1"]
  *
@@ -1477,7 +2661,6 @@ VisuMZ.MessageCore.version = 1.37;
  * @text Picture ID(s)
  * @type number[]
  * @min 1
- * @max 100
  * @desc The ID(s) of the picture(s) to erase text for.
  * @default ["1"]
  *
@@ -1487,6 +2670,12 @@ VisuMZ.MessageCore.version = 1.37;
  * @text Picture: Refresh Text
  * @desc Refreshes the text used for all on-screen pictures.
  * To be used if any dynamic text codes are updated like \n[x].
+ *
+ * @ --------------------------------------------------------------------------
+ *
+ * @command Separator_End
+ * @text -
+ * @desc -
  *
  * @ --------------------------------------------------------------------------
  *
@@ -1520,23 +2709,53 @@ VisuMZ.MessageCore.version = 1.37;
  * @desc Automatically color certain keywords a specific way.
  * @default {"DatabaseHighlighting":"","Actors:str":"0","Classes:str":"0","Skills:str":"0","Items:str":"0","Weapons:str":"0","Armors:str":"0","Enemies:str":"0","States:str":"0","WordHighlighting":"","TextColor1:arraystr":"[]","TextColor2:arraystr":"[]","TextColor3:arraystr":"[]","TextColor4:arraystr":"[]","TextColor5:arraystr":"[]","TextColor6:arraystr":"[]","TextColor7:arraystr":"[]","TextColor8:arraystr":"[]","TextColor9:arraystr":"[]","TextColor10:arraystr":"[]","TextColor11:arraystr":"[]","TextColor12:arraystr":"[]","TextColor13:arraystr":"[]","TextColor14:arraystr":"[]","TextColor15:arraystr":"[]","TextColor16:arraystr":"[]","TextColor17:arraystr":"[]","TextColor18:arraystr":"[]","TextColor19:arraystr":"[]","TextColor20:arraystr":"[]","TextColor21:arraystr":"[]","TextColor22:arraystr":"[]","TextColor23:arraystr":"[]","TextColor24:arraystr":"[]","TextColor25:arraystr":"[]","TextColor26:arraystr":"[]","TextColor27:arraystr":"[]","TextColor28:arraystr":"[]","TextColor29:arraystr":"[]","TextColor30:arraystr":"[]","TextColor31:arraystr":"[]"}
  *
+ * @param CustomFonts:arraystruct
+ * @text Custom Font Manager
+ * @type struct<CustomFont>[]
+ * @desc Register custom fonts here. Custom fonts that aren't the
+ * message or number fonts cannot be used without this.
+ * @default []
+ *
  * @param TextCodeActions:arraystruct
  * @text Text Code Actions
  * @type struct<TextCodeAction>[]
  * @desc Text codes that perform actions.
- * @default ["{\"Match:str\":\"ChangeFace\",\"Type:str\":\"\\\\<(.*?)\\\\>\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst data = this.obtainEscapeString(textState).split(',');\\\\nif (textState.drawing) {\\\\n    const filename = data[0].trim();\\\\n    const index = parseInt(data[1] || '0');\\\\n    $gameMessage.setFaceImage(filename, index);\\\\n    this.loadMessageFace();\\\\n    const rtl = $gameMessage.isRTL();\\\\n    const width = ImageManager.faceWidth;\\\\n    const height = this.innerHeight;\\\\n    const x = rtl ? this.innerWidth - width - 4 : 4;\\\\n    this.contents.clearRect(x, 0, width, height);\\\\n    this._faceBitmap.addLoadListener(this.drawMessageFace.bind(this));\\\\n}\\\"\"}","{\"Match:str\":\"FaceIndex\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst index = this.obtainEscapeParam(textState);\\\\nif (textState.drawing) {\\\\n    const filename = $gameMessage.faceName();\\\\n    $gameMessage.setFaceImage(filename, index);\\\\n    this.loadMessageFace();\\\\n    const rtl = $gameMessage.isRTL();\\\\n    const width = ImageManager.faceWidth;\\\\n    const height = this.innerHeight;\\\\n    const x = rtl ? this.innerWidth - width - 4 : 4;\\\\n    this.contents.clearRect(x, 0, width, height);\\\\n    this._faceBitmap.addLoadListener(this.drawMessageFace.bind(this));\\\\n}\\\"\"}","{\"Match:str\":\"TextDelay\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst delay = this.obtainEscapeParam(textState);\\\\nif (textState.drawing && this.constructor === Window_Message) {\\\\n    this.setTextDelay(delay);\\\\n}\\\"\"}","{\"Match:str\":\"NormalBG\",\"Type:str\":\"\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nif (textState.drawing) {\\\\n    this.setBackgroundType(0);\\\\n}\\\"\"}","{\"Match:str\":\"DimBG\",\"Type:str\":\"\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nif (textState.drawing) {\\\\n    this.setBackgroundType(1);\\\\n}\\\"\"}","{\"Match:str\":\"TransparentBG\",\"Type:str\":\"\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nif (textState.drawing) {\\\\n    this.setBackgroundType(2);\\\\n}\\\"\"}","{\"Match:str\":\"FontChange\",\"Type:str\":\"\\\\<(.*?)\\\\>\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst fontName = this.obtainEscapeString(textState);\\\\nthis.contents.fontFace = fontName;\\\"\"}","{\"Match:str\":\"ResetFont\",\"Type:str\":\"\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"this.resetFontSettings();\\\"\"}","{\"Match:str\":\"ResetColor\",\"Type:str\":\"\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"this.resetTextColor();\\\"\"}","{\"Match:str\":\"HexColor\",\"Type:str\":\"\\\\<(.*?)\\\\>\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst hexColor = this.obtainEscapeString(textState);\\\\nif (!this.isColorLocked() && textState.drawing) {\\\\n    this.changeTextColor(hexColor);\\\\n}\\\"\"}","{\"Match:str\":\"OutlineColor\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst colorIndex = this.obtainEscapeParam(textState);\\\\nif (!this.isColorLocked() && textState.drawing) {\\\\n    this.changeOutlineColor(ColorManager.textColor(colorIndex));\\\\n}\\\"\"}","{\"Match:str\":\"OutlineHexColor\",\"Type:str\":\"\\\\<(.*?)\\\\>\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst hexColor = this.obtainEscapeString(textState);\\\\nif (!this.isColorLocked() && textState.drawing) {\\\\n    this.changeOutlineColor(hexColor);\\\\n}\\\"\"}","{\"Match:str\":\"OutlineWidth\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst width = this.obtainEscapeParam(textState);\\\\nif (textState.drawing) {\\\\n    this.contents.outlineWidth = width;\\\\n}\\\"\"}","{\"Match:str\":\"WindowMoveTo\",\"Type:str\":\"\\\\<(.*?)\\\\>\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst data = this.obtainEscapeString(textState).split(',');\\\\nif (textState.drawing) {\\\\n    const x = !!data[0] ? Number(data[0].trim()) : this.x;\\\\n    const y = !!data[1] ? Number(data[1].trim()) : this.y;\\\\n    const width = !!data[2] ? Number(data[2].trim()) : this.width;\\\\n    const height = !!data[3] ? Number(data[3].trim()) : this.height;\\\\n    const duration = !!data[4] ? Number(data[4].trim()) : 20;\\\\n    const easingType = !!data[5] ? data[5].trim() : 0;\\\\n    this.moveTo(x, y, width, height, duration, easingType);\\\\n}\\\"\"}","{\"Match:str\":\"WindowMoveBy\",\"Type:str\":\"\\\\<(.*?)\\\\>\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst data = this.obtainEscapeString(textState).split(',');\\\\nif (textState.drawing) {\\\\n    const x = !!data[0] ? Number(data[0].trim()) : 0;\\\\n    const y = !!data[1] ? Number(data[1].trim()) : 0;\\\\n    const width = !!data[2] ? Number(data[2].trim()) : 0;\\\\n    const height = !!data[3] ? Number(data[3].trim()) : 0;\\\\n    const duration = !!data[4] ? Number(data[4].trim()) : 20;\\\\n    const easingType = !!data[5] ? data[5].trim() : 0;\\\\n    this.moveBy(x, y, width, height, duration, easingType);\\\\n}\\\"\"}","{\"Match:str\":\"WindowReset\",\"Type:str\":\"\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nif (textState.drawing) {\\\\n    const frames = 20;\\\\n    const easingType = 0;\\\\n    this.resetRect(frames, easingType);\\\\n}\\\"\"}"]
+ * @default ["{\"Match:str\":\"ChangeFace\",\"Type:str\":\"\\\\<(.*?)\\\\>\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst data = this.obtainEscapeString(textState).split(',');\\\\nif (this instanceof Window_Message) {\\\\n    if (textState.drawing) {\\\\n        const filename = data[0].trim();\\\\n        const index = parseInt(data[1] || '0');\\\\n        $gameMessage.setFaceImage(filename, index);\\\\n        this.loadMessageFace();\\\\n        const rtl = $gameMessage.isRTL();\\\\n        const width = ImageManager.faceWidth;\\\\n        const height = this.innerHeight;\\\\n        const x = rtl ? this.innerWidth - width - 4 : 4;\\\\n        this.contents.clearRect(x, 0, width, height);\\\\n        this._faceBitmap.addLoadListener(this.drawMessageFace.bind(this));\\\\n    }\\\\n}\\\"\"}","{\"Match:str\":\"FaceIndex\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst index = this.obtainEscapeParam(textState);\\\\nif (this instanceof Window_Message) {\\\\n    if (textState.drawing) {\\\\n        const filename = $gameMessage.faceName();\\\\n        $gameMessage.setFaceImage(filename, index);\\\\n        this.loadMessageFace();\\\\n        const rtl = $gameMessage.isRTL();\\\\n        const width = ImageManager.faceWidth;\\\\n        const height = this.innerHeight;\\\\n        const x = rtl ? this.innerWidth - width - 4 : 4;\\\\n        this.contents.clearRect(x, 0, width, height);\\\\n        this._faceBitmap.addLoadListener(this.drawMessageFace.bind(this));\\\\n    }\\\\n}\\\"\"}","{\"Match:str\":\"TextDelay\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst delay = this.obtainEscapeParam(textState);\\\\nif (this instanceof Window_Message) {\\\\n    if (textState.drawing && this.constructor === Window_Message) {\\\\n        this.setTextDelay(delay);\\\\n    }\\\\n}\\\"\"}","{\"Match:str\":\"NormalBG\",\"Type:str\":\"\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nif (textState.drawing) {\\\\n    this.setBackgroundType(0);\\\\n}\\\"\"}","{\"Match:str\":\"DimBG\",\"Type:str\":\"\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nif (textState.drawing) {\\\\n    this.setBackgroundType(1);\\\\n}\\\"\"}","{\"Match:str\":\"TransparentBG\",\"Type:str\":\"\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nif (textState.drawing) {\\\\n    this.setBackgroundType(2);\\\\n}\\\"\"}","{\"Match:str\":\"FontChange\",\"Type:str\":\"\\\\<(.*?)\\\\>\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst fontName = this.obtainEscapeString(textState);\\\\nthis.contents.fontFace = fontName;\\\"\"}","{\"Match:str\":\"ResetFont\",\"Type:str\":\"\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"this.resetFontSettings();\\\"\"}","{\"Match:str\":\"ResetColor\",\"Type:str\":\"\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"this.resetTextColor();\\\"\"}","{\"Match:str\":\"HexColor\",\"Type:str\":\"\\\\<(.*?)\\\\>\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst hexColor = this.obtainEscapeString(textState);\\\\nif (!this.isColorLocked() && textState.drawing) {\\\\n    this.changeTextColor(hexColor);\\\\n}\\\"\"}","{\"Match:str\":\"OutlineColor\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst colorIndex = this.obtainEscapeParam(textState);\\\\nif (!this.isColorLocked() && textState.drawing) {\\\\n    this.changeOutlineColor(ColorManager.textColor(colorIndex));\\\\n}\\\"\"}","{\"Match:str\":\"OutlineHexColor\",\"Type:str\":\"\\\\<(.*?)\\\\>\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst hexColor = this.obtainEscapeString(textState);\\\\nif (!this.isColorLocked() && textState.drawing) {\\\\n    this.changeOutlineColor(hexColor);\\\\n}\\\"\"}","{\"Match:str\":\"OutlineWidth\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst width = this.obtainEscapeParam(textState);\\\\nif (textState.drawing) {\\\\n    this.contents.outlineWidth = width;\\\\n}\\\"\"}","{\"Match:str\":\"WindowMoveTo\",\"Type:str\":\"\\\\<(.*?)\\\\>\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst data = this.obtainEscapeString(textState).split(',');\\\\nif (textState.drawing) {\\\\n    const x = !!data[0] ? Number(data[0].trim()) : this.x;\\\\n    const y = !!data[1] ? Number(data[1].trim()) : this.y;\\\\n    const width = !!data[2] ? Number(data[2].trim()) : this.width;\\\\n    const height = !!data[3] ? Number(data[3].trim()) : this.height;\\\\n    const duration = !!data[4] ? Number(data[4].trim()) : 20;\\\\n    const easingType = !!data[5] ? data[5].trim() : 0;\\\\n    this.moveTo(x, y, width, height, duration, easingType);\\\\n}\\\"\"}","{\"Match:str\":\"WindowMoveBy\",\"Type:str\":\"\\\\<(.*?)\\\\>\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst data = this.obtainEscapeString(textState).split(',');\\\\nif (textState.drawing) {\\\\n    const x = !!data[0] ? Number(data[0].trim()) : 0;\\\\n    const y = !!data[1] ? Number(data[1].trim()) : 0;\\\\n    const width = !!data[2] ? Number(data[2].trim()) : 0;\\\\n    const height = !!data[3] ? Number(data[3].trim()) : 0;\\\\n    const duration = !!data[4] ? Number(data[4].trim()) : 20;\\\\n    const easingType = !!data[5] ? data[5].trim() : 0;\\\\n    this.moveBy(x, y, width, height, duration, easingType);\\\\n}\\\"\"}","{\"Match:str\":\"WindowReset\",\"Type:str\":\"\",\"CommonEvent:num\":\"0\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nif (textState.drawing) {\\\\n    const frames = 20;\\\\n    const easingType = 0;\\\\n    this.resetRect(frames, easingType);\\\\n}\\\"\"}","{\"Match:str\":\"heart\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"CommonEvent:num\":\"3\",\"ActionJS:func\":\"\\\"const textState = arguments[0];\\\\nconst index = this.obtainEscapeParam(textState);\\\"\"}"]
  *
  * @param TextCodeReplace:arraystruct
  * @text Text Code Replacements
  * @type struct<TextCodeReplace>[]
  * @desc Text codes that replace themselves with text.
- * @default ["{\"Match:str\":\"ActorFace\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const actorId = parseInt(arguments[1]);\\\\nconst actor = $gameActors.actor(actorId);\\\\nif (this.constructor === Window_Message && actor) {\\\\n    $gameMessage.setFaceImage(\\\\n        actor.faceName(),\\\\n        actor.faceIndex()\\\\n    );\\\\n}\\\\nreturn '';\\\"\"}","{\"Match:str\":\"PartyFace\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const index = parseInt(arguments[1]) - 1;\\\\nconst actor = $gameParty.members()[index];\\\\nif (this.constructor === Window_Message && actor) {\\\\n    $gameMessage.setFaceImage(\\\\n        actor.faceName(),\\\\n        actor.faceIndex()\\\\n    );\\\\n}\\\\nreturn '';\\\"\"}","{\"Match:str\":\"Class\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataClasses;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"ClassName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataClasses;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"Skill\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataSkills;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"SkillName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataSkills;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"Item\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataItems;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"ItemName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataItems;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"ItemQuantity\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataItems;\\\\nconst id = parseInt(arguments[1]);\\\\nreturn $gameParty.numItems(database[id]);\\\"\"}","{\"Match:str\":\"Weapon\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataWeapons;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"WeaponName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataWeapons;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"WeaponQuantity\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataWeapons;\\\\nconst id = parseInt(arguments[1]);\\\\nreturn $gameParty.numItems(database[id]);\\\"\"}","{\"Match:str\":\"LastGainObj\",\"Type:str\":\"\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const icon = true;\\\\nreturn this.lastGainedObjectName(icon);\\\"\"}","{\"Match:str\":\"LastGainObjName\",\"Type:str\":\"\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const icon = false;\\\\nreturn this.lastGainedObjectName(icon);\\\"\"}","{\"Match:str\":\"LastGainObjQuantity\",\"Type:str\":\"\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"return this.lastGainedObjectQuantity();\\\"\"}","{\"Match:str\":\"Armor\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataArmors;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"ArmorName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataArmors;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"ArmorQuantity\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataArmors;\\\\nconst id = parseInt(arguments[1]);\\\\nreturn $gameParty.numItems(database[id]);\\\"\"}","{\"Match:str\":\"State\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataStates;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"StateName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataStates;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"Enemy\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataEnemies;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"EnemyName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataEnemies;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"Troop\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataTroops;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"TroopName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataTroops;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"TroopMember\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"if (!$gameParty.inBattle()) return \\\\\\\"\\\\\\\";\\\\nconst index = (parseInt(arguments[1]) - 1) || 0;\\\\nconst member = $gameTroop.members()[index];\\\\nconst database = $dataEnemies;\\\\nconst id = member ? member.enemyId() : 0;\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"TroopMemberName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"if (!$gameParty.inBattle()) return \\\\\\\"\\\\\\\";\\\\nconst index = (parseInt(arguments[1]) - 1) || 0;\\\\nconst member = $gameTroop.members()[index];\\\\nconst database = $dataEnemies;\\\\nconst id = member ? member.enemyId() : 0;\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}"]
+ * @default ["{\"Match:str\":\"ActorFace\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const actorId = parseInt(arguments[1]);\\\\nconst actor = $gameActors.actor(actorId);\\\\nif (this.constructor === Window_Message && actor) {\\\\n    $gameMessage.setFaceImage(\\\\n        actor.faceName(),\\\\n        actor.faceIndex()\\\\n    );\\\\n}\\\\nreturn '';\\\"\"}","{\"Match:str\":\"PartyFace\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const index = parseInt(arguments[1]) - 1;\\\\nconst actor = $gameParty.members()[index];\\\\nif (this.constructor === Window_Message && actor) {\\\\n    $gameMessage.setFaceImage(\\\\n        actor.faceName(),\\\\n        actor.faceIndex()\\\\n    );\\\\n}\\\\nreturn '';\\\"\"}","{\"Match:str\":\"Class\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataClasses;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"ClassIcon\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataClasses;\\\\nconst id = parseInt(arguments[1]);\\\\nconst obj = database[id];\\\\nconst icon = obj ? (obj.iconIndex || 0) : 0;\\\\nreturn icon ? '\\\\\\\\x1bI[%1]'.format(icon) : '';\\\"\"}","{\"Match:str\":\"ClassName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataClasses;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"Skill\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataSkills;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"SkillIcon\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataSkills;\\\\nconst id = parseInt(arguments[1]);\\\\nconst obj = database[id];\\\\nconst icon = obj ? (obj.iconIndex || 0) : 0;\\\\nreturn icon ? '\\\\\\\\x1bI[%1]'.format(icon) : '';\\\"\"}","{\"Match:str\":\"SkillName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataSkills;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"Item\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataItems;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"ItemIcon\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataItems;\\\\nconst id = parseInt(arguments[1]);\\\\nconst obj = database[id];\\\\nconst icon = obj ? (obj.iconIndex || 0) : 0;\\\\nreturn icon ? '\\\\\\\\x1bI[%1]'.format(icon) : '';\\\"\"}","{\"Match:str\":\"ItemName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataItems;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"ItemQuantity\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataItems;\\\\nconst id = parseInt(arguments[1]);\\\\nreturn $gameParty.numItems(database[id]);\\\"\"}","{\"Match:str\":\"Weapon\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataWeapons;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"WeaponIcon\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataWeapons;\\\\nconst id = parseInt(arguments[1]);\\\\nconst obj = database[id];\\\\nconst icon = obj ? (obj.iconIndex || 0) : 0;\\\\nreturn icon ? '\\\\\\\\x1bI[%1]'.format(icon) : '';\\\"\"}","{\"Match:str\":\"WeaponName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataWeapons;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"WeaponQuantity\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataWeapons;\\\\nconst id = parseInt(arguments[1]);\\\\nreturn $gameParty.numItems(database[id]);\\\"\"}","{\"Match:str\":\"Armor\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataArmors;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"ArmorIcon\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataArmors;\\\\nconst id = parseInt(arguments[1]);\\\\nconst obj = database[id];\\\\nconst icon = obj ? (obj.iconIndex || 0) : 0;\\\\nreturn icon ? '\\\\\\\\x1bI[%1]'.format(icon) : '';\\\"\"}","{\"Match:str\":\"ArmorName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataArmors;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"ArmorQuantity\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataArmors;\\\\nconst id = parseInt(arguments[1]);\\\\nreturn $gameParty.numItems(database[id]);\\\"\"}","{\"Match:str\":\"State\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataStates;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"StateIcon\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataStates;\\\\nconst id = parseInt(arguments[1]);\\\\nconst obj = database[id];\\\\nconst icon = obj ? (obj.iconIndex || 0) : 0;\\\\nreturn icon ? '\\\\\\\\x1bI[%1]'.format(icon) : '';\\\"\"}","{\"Match:str\":\"StateName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataStates;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"LastGainObj\",\"Type:str\":\"\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const icon = true;\\\\nreturn this.lastGainedObjectName(icon);\\\"\"}","{\"Match:str\":\"LastGainObjIcon\",\"Type:str\":\"\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"return this.lastGainedObjectIcon();\\\"\"}","{\"Match:str\":\"LastGainObjName\",\"Type:str\":\"\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const icon = false;\\\\nreturn this.lastGainedObjectName(icon);\\\"\"}","{\"Match:str\":\"LastGainObjQuantity\",\"Type:str\":\"\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"return this.lastGainedObjectQuantity();\\\"\"}","{\"Match:str\":\"Enemy\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataEnemies;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"EnemyName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataEnemies;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"Troop\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataTroops;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"TroopName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"const database = $dataTroops;\\\\nconst id = parseInt(arguments[1]);\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"TroopMember\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"if (!$gameParty.inBattle()) return \\\\\\\"\\\\\\\";\\\\nconst index = (parseInt(arguments[1]) - 1) || 0;\\\\nconst member = $gameTroop.members()[index];\\\\nconst database = $dataEnemies;\\\\nconst id = member ? member.enemyId() : 0;\\\\nconst icon = true;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}","{\"Match:str\":\"TroopMemberName\",\"Type:str\":\"\\\\[(\\\\d+)\\\\]\",\"TextStr:str\":\"Undefined\",\"TextJS:func\":\"\\\"if (!$gameParty.inBattle()) return \\\\\\\"\\\\\\\";\\\\nconst index = (parseInt(arguments[1]) - 1) || 0;\\\\nconst member = $gameTroop.members()[index];\\\\nconst database = $dataEnemies;\\\\nconst id = member ? member.enemyId() : 0;\\\\nconst icon = false;\\\\nreturn this.databaseObjectName(database, id, icon);\\\"\"}"]
  *
  * @param TextMacros:arraystruct
- * @text Text Macros
+ * @text Text Code Macros
  * @type struct<TextMacro>[]
  * @desc Macros that are used to quickly write batches of text.
+ * Format style: [MacroName]
  * @default ["{\"Match:str\":\"Example Macro\",\"TextStr:str\":\"This is the text that will be displayed when you type [Example Macro].\",\"TextJS:func\":\"\\\"return 'Text';\\\"\"}","{\"Match:str\":\"Leader\",\"TextStr:str\":\"\\\\P[1]\",\"TextJS:func\":\"\\\"return 'Text';\\\"\"}"]
+ *
+ * @param Localization:struct
+ * @text Text Language Settings
+ * @type struct<Localization>
+ * @desc Text Language settings for this plugin.
+ * @default {"Main":"","Enable:eval":"false","CsvFilename:str":"Languages.csv","Options":"","AddOption:eval":"true","AdjustRect:eval":"true","Name:str":"Text Language","Localized":"","DefaultLocale:str":"English","Languages:arraystr":"[\"Bengali\",\"Chinese(Simplified)\",\"Chinese(Traditional)\",\"Czech\",\"Danish\",\"Dutch\",\"English\",\"Finnish\",\"French\",\"German\",\"Greek\",\"Hindi\",\"Hungarian\",\"Indonesian\",\"Italian\",\"Japanese\",\"Korean\",\"Norwegian\",\"Polish\",\"Portuguese\",\"Romanian\",\"Russian\",\"Slovak\",\"Spanish\",\"Swedish\",\"Tamil\",\"Thai\",\"Turkish\"]","LangNames":"","Bengali:str":"বাংলা","Chinese(Simplified):str":"简体中文","Chinese(Traditional):str":"繁體中文","Czech:str":"Čeština","Danish:str":"Dansk","Dutch:str":"Nederlands","English:str":"English","Finnish:str":"Suomi","French:str":"Français","German:str":"Deutsch","Greek:str":"Ελληνικά","Hindi:str":"हिन्दी","Hungarian:str":"Magyar","Indonesian:str":"Bahasa Indo","Italian:str":"Italiano","Japanese:str":"日本語","Korean:str":"한국어","Norwegian:str":"Norsk","Polish:str":"Polski","Portuguese:str":"Português","Romanian:str":"Română","Russian:str":"Русский","Slovak:str":"Slovenčina","Spanish:str":"Español","Swedish:str":"Svenska","Tamil:str":"தமிழ்","Thai:str":"ไทย","Turkish:str":"Türkçe"}
+ *
+ * @param LanguageFonts:struct
+ * @text Language Fonts
+ * @parent Localization:struct
+ * @type struct<LanguageFonts>
+ * @desc Different default fonts used for different languages.
+ * Players can override this with Options Core.
+ * @default {"Bengali:str":"rmmz-mainfont","Chinese(Simplified):str":"rmmz-mainfont","Chinese(Traditional):str":"rmmz-mainfont","Czech:str":"rmmz-mainfont","Danish:str":"rmmz-mainfont","Dutch:str":"rmmz-mainfont","English:str":"rmmz-mainfont","Finnish:str":"rmmz-mainfont","French:str":"rmmz-mainfont","German:str":"rmmz-mainfont","Greek:str":"rmmz-mainfont","Hindi:str":"rmmz-mainfont","Hungarian:str":"rmmz-mainfont","Indonesian:str":"rmmz-mainfont","Italian:str":"rmmz-mainfont","Japanese:str":"rmmz-mainfont","Korean:str":"rmmz-mainfont","Norwegian:str":"rmmz-mainfont","Polish:str":"rmmz-mainfont","Portuguese:str":"rmmz-mainfont","Romanian:str":"rmmz-mainfont","Russian:str":"rmmz-mainfont","Slovak:str":"rmmz-mainfont","Spanish:str":"rmmz-mainfont","Swedish:str":"rmmz-mainfont","Tamil:str":"rmmz-mainfont","Thai:str":"rmmz-mainfont","Turkish:str":"rmmz-mainfont"}
+ *
+ * @param LanguageImages:struct
+ * @text Language Images
+ * @parent Localization:struct
+ * @type struct<LanguageImages>
+ * @desc Allows different images to be used when different
+ * languages are used. See help for more information.
+ * @default {"ConvertDefault:eval":"false","Languages":"","Bengali:str":"[XX]","Chinese(Simplified):str":"[XX]","Chinese(Traditional):str":"[XX]","Czech:str":"[XX]","Danish:str":"[XX]","Dutch:str":"[XX]","English:str":"[XX]","Finnish:str":"[XX]","French:str":"[XX]","German:str":"[XX]","Greek:str":"[XX]","Hindi:str":"[XX]","Hungarian:str":"[XX]","Indonesian:str":"[XX]","Italian:str":"[XX]","Japanese:str":"[XX]","Korean:str":"[XX]","Norwegian:str":"[XX]","Polish:str":"[XX]","Portuguese:str":"[XX]","Romanian:str":"[XX]","Russian:str":"[XX]","Slovak:str":"[XX]","Spanish:str":"[XX]","Swedish:str":"[XX]","Tamil:str":"[XX]","Thai:str":"[XX]","Turkish:str":"[XX]"}
  *
  * @param TextSpeed:struct
  * @text Text Speed Option Settings
@@ -1640,6 +2859,22 @@ VisuMZ.MessageCore.version = 1.37;
  * @desc Changes the default outline width to this many pixels thick.
  * @default 3
  *
+ * @param EachMessageStart:json
+ * @text Each Message Start
+ * @parent MessageWindow
+ * @type note
+ * @desc This is text that is added at the start of each message.
+ * You may use text codes.
+ * @default ""
+ *
+ * @param EachMessageEnd:json
+ * @text Each Message End
+ * @parent MessageWindow
+ * @type note
+ * @desc This is text that is added at the end of each message.
+ * You may use text codes.
+ * @default ""
+ *
  * @param NameBoxWindow
  * @text Name Box Window
  *
@@ -1674,6 +2909,15 @@ VisuMZ.MessageCore.version = 1.37;
  * @desc What is the default line height for Show Choices?
  * @default 36
  *
+ * @param ChoiceWindowMinWidth:num
+ * @text Minimum Choice Width
+ * @parent ChoiceListWindow
+ * @type number
+ * @min 0
+ * @desc What is the minimum choice width for each choice?
+ * 96 is the default width.
+ * @default 96
+ *
  * @param ChoiceWindowMaxRows:num
  * @text Max Rows
  * @parent ChoiceListWindow
@@ -1703,7 +2947,7 @@ VisuMZ.MessageCore.version = 1.37;
  * @option Right
  * @value right
  * @desc Default alignment for Show Choice window.
- * @default default
+ * @default rmmz-mainfont
  *
  * @param DefaultTextCodes
  * @text Default Text Codes
@@ -2053,6 +3297,25 @@ VisuMZ.MessageCore.version = 1.37;
  *
  */
 /* ----------------------------------------------------------------------------
+ * Custom Font Settings
+ * ----------------------------------------------------------------------------
+ */
+/*~struct~CustomFont:
+ *
+ * @param FontFamily:str
+ * @text Font Family
+ * @desc This will be what's used by RPG Maker MZ and plugins to
+ * reference this specific font. NO filename extensions!
+ * @default Unnamed
+ *
+ * @param Filename:str
+ * @text Filename
+ * @desc What is the filename of the font you would like to use?
+ * Located inside the project's "fonts" folder.
+ * @default Unnamed.ttf
+ *
+ */
+/* ----------------------------------------------------------------------------
  * Text Code Actions
  * ----------------------------------------------------------------------------
  */
@@ -2146,6 +3409,712 @@ VisuMZ.MessageCore.version = 1.37;
  * @type note
  * @desc JavaScript code used to determine the text that will appear if this macro appears.
  * @default "return 'Text';"
+ *
+ */
+/* ----------------------------------------------------------------------------
+ * Localization Settings
+ * ----------------------------------------------------------------------------
+ */
+/*~struct~Localization:
+ *
+ * @param Main
+ * @text Main Settings
+ *
+ * @param Enable:eval
+ * @text Enable Switching?
+ * @parent Main
+ * @type boolean
+ * @on Enable
+ * @off Don't
+ * @desc Enable language switching settings for this plugin?
+ * @default false
+ *
+ * @param LangFiletype:str
+ * @text File Type
+ * @parent Main
+ * @type select
+ * @option CSV (Legacy)
+ * @value csv
+ * @option TSV (Recommended)
+ * @value tsv
+ * @desc Which file type do you wish to use?
+ * @default tsv
+ *
+ * @param CsvFilename:str
+ * @text CSV Filename
+ * @parent Main
+ * @desc What is the filename of the CSV file to read from?
+ * Located within the project's /data/ folder.
+ * @default Languages.csv
+ *
+ * @param TsvFilename:str
+ * @text TSV Filename
+ * @parent Main
+ * @desc What is the filename of the TSV file to read from?
+ * Located within the project's /data/ folder.
+ * @default Languages.tsv
+ *
+ * @param Options
+ * @text Options
+ *
+ * @param AddOption:eval
+ * @text Add Option?
+ * @parent Options
+ * @type boolean
+ * @on Add
+ * @off Don't Add
+ * @desc Add the 'Language' option to the Options menu?
+ * @default true
+ *
+ * @param AdjustRect:eval
+ * @text Adjust Window Height
+ * @parent Options
+ * @type boolean
+ * @on Adjust
+ * @off Don't
+ * @desc Automatically adjust the options window height?
+ * @default true
+ *
+ * @param Name:str
+ * @text Option Name
+ * @parent Options
+ * @desc Command name of the option.
+ * @default Text Language
+ *
+ * @param Localized
+ * @text Languages
+ *
+ * @param DefaultLocale:str
+ * @text Default Language
+ * @parent Localized
+ * @type select
+ * @option Bengali
+ * @option Chinese(Simplified)
+ * @option Chinese(Traditional)
+ * @option Czech
+ * @option Danish
+ * @option Dutch
+ * @option English
+ * @option Finnish
+ * @option French
+ * @option German
+ * @option Greek
+ * @option Hindi
+ * @option Hungarian
+ * @option Indonesian
+ * @option Italian
+ * @option Japanese
+ * @option Korean
+ * @option Norwegian
+ * @option Polish
+ * @option Portuguese
+ * @option Romanian
+ * @option Russian
+ * @option Slovak
+ * @option Spanish
+ * @option Swedish
+ * @option Tamil
+ * @option Thai
+ * @option Turkish
+ * @desc What is the default language used for this game?
+ * @default English
+ *
+ * @param Languages:arraystr
+ * @text Supported Languages
+ * @parent Localized
+ * @type select[]
+ * @option Bengali
+ * @option Chinese(Simplified)
+ * @option Chinese(Traditional)
+ * @option Czech
+ * @option Danish
+ * @option Dutch
+ * @option English
+ * @option Finnish
+ * @option French
+ * @option German
+ * @option Greek
+ * @option Hindi
+ * @option Hungarian
+ * @option Indonesian
+ * @option Italian
+ * @option Japanese
+ * @option Korean
+ * @option Norwegian
+ * @option Polish
+ * @option Portuguese
+ * @option Romanian
+ * @option Russian
+ * @option Slovak
+ * @option Spanish
+ * @option Swedish
+ * @option Tamil
+ * @option Thai
+ * @option Turkish
+ * @desc What are all the supported languages supported by this
+ * game's script? Remove any that aren't translated.
+ * @default ["Bengali","Chinese(Simplified)","Chinese(Traditional)","Czech","Danish","Dutch","English","Finnish","French","German","Greek","Hindi","Hungarian","Indonesian","Italian","Japanese","Korean","Norwegian","Polish","Portuguese","Romanian","Russian","Slovak","Spanish","Swedish","Tamil","Thai","Turkish"]
+ *
+ * @param LangNames
+ * @text Language Names
+ *
+ * @param Bengali:str
+ * @text Bengali
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default বাংলা
+ * 
+ * @param Chinese(Simplified):str
+ * @text Chinese (Simplified)
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default 简体中文
+ * 
+ * @param Chinese(Traditional):str
+ * @text Chinese (Traditional)
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default 繁體中文
+ * 
+ * @param Czech:str
+ * @text Czech
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Čeština
+ * 
+ * @param Danish:str
+ * @text Danish
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Dansk
+ * 
+ * @param Dutch:str
+ * @text Dutch
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Nederlands
+ * 
+ * @param English:str
+ * @text English
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default English
+ * 
+ * @param Finnish:str
+ * @text Finnish
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Suomi
+ * 
+ * @param French:str
+ * @text French
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Français
+ * 
+ * @param German:str
+ * @text German
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Deutsch
+ * 
+ * @param Greek:str
+ * @text Greek
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Ελληνικά
+ * 
+ * @param Hindi:str
+ * @text Hindi
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default हिन्दी
+ * 
+ * @param Hungarian:str
+ * @text Hungarian
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Magyar
+ * 
+ * @param Indonesian:str
+ * @text Indonesian
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Bahasa Indo
+ * 
+ * @param Italian:str
+ * @text Italian
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Italiano
+ * 
+ * @param Japanese:str
+ * @text Japanese
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default 日本語
+ * 
+ * @param Korean:str
+ * @text Korean
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default 한국어
+ * 
+ * @param Norwegian:str
+ * @text Norwegian
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Norsk
+ * 
+ * @param Polish:str
+ * @text Polish
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Polski
+ * 
+ * @param Portuguese:str
+ * @text Portuguese
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Português
+ * 
+ * @param Romanian:str
+ * @text Romanian
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Română
+ * 
+ * @param Russian:str
+ * @text Russian
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Русский
+ * 
+ * @param Slovak:str
+ * @text Slovak
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Slovenčina
+ * 
+ * @param Spanish:str
+ * @text Spanish
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Español
+ * 
+ * @param Swedish:str
+ * @text Swedish
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Svenska
+ * 
+ * @param Tamil:str
+ * @text Tamil
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default தமிழ்
+ * 
+ * @param Thai:str
+ * @text Thai
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default ไทย
+ * 
+ * @param Turkish:str
+ * @text Turkish
+ * @parent LangNames
+ * @desc How does this language appear in the in-game options?
+ * @default Türkçe
+ *
+ */
+/* ----------------------------------------------------------------------------
+ * Language Fonts Settings
+ * ----------------------------------------------------------------------------
+ */
+/*~struct~LanguageFonts:
+ *
+ * @param Bengali:str
+ * @text Bengali
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Chinese(Simplified):str
+ * @text Chinese (Simplified)
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Chinese(Traditional):str
+ * @text Chinese (Traditional)
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Czech:str
+ * @text Czech
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Danish:str
+ * @text Danish
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Dutch:str
+ * @text Dutch
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param English:str
+ * @text English
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Finnish:str
+ * @text Finnish
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param French:str
+ * @text French
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param German:str
+ * @text German
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Greek:str
+ * @text Greek
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Hindi:str
+ * @text Hindi
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Hungarian:str
+ * @text Hungarian
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Indonesian:str
+ * @text Indonesian
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Italian:str
+ * @text Italian
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Japanese:str
+ * @text Japanese
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Korean:str
+ * @text Korean
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Norwegian:str
+ * @text Norwegian
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Polish:str
+ * @text Polish
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Portuguese:str
+ * @text Portuguese
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Romanian:str
+ * @text Romanian
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Russian:str
+ * @text Russian
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Slovak:str
+ * @text Slovak
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Spanish:str
+ * @text Spanish
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Swedish:str
+ * @text Swedish
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Tamil:str
+ * @text Tamil
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Thai:str
+ * @text Thai
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ * 
+ * @param Turkish:str
+ * @text Turkish
+ * @desc What font face is used for this language?
+ * Make sure it is registered under Custom Font Manager.
+ * @default rmmz-mainfont
+ *
+ */
+/* ----------------------------------------------------------------------------
+ * Language Images Settings
+ * ----------------------------------------------------------------------------
+ */
+/*~struct~LanguageImages:
+ *
+ * @param ConvertDefault:eval
+ * @text Convert Default?
+ * @type boolean
+ * @on Convert
+ * @off Don't
+ * @desc ON: Default language uses converted marker.
+ * OFF: Default languages uses [XX] as marker.
+ * @default false
+ *
+ * @param Languages
+ * @text Languages
+ *
+ * @param Bengali:str
+ * @text Bengali
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Chinese(Simplified):str
+ * @text Chinese (Simplified)
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Chinese(Traditional):str
+ * @text Chinese (Traditional)
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Czech:str
+ * @text Czech
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Danish:str
+ * @text Danish
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Dutch:str
+ * @text Dutch
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param English:str
+ * @text English
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Finnish:str
+ * @text Finnish
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param French:str
+ * @text French
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param German:str
+ * @text German
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Greek:str
+ * @text Greek
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Hindi:str
+ * @text Hindi
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Hungarian:str
+ * @text Hungarian
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Indonesian:str
+ * @text Indonesian
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Italian:str
+ * @text Italian
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Japanese:str
+ * @text Japanese
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Korean:str
+ * @text Korean
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Norwegian:str
+ * @text Norwegian
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Polish:str
+ * @text Polish
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Portuguese:str
+ * @text Portuguese
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Romanian:str
+ * @text Romanian
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Russian:str
+ * @text Russian
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Slovak:str
+ * @text Slovak
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Spanish:str
+ * @text Spanish
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Swedish:str
+ * @text Swedish
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Tamil:str
+ * @text Tamil
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Thai:str
+ * @text Thai
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
+ * 
+ * @param Turkish:str
+ * @text Turkish
+ * @parent Languages
+ * @desc This text will replace [XX] with in image folder names
+ * and filenames when this language is selected.
+ * @default [XX]
  *
  */
 /* ----------------------------------------------------------------------------
@@ -2248,4 +4217,4 @@ VisuMZ.MessageCore.version = 1.37;
  */
 //=============================================================================
 
-const _0x2c6443=_0x4523;(function(_0x4fd395,_0x3ef93c){const _0x3fd72d=_0x4523,_0x498f02=_0x4fd395();while(!![]){try{const _0x52b983=parseInt(_0x3fd72d(0x390))/0x1*(-parseInt(_0x3fd72d(0x2e5))/0x2)+-parseInt(_0x3fd72d(0x239))/0x3*(-parseInt(_0x3fd72d(0x41a))/0x4)+-parseInt(_0x3fd72d(0x364))/0x5*(parseInt(_0x3fd72d(0x3ce))/0x6)+-parseInt(_0x3fd72d(0x321))/0x7+parseInt(_0x3fd72d(0x3d5))/0x8*(-parseInt(_0x3fd72d(0x3bd))/0x9)+-parseInt(_0x3fd72d(0x23a))/0xa*(parseInt(_0x3fd72d(0x45c))/0xb)+parseInt(_0x3fd72d(0x1f0))/0xc*(parseInt(_0x3fd72d(0x35f))/0xd);if(_0x52b983===_0x3ef93c)break;else _0x498f02['push'](_0x498f02['shift']());}catch(_0x4a972f){_0x498f02['push'](_0x498f02['shift']());}}}(_0x4ea5,0x3d64a));var label=_0x2c6443(0x3ca),tier=tier||0x0,dependencies=[],pluginData=$plugins[_0x2c6443(0x30f)](function(_0x490305){return _0x490305['status']&&_0x490305['description']['includes']('['+label+']');})[0x0];VisuMZ[label][_0x2c6443(0x306)]=VisuMZ[label][_0x2c6443(0x306)]||{},VisuMZ[_0x2c6443(0x2ea)]=function(_0x563750,_0x5536c1){const _0x339d4e=_0x2c6443;for(const _0x11a8e8 in _0x5536c1){if(_0x11a8e8[_0x339d4e(0x22e)](/(.*):(.*)/i)){const _0x21212a=String(RegExp['$1']),_0x583f57=String(RegExp['$2'])[_0x339d4e(0x42f)]()['trim']();let _0x3dc57a,_0x309dc3,_0x86f408;switch(_0x583f57){case'NUM':_0x3dc57a=_0x5536c1[_0x11a8e8]!==''?Number(_0x5536c1[_0x11a8e8]):0x0;break;case _0x339d4e(0x434):_0x309dc3=_0x5536c1[_0x11a8e8]!==''?JSON[_0x339d4e(0x38f)](_0x5536c1[_0x11a8e8]):[],_0x3dc57a=_0x309dc3[_0x339d4e(0x3c9)](_0x1be9f3=>Number(_0x1be9f3));break;case _0x339d4e(0x2a4):_0x3dc57a=_0x5536c1[_0x11a8e8]!==''?eval(_0x5536c1[_0x11a8e8]):null;break;case _0x339d4e(0x3a7):_0x309dc3=_0x5536c1[_0x11a8e8]!==''?JSON['parse'](_0x5536c1[_0x11a8e8]):[],_0x3dc57a=_0x309dc3[_0x339d4e(0x3c9)](_0x57ab50=>eval(_0x57ab50));break;case _0x339d4e(0x354):_0x3dc57a=_0x5536c1[_0x11a8e8]!==''?JSON['parse'](_0x5536c1[_0x11a8e8]):'';break;case _0x339d4e(0x245):_0x309dc3=_0x5536c1[_0x11a8e8]!==''?JSON[_0x339d4e(0x38f)](_0x5536c1[_0x11a8e8]):[],_0x3dc57a=_0x309dc3['map'](_0x20d456=>JSON['parse'](_0x20d456));break;case'FUNC':_0x3dc57a=_0x5536c1[_0x11a8e8]!==''?new Function(JSON[_0x339d4e(0x38f)](_0x5536c1[_0x11a8e8])):new Function(_0x339d4e(0x2f2));break;case _0x339d4e(0x3af):_0x309dc3=_0x5536c1[_0x11a8e8]!==''?JSON[_0x339d4e(0x38f)](_0x5536c1[_0x11a8e8]):[],_0x3dc57a=_0x309dc3[_0x339d4e(0x3c9)](_0x1bc646=>new Function(JSON[_0x339d4e(0x38f)](_0x1bc646)));break;case _0x339d4e(0x422):_0x3dc57a=_0x5536c1[_0x11a8e8]!==''?String(_0x5536c1[_0x11a8e8]):'';break;case _0x339d4e(0x252):_0x309dc3=_0x5536c1[_0x11a8e8]!==''?JSON[_0x339d4e(0x38f)](_0x5536c1[_0x11a8e8]):[],_0x3dc57a=_0x309dc3[_0x339d4e(0x3c9)](_0x197d07=>String(_0x197d07));break;case _0x339d4e(0x227):_0x86f408=_0x5536c1[_0x11a8e8]!==''?JSON[_0x339d4e(0x38f)](_0x5536c1[_0x11a8e8]):{},_0x563750[_0x21212a]={},VisuMZ[_0x339d4e(0x2ea)](_0x563750[_0x21212a],_0x86f408);continue;case'ARRAYSTRUCT':_0x309dc3=_0x5536c1[_0x11a8e8]!==''?JSON[_0x339d4e(0x38f)](_0x5536c1[_0x11a8e8]):[],_0x3dc57a=_0x309dc3[_0x339d4e(0x3c9)](_0x18fa0b=>VisuMZ[_0x339d4e(0x2ea)]({},JSON[_0x339d4e(0x38f)](_0x18fa0b)));break;default:continue;}_0x563750[_0x21212a]=_0x3dc57a;}}return _0x563750;},(_0x101558=>{const _0x893bf4=_0x2c6443,_0x3bc8d7=_0x101558[_0x893bf4(0x206)];for(const _0x4c10bb of dependencies){if(!Imported[_0x4c10bb]){alert(_0x893bf4(0x1ec)[_0x893bf4(0x233)](_0x3bc8d7,_0x4c10bb)),SceneManager[_0x893bf4(0x454)]();break;}}const _0x272c64=_0x101558[_0x893bf4(0x2e7)];if(_0x272c64[_0x893bf4(0x22e)](/\[Version[ ](.*?)\]/i)){const _0x347718=Number(RegExp['$1']);_0x347718!==VisuMZ[label]['version']&&(alert('%1\x27s\x20version\x20does\x20not\x20match\x20plugin\x27s.\x20Please\x20update\x20it\x20in\x20the\x20Plugin\x20Manager.'[_0x893bf4(0x233)](_0x3bc8d7,_0x347718)),SceneManager[_0x893bf4(0x454)]());}if(_0x272c64[_0x893bf4(0x22e)](/\[Tier[ ](\d+)\]/i)){const _0x3aa92f=Number(RegExp['$1']);_0x3aa92f<tier?(alert(_0x893bf4(0x22a)[_0x893bf4(0x233)](_0x3bc8d7,_0x3aa92f,tier)),SceneManager[_0x893bf4(0x454)]()):tier=Math['max'](_0x3aa92f,tier);}VisuMZ[_0x893bf4(0x2ea)](VisuMZ[label][_0x893bf4(0x306)],_0x101558[_0x893bf4(0x1fc)]);})(pluginData),PluginManager[_0x2c6443(0x3e8)](pluginData[_0x2c6443(0x206)],_0x2c6443(0x1e1),_0x31c736=>{const _0x4b63e0=_0x2c6443;VisuMZ[_0x4b63e0(0x2ea)](_0x31c736,_0x31c736);const _0x10476a=_0x31c736[_0x4b63e0(0x368)]||$gameSystem[_0x4b63e0(0x3d9)]()||0x1,_0x189712=_0x31c736[_0x4b63e0(0x258)]||$gameSystem[_0x4b63e0(0x31d)]()||0x1,_0x23e82d=_0x31c736[_0x4b63e0(0x41d)]||$gameSystem['getChoiceListMaxColumns']()||0x1,_0x499f00=_0x31c736[_0x4b63e0(0x29f)][_0x4b63e0(0x2e8)]()||_0x4b63e0(0x43c);$gameSystem[_0x4b63e0(0x2dc)](_0x10476a),$gameSystem[_0x4b63e0(0x39d)](_0x189712),$gameSystem[_0x4b63e0(0x34c)](_0x23e82d),$gameSystem[_0x4b63e0(0x3d0)](_0x499f00);}),PluginManager[_0x2c6443(0x3e8)](pluginData[_0x2c6443(0x206)],_0x2c6443(0x3eb),_0x889376=>{const _0x2e100f=_0x2c6443;VisuMZ[_0x2e100f(0x2ea)](_0x889376,_0x889376);const _0x3d6f9f=_0x889376[_0x2e100f(0x32d)]||$gameSystem[_0x2e100f(0x38c)]()||0x1,_0x425e4e=_0x889376[_0x2e100f(0x3c4)]||$gameSystem[_0x2e100f(0x3e2)]()||0x1;$gameTemp[_0x2e100f(0x322)]=!![];const _0xb104a=_0x889376['WordWrap'][_0x2e100f(0x2e8)]();$gameSystem[_0x2e100f(0x310)](_0x3d6f9f),$gameSystem['setMessageWindowWidth'](_0x425e4e);['true','false'][_0x2e100f(0x315)](_0xb104a)&&$gameSystem[_0x2e100f(0x2ba)](eval(_0xb104a));const _0x23d721=SceneManager[_0x2e100f(0x3f3)][_0x2e100f(0x3b5)];_0x23d721&&(_0x23d721[_0x2e100f(0x450)](),_0x23d721[_0x2e100f(0x288)](),_0x23d721[_0x2e100f(0x26f)]());}),PluginManager[_0x2c6443(0x3e8)](pluginData[_0x2c6443(0x206)],_0x2c6443(0x2f1),_0xe5a3a=>{const _0x3cba67=_0x2c6443;VisuMZ[_0x3cba67(0x2ea)](_0xe5a3a,_0xe5a3a),$gameSystem[_0x3cba67(0x277)](_0xe5a3a[_0x3cba67(0x37f)],_0xe5a3a[_0x3cba67(0x323)]);const _0x57398f=SceneManager['_scene'][_0x3cba67(0x3b5)];_0x57398f&&(_0x57398f['resetWordWrap'](),_0x57398f[_0x3cba67(0x288)](),_0x57398f[_0x3cba67(0x26f)]());}),PluginManager[_0x2c6443(0x3e8)](pluginData['name'],_0x2c6443(0x20a),_0x145c8f=>{const _0xdffb37=_0x2c6443;VisuMZ['ConvertParams'](_0x145c8f,_0x145c8f);const _0x4885f9=_0x145c8f['PictureIDs']||[],_0x3b1f4c=_0x145c8f[_0xdffb37(0x383)]||0x0,_0xd1837b=[_0xdffb37(0x44b),'up',_0xdffb37(0x3a4),_0xdffb37(0x3ba),_0xdffb37(0x3f1),_0xdffb37(0x287),_0xdffb37(0x265),'down','lowerright'];for(const _0x4cffc5 of _0x4885f9){$gameScreen[_0xdffb37(0x213)](_0x4cffc5,_0x3b1f4c);for(const _0x13dd5d of _0xd1837b){if(_0x145c8f[_0x13dd5d]===undefined)continue;$gameScreen['setPictureText'](_0x4cffc5,_0x145c8f[_0x13dd5d],_0x13dd5d);}}}),PluginManager[_0x2c6443(0x3e8)](pluginData[_0x2c6443(0x206)],_0x2c6443(0x2b0),_0xc06aa3=>{const _0x3b59e3=_0x2c6443;VisuMZ[_0x3b59e3(0x2ea)](_0xc06aa3,_0xc06aa3);const _0x59f595=_0xc06aa3[_0x3b59e3(0x45b)]||[];for(const _0x37b557 of _0x59f595){$gameScreen['eraseAllPictureTexts'](_0x37b557),$gameScreen[_0x3b59e3(0x1dd)](_0x37b557);}}),PluginManager[_0x2c6443(0x3e8)](pluginData[_0x2c6443(0x206)],_0x2c6443(0x37b),_0x4f2d93=>{$gameScreen['requestPictureTextRefreshAll']();}),VisuMZ['MessageCore']['Scene_Boot_onDatabaseLoaded']=Scene_Boot[_0x2c6443(0x272)]['onDatabaseLoaded'],Scene_Boot['prototype'][_0x2c6443(0x373)]=function(){const _0x4563aa=_0x2c6443;VisuMZ[_0x4563aa(0x3ca)][_0x4563aa(0x441)][_0x4563aa(0x369)](this),this[_0x4563aa(0x2bc)](),this['process_VisuMZ_MessageCore_TextCodes_Replace'](),this[_0x4563aa(0x3cb)](),this[_0x4563aa(0x3da)]();},VisuMZ[_0x2c6443(0x3ca)]['SortObjectByKeyLength']=function(_0x51b2bc){const _0x3f6593=_0x2c6443,_0x109ade=VisuMZ[_0x3f6593(0x3ca)][_0x3f6593(0x306)][_0x51b2bc];_0x109ade[_0x3f6593(0x2dd)]((_0x4e1809,_0x5ad132)=>{const _0x5dd3d5=_0x3f6593;if(!_0x4e1809||!_0x5ad132)return-0x1;return _0x5ad132[_0x5dd3d5(0x3e5)][_0x5dd3d5(0x2f8)]-_0x4e1809[_0x5dd3d5(0x3e5)][_0x5dd3d5(0x2f8)];});},Scene_Boot[_0x2c6443(0x272)][_0x2c6443(0x2bc)]=function(){const _0x4af972=_0x2c6443;VisuMZ[_0x4af972(0x3ca)][_0x4af972(0x249)]('TextCodeActions');for(const _0x5ae62a of VisuMZ[_0x4af972(0x3ca)][_0x4af972(0x306)][_0x4af972(0x3f8)]){_0x5ae62a[_0x4af972(0x3e5)]=_0x5ae62a[_0x4af972(0x3e5)][_0x4af972(0x42f)](),_0x5ae62a[_0x4af972(0x2a8)]=new RegExp('\x1b'+_0x5ae62a[_0x4af972(0x3e5)],'gi'),_0x5ae62a[_0x4af972(0x3b7)]='\x1b'+_0x5ae62a[_0x4af972(0x3e5)];if(_0x5ae62a[_0x4af972(0x2b3)]==='')_0x5ae62a[_0x4af972(0x3b7)]+=_0x4af972(0x3f6);}},Scene_Boot[_0x2c6443(0x272)][_0x2c6443(0x3c1)]=function(){const _0x306223=_0x2c6443;VisuMZ['MessageCore'][_0x306223(0x249)](_0x306223(0x351));for(const _0x3ea36a of VisuMZ[_0x306223(0x3ca)][_0x306223(0x306)]['TextCodeReplace']){_0x3ea36a[_0x306223(0x2a8)]=new RegExp('\x1b'+_0x3ea36a[_0x306223(0x3e5)]+_0x3ea36a[_0x306223(0x2b3)],'gi'),_0x3ea36a[_0x306223(0x3b8)]!==''&&_0x3ea36a['TextStr']!=='Undefined'?_0x3ea36a[_0x306223(0x3b7)]=new Function(_0x306223(0x1e9)+_0x3ea36a[_0x306223(0x3b8)][_0x306223(0x39e)](/\\/g,'\x1b')+'\x27'):_0x3ea36a[_0x306223(0x3b7)]=_0x3ea36a[_0x306223(0x241)];}},Scene_Boot[_0x2c6443(0x272)][_0x2c6443(0x3cb)]=function(){const _0x4d4874=_0x2c6443;for(const _0xc6f3b1 of VisuMZ[_0x4d4874(0x3ca)]['Settings'][_0x4d4874(0x22d)]){_0xc6f3b1[_0x4d4874(0x2a8)]=new RegExp('\x5c['+_0xc6f3b1[_0x4d4874(0x3e5)]+'\x5c]','gi'),_0xc6f3b1[_0x4d4874(0x3b8)]!==''&&_0xc6f3b1[_0x4d4874(0x3b8)]!==_0x4d4874(0x426)?_0xc6f3b1[_0x4d4874(0x3b7)]=new Function(_0x4d4874(0x1e9)+_0xc6f3b1[_0x4d4874(0x3b8)][_0x4d4874(0x39e)](/\\/g,'\x1b')+'\x27'):_0xc6f3b1['textCodeResult']=_0xc6f3b1[_0x4d4874(0x241)];}},Scene_Boot[_0x2c6443(0x272)]['process_VisuMZ_MessageCore_AutoColor']=function(){const _0x4f5d18=_0x2c6443,_0x4c98af=VisuMZ['MessageCore'][_0x4f5d18(0x306)]['AutoColor'];!VisuMZ[_0x4f5d18(0x45d)]&&(VisuMZ[_0x4f5d18(0x3ca)][_0x4f5d18(0x1fe)]($dataClasses,_0x4c98af[_0x4f5d18(0x21d)]),VisuMZ[_0x4f5d18(0x3ca)][_0x4f5d18(0x1fe)]($dataSkills,_0x4c98af[_0x4f5d18(0x28f)]),VisuMZ['MessageCore'][_0x4f5d18(0x1fe)]($dataItems,_0x4c98af['Items']),VisuMZ[_0x4f5d18(0x3ca)]['AddAutoColor']($dataWeapons,_0x4c98af['Weapons']),VisuMZ[_0x4f5d18(0x3ca)][_0x4f5d18(0x1fe)]($dataArmors,_0x4c98af['Armors']),VisuMZ[_0x4f5d18(0x3ca)][_0x4f5d18(0x1fe)]($dataEnemies,_0x4c98af[_0x4f5d18(0x22b)]),VisuMZ[_0x4f5d18(0x3ca)]['AddAutoColor']($dataStates,_0x4c98af['States'])),VisuMZ[_0x4f5d18(0x3ca)]['CreateAutoColorRegExpLists']();},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x224)]=['V','N','P','C','I','PX','PY','G','{','}','<','>','FS','\x5c','$','.','|','!','<','>','^',_0x2c6443(0x3de),_0x2c6443(0x3a1),'<I>',_0x2c6443(0x31c),_0x2c6443(0x1f9),_0x2c6443(0x3fc),'<CENTER>',_0x2c6443(0x27b),_0x2c6443(0x3d3),_0x2c6443(0x2f9),_0x2c6443(0x44c),_0x2c6443(0x366),_0x2c6443(0x2da),_0x2c6443(0x29c),_0x2c6443(0x289),_0x2c6443(0x343),_0x2c6443(0x455),_0x2c6443(0x3a6),_0x2c6443(0x2ca),_0x2c6443(0x27a),_0x2c6443(0x38b),_0x2c6443(0x274),_0x2c6443(0x2b2),'HIDE','ENABLE',_0x2c6443(0x349),_0x2c6443(0x1e0),_0x2c6443(0x2b1),'ALL',_0x2c6443(0x25d)],VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x1fe)]=function(_0x2fdc77,_0x3f529a){if(_0x3f529a<=0x0)return;const _0x47cf58=_0x2fdc77;for(const _0x52bf37 of _0x47cf58){if(!_0x52bf37)continue;VisuMZ['MessageCore']['CreateAutoColorFor'](_0x52bf37,_0x3f529a);}},VisuMZ['MessageCore'][_0x2c6443(0x247)]=function(){const _0x13fd1f=_0x2c6443;VisuMZ[_0x13fd1f(0x3ca)][_0x13fd1f(0x374)]=[];for(let _0x572bfa=0x1;_0x572bfa<=0x1f;_0x572bfa++){const _0x276e0f=_0x13fd1f(0x210)[_0x13fd1f(0x233)](_0x572bfa),_0x3f014e=VisuMZ[_0x13fd1f(0x3ca)]['Settings'][_0x13fd1f(0x237)][_0x276e0f];_0x3f014e[_0x13fd1f(0x2dd)]((_0x4996d1,_0x13b647)=>{const _0x56856d=_0x13fd1f;if(!_0x4996d1||!_0x13b647)return-0x1;return _0x13b647[_0x56856d(0x2f8)]-_0x4996d1[_0x56856d(0x2f8)];}),this[_0x13fd1f(0x28b)](_0x3f014e,_0x572bfa);}},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x28b)]=function(_0x499607,_0xeb7a20){const _0x14efc5=_0x2c6443;for(const _0x5ff641 of _0x499607){if(_0x5ff641[_0x14efc5(0x2f8)]<=0x0)continue;if(/^\d+$/[_0x14efc5(0x24f)](_0x5ff641))continue;let _0x2b5d9c=VisuMZ[_0x14efc5(0x3ca)][_0x14efc5(0x386)](_0x5ff641);if(_0x5ff641[_0x14efc5(0x22e)](/[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|[\uFF00-\uFFEF]|[\u4E00-\u9FAF]|[\u2605-\u2606]|[\u2190-\u2195]|\u203B/g))var _0x324419=new RegExp(_0x2b5d9c,'i');else var _0x324419=new RegExp('\x5cb'+_0x2b5d9c+'\x5cb','g');VisuMZ[_0x14efc5(0x3ca)]['AutoColorRegExp']['push']([_0x324419,_0x14efc5(0x2cb)[_0x14efc5(0x233)](_0xeb7a20,_0x5ff641)]);}},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x386)]=function(_0x2f4eb8){const _0x3334c1=_0x2c6443;return _0x2f4eb8=_0x2f4eb8[_0x3334c1(0x39e)](/(\W)/gi,(_0x406532,_0x5a1c52)=>'\x5c%1'[_0x3334c1(0x233)](_0x5a1c52)),_0x2f4eb8;},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x29e)]=VisuMZ[_0x2c6443(0x29e)],VisuMZ['ParseClassNotetags']=function(_0x3cdd08){const _0x37a9f0=_0x2c6443;VisuMZ[_0x37a9f0(0x3ca)][_0x37a9f0(0x29e)][_0x37a9f0(0x369)](this,_0x3cdd08);const _0x2f73c6=VisuMZ['MessageCore'][_0x37a9f0(0x306)][_0x37a9f0(0x237)];VisuMZ[_0x37a9f0(0x3ca)]['CreateAutoColorFor'](_0x3cdd08,_0x2f73c6[_0x37a9f0(0x21d)]);},VisuMZ['MessageCore'][_0x2c6443(0x1f3)]=VisuMZ[_0x2c6443(0x1f3)],VisuMZ['ParseSkillNotetags']=function(_0x142725){const _0x392c64=_0x2c6443;VisuMZ[_0x392c64(0x3ca)][_0x392c64(0x1f3)]['call'](this,_0x142725);const _0x424e53=VisuMZ[_0x392c64(0x3ca)][_0x392c64(0x306)][_0x392c64(0x237)];VisuMZ[_0x392c64(0x3ca)][_0x392c64(0x2c6)](_0x142725,_0x424e53[_0x392c64(0x28f)]);},0x7,VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x28e)]=VisuMZ[_0x2c6443(0x28e)],VisuMZ[_0x2c6443(0x28e)]=function(_0x37b53e){const _0x41008e=_0x2c6443;VisuMZ[_0x41008e(0x3ca)][_0x41008e(0x28e)]['call'](this,_0x37b53e);const _0x59cbf1=VisuMZ[_0x41008e(0x3ca)][_0x41008e(0x306)][_0x41008e(0x237)];VisuMZ[_0x41008e(0x3ca)]['CreateAutoColorFor'](_0x37b53e,_0x59cbf1[_0x41008e(0x212)]);},VisuMZ['MessageCore'][_0x2c6443(0x34a)]=VisuMZ['ParseWeaponNotetags'],VisuMZ[_0x2c6443(0x34a)]=function(_0x1e215c){const _0x577d2f=_0x2c6443;VisuMZ[_0x577d2f(0x3ca)][_0x577d2f(0x34a)]['call'](this,_0x1e215c);const _0x565f43=VisuMZ['MessageCore'][_0x577d2f(0x306)][_0x577d2f(0x237)];VisuMZ[_0x577d2f(0x3ca)][_0x577d2f(0x2c6)](_0x1e215c,_0x565f43[_0x577d2f(0x2b8)]);},VisuMZ[_0x2c6443(0x3ca)]['ParseArmorNotetags']=VisuMZ[_0x2c6443(0x448)],VisuMZ[_0x2c6443(0x448)]=function(_0x399545){const _0x57a973=_0x2c6443;VisuMZ[_0x57a973(0x3ca)][_0x57a973(0x448)][_0x57a973(0x369)](this,_0x399545);const _0x580d0e=VisuMZ[_0x57a973(0x3ca)][_0x57a973(0x306)]['AutoColor'];VisuMZ[_0x57a973(0x3ca)][_0x57a973(0x2c6)](_0x399545,_0x580d0e[_0x57a973(0x404)]);},VisuMZ['MessageCore'][_0x2c6443(0x230)]=VisuMZ[_0x2c6443(0x230)],VisuMZ[_0x2c6443(0x230)]=function(_0x12f7e2){const _0x120a6e=_0x2c6443;VisuMZ[_0x120a6e(0x3ca)]['ParseEnemyNotetags'][_0x120a6e(0x369)](this,_0x12f7e2);const _0x1a49ee=VisuMZ[_0x120a6e(0x3ca)]['Settings'][_0x120a6e(0x237)];VisuMZ['MessageCore'][_0x120a6e(0x2c6)](_0x12f7e2,_0x1a49ee[_0x120a6e(0x22b)]);},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x318)]=VisuMZ[_0x2c6443(0x318)],VisuMZ[_0x2c6443(0x318)]=function(_0x40f762){const _0x2b6fce=_0x2c6443;VisuMZ[_0x2b6fce(0x3ca)][_0x2b6fce(0x318)][_0x2b6fce(0x369)](this,_0x40f762);const _0x460d3a=VisuMZ[_0x2b6fce(0x3ca)][_0x2b6fce(0x306)][_0x2b6fce(0x237)];VisuMZ[_0x2b6fce(0x3ca)][_0x2b6fce(0x2c6)](_0x40f762,_0x460d3a[_0x2b6fce(0x342)]);},VisuMZ[_0x2c6443(0x3ca)]['CreateAutoColorFor']=function(_0x50c279,_0xbd27f){const _0x3d0e5b=_0x2c6443;if(_0xbd27f<=0x0)return;const _0x203955=VisuMZ[_0x3d0e5b(0x3ca)][_0x3d0e5b(0x306)][_0x3d0e5b(0x237)]['TextColor'+_0xbd27f];let _0x29a611=_0x50c279[_0x3d0e5b(0x206)][_0x3d0e5b(0x3bf)]();if(/^\d+$/[_0x3d0e5b(0x24f)](_0x29a611))return;if(VisuMZ[_0x3d0e5b(0x3ca)]['AutoColorBypassList']['includes'](_0x29a611[_0x3d0e5b(0x42f)]()))return;_0x29a611=_0x29a611['replace'](/\\I\[(\d+)\]/gi,''),_0x29a611=_0x29a611['replace'](/\x1bI\[(\d+)\]/gi,'');if(_0x29a611[_0x3d0e5b(0x2f8)]<=0x0)return;if(_0x29a611['match'](/-----/i))return;_0x203955[_0x3d0e5b(0x3f0)](_0x29a611);},SceneManager[_0x2c6443(0x360)]=function(){const _0x5b1c77=_0x2c6443;return this[_0x5b1c77(0x3f3)]&&this[_0x5b1c77(0x3f3)][_0x5b1c77(0x42a)]===Scene_Battle;},SceneManager[_0x2c6443(0x464)]=function(){const _0x35577e=_0x2c6443;return this[_0x35577e(0x3f3)]&&this[_0x35577e(0x3f3)][_0x35577e(0x42a)]===Scene_Map;},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x2b5)]=TextManager['message'],TextManager[_0x2c6443(0x226)]=function(_0x585ace){const _0x561ee=_0x2c6443,_0x248630=[_0x561ee(0x396),_0x561ee(0x440),_0x561ee(0x2b7),_0x561ee(0x218),_0x561ee(0x254),_0x561ee(0x2f6),'escapeStart',_0x561ee(0x438),_0x561ee(0x220),'obtainItem'];let _0x2a69ae=VisuMZ[_0x561ee(0x3ca)]['TextManager_message'][_0x561ee(0x369)](this,_0x585ace);return _0x248630[_0x561ee(0x315)](_0x585ace)&&(_0x2a69ae=_0x561ee(0x343)+_0x2a69ae),_0x2a69ae;},ConfigManager['textSpeed']=VisuMZ[_0x2c6443(0x3ca)]['Settings'][_0x2c6443(0x412)]['Default'],VisuMZ['MessageCore'][_0x2c6443(0x414)]=ConfigManager[_0x2c6443(0x403)],ConfigManager[_0x2c6443(0x403)]=function(){const _0x1b1867=_0x2c6443,_0x53dd6c=VisuMZ[_0x1b1867(0x3ca)][_0x1b1867(0x414)]['call'](this);return _0x53dd6c[_0x1b1867(0x1f1)]=this['textSpeed'],_0x53dd6c;},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x3ec)]=ConfigManager[_0x2c6443(0x388)],ConfigManager[_0x2c6443(0x388)]=function(_0x51cd76){const _0x31b27e=_0x2c6443;VisuMZ[_0x31b27e(0x3ca)][_0x31b27e(0x3ec)][_0x31b27e(0x369)](this,_0x51cd76),_0x31b27e(0x1f1)in _0x51cd76?this[_0x31b27e(0x1f1)]=Number(_0x51cd76['textSpeed'])[_0x31b27e(0x2de)](0x1,0xb):this[_0x31b27e(0x1f1)]=VisuMZ[_0x31b27e(0x3ca)][_0x31b27e(0x306)][_0x31b27e(0x412)]['Default'];},TextManager[_0x2c6443(0x417)]=VisuMZ['MessageCore'][_0x2c6443(0x306)][_0x2c6443(0x412)][_0x2c6443(0x457)],TextManager[_0x2c6443(0x2e9)]=VisuMZ['MessageCore'][_0x2c6443(0x306)]['TextSpeed'][_0x2c6443(0x2fd)],VisuMZ['MessageCore'][_0x2c6443(0x2ae)]=Game_System[_0x2c6443(0x272)]['initialize'],Game_System[_0x2c6443(0x272)][_0x2c6443(0x2bf)]=function(){const _0x25750e=_0x2c6443;VisuMZ[_0x25750e(0x3ca)][_0x25750e(0x2ae)][_0x25750e(0x369)](this),this['initMessageCore']();},Game_System[_0x2c6443(0x272)][_0x2c6443(0x216)]=function(){const _0x309a0d=_0x2c6443,_0x1c23ad=VisuMZ[_0x309a0d(0x3ca)][_0x309a0d(0x306)][_0x309a0d(0x40d)],_0x29b93e=VisuMZ[_0x309a0d(0x3ca)][_0x309a0d(0x306)][_0x309a0d(0x389)];this['_MessageCoreSettings']={'messageRows':_0x1c23ad['MessageRows'],'messageWidth':_0x1c23ad[_0x309a0d(0x30c)],'messageWordWrap':_0x29b93e[_0x309a0d(0x43b)],'helpWordWrap':_0x29b93e[_0x309a0d(0x270)],'choiceLineHeight':_0x1c23ad[_0x309a0d(0x24c)],'choiceRows':_0x1c23ad[_0x309a0d(0x1e5)],'choiceCols':_0x1c23ad[_0x309a0d(0x34b)],'choiceTextAlign':_0x1c23ad[_0x309a0d(0x302)]},this[_0x309a0d(0x439)]===undefined&&(this[_0x309a0d(0x439)]=_0x1c23ad[_0x309a0d(0x231)],this[_0x309a0d(0x41c)]=_0x1c23ad[_0x309a0d(0x338)]);},Game_System[_0x2c6443(0x272)][_0x2c6443(0x38c)]=function(){const _0x141a8c=_0x2c6443;if(this[_0x141a8c(0x3b4)]===undefined)this[_0x141a8c(0x216)]();if(this['_MessageCoreSettings'][_0x141a8c(0x44f)]===undefined)this[_0x141a8c(0x216)]();return this[_0x141a8c(0x3b4)]['messageRows'];},Game_System['prototype'][_0x2c6443(0x310)]=function(_0x48a794){const _0x13ef51=_0x2c6443;if(this['_MessageCoreSettings']===undefined)this[_0x13ef51(0x216)]();if(this['_MessageCoreSettings'][_0x13ef51(0x44f)]===undefined)this[_0x13ef51(0x216)]();this['_MessageCoreSettings'][_0x13ef51(0x44f)]=_0x48a794||0x1;},Game_System[_0x2c6443(0x272)]['getMessageWindowWidth']=function(){const _0x7795b5=_0x2c6443;if(this['_MessageCoreSettings']===undefined)this[_0x7795b5(0x216)]();if(this[_0x7795b5(0x3b4)][_0x7795b5(0x21c)]===undefined)this[_0x7795b5(0x216)]();return this['_MessageCoreSettings'][_0x7795b5(0x21c)];},Game_System['prototype'][_0x2c6443(0x429)]=function(_0x1b96e0){const _0x113180=_0x2c6443;if(this['_MessageCoreSettings']===undefined)this['initMessageCore']();if(this[_0x113180(0x3b4)]['messageWidth']===undefined)this['initMessageCore']();_0x1b96e0=Math[_0x113180(0x219)](_0x1b96e0);if(_0x1b96e0%0x2!==0x0)_0x1b96e0+=0x1;this[_0x113180(0x3b4)][_0x113180(0x21c)]=_0x1b96e0||0x2;},Game_System[_0x2c6443(0x272)][_0x2c6443(0x45f)]=function(){const _0x580cf0=_0x2c6443;if(this[_0x580cf0(0x3b4)]===undefined)this['initMessageCore']();if(this[_0x580cf0(0x3b4)][_0x580cf0(0x32b)]===undefined)this[_0x580cf0(0x216)]();return this['_MessageCoreSettings']['messageWordWrap'];},Game_System[_0x2c6443(0x272)][_0x2c6443(0x2ba)]=function(_0x1c1545){const _0x419d73=_0x2c6443;if(this[_0x419d73(0x3b4)]===undefined)this[_0x419d73(0x216)]();if(this[_0x419d73(0x3b4)]['messageWordWrap']===undefined)this[_0x419d73(0x216)]();this[_0x419d73(0x3b4)][_0x419d73(0x32b)]=_0x1c1545;},Game_System[_0x2c6443(0x272)][_0x2c6443(0x350)]=function(){const _0x442740=_0x2c6443;if(this['_messageOffsetX']===undefined){const _0x11f13b=VisuMZ['MessageCore'][_0x442740(0x306)]['General'];this['_messageOffsetX']=_0x11f13b[_0x442740(0x231)],this[_0x442740(0x41c)]=_0x11f13b['MsgWindowOffsetY'];}return{'x':this[_0x442740(0x439)]||0x0,'y':this[_0x442740(0x41c)]||0x0};},Game_System['prototype'][_0x2c6443(0x277)]=function(_0x5db708,_0x28c29c){const _0x28e9d5=_0x2c6443;if(this['_MessageCoreSettings']===undefined)this['initMessageCore']();this['_messageOffsetX']=_0x5db708,this[_0x28e9d5(0x41c)]=_0x28c29c;},Game_System[_0x2c6443(0x272)][_0x2c6443(0x3be)]=function(){const _0xd7162b=_0x2c6443;if(this[_0xd7162b(0x3b4)]===undefined)this[_0xd7162b(0x216)]();if(this[_0xd7162b(0x3b4)][_0xd7162b(0x312)]===undefined)this[_0xd7162b(0x216)]();return this[_0xd7162b(0x3b4)]['helpWordWrap'];},Game_System[_0x2c6443(0x272)]['setHelpWindowWordWrap']=function(_0x18df86){const _0x3dedd1=_0x2c6443;if(this[_0x3dedd1(0x3b4)]===undefined)this[_0x3dedd1(0x216)]();if(this[_0x3dedd1(0x3b4)][_0x3dedd1(0x312)]===undefined)this[_0x3dedd1(0x216)]();this[_0x3dedd1(0x3b4)][_0x3dedd1(0x312)]=_0x18df86;},Game_System['prototype'][_0x2c6443(0x3d9)]=function(){const _0x4d69e5=_0x2c6443;if(this[_0x4d69e5(0x3b4)]===undefined)this[_0x4d69e5(0x216)]();if(this[_0x4d69e5(0x3b4)][_0x4d69e5(0x1ea)]===undefined)this['initMessageCore']();return this[_0x4d69e5(0x3b4)]['choiceLineHeight'];},Game_System[_0x2c6443(0x272)][_0x2c6443(0x2dc)]=function(_0x440d20){const _0xe050db=_0x2c6443;if(this[_0xe050db(0x3b4)]===undefined)this[_0xe050db(0x216)]();if(this[_0xe050db(0x3b4)][_0xe050db(0x1ea)]===undefined)this[_0xe050db(0x216)]();this[_0xe050db(0x3b4)][_0xe050db(0x1ea)]=_0x440d20||0x1;},Game_System['prototype'][_0x2c6443(0x31d)]=function(){const _0x1676f8=_0x2c6443;if(this[_0x1676f8(0x3b4)]===undefined)this['initMessageCore']();if(this['_MessageCoreSettings'][_0x1676f8(0x29a)]===undefined)this[_0x1676f8(0x216)]();return this[_0x1676f8(0x3b4)]['choiceRows'];},Game_System[_0x2c6443(0x272)][_0x2c6443(0x39d)]=function(_0x4ba02a){const _0x4048dd=_0x2c6443;if(this['_MessageCoreSettings']===undefined)this[_0x4048dd(0x216)]();if(this[_0x4048dd(0x3b4)][_0x4048dd(0x29a)]===undefined)this[_0x4048dd(0x216)]();this['_MessageCoreSettings']['choiceRows']=_0x4ba02a||0x1;},Game_System[_0x2c6443(0x272)][_0x2c6443(0x2ef)]=function(){const _0x23d125=_0x2c6443;if(this[_0x23d125(0x3b4)]===undefined)this[_0x23d125(0x216)]();if(this[_0x23d125(0x3b4)][_0x23d125(0x37a)]===undefined)this['initMessageCore']();return this[_0x23d125(0x3b4)][_0x23d125(0x37a)];},Game_System[_0x2c6443(0x272)][_0x2c6443(0x34c)]=function(_0x4b60a0){const _0x351377=_0x2c6443;if(this['_MessageCoreSettings']===undefined)this[_0x351377(0x216)]();if(this[_0x351377(0x3b4)][_0x351377(0x37a)]===undefined)this['initMessageCore']();this[_0x351377(0x3b4)][_0x351377(0x37a)]=_0x4b60a0||0x1;},Game_System[_0x2c6443(0x272)]['getChoiceListTextAlign']=function(){const _0x14d999=_0x2c6443;if(this[_0x14d999(0x3b4)]===undefined)this[_0x14d999(0x216)]();if(this[_0x14d999(0x3b4)][_0x14d999(0x229)]===undefined)this[_0x14d999(0x216)]();return this[_0x14d999(0x3b4)]['choiceTextAlign'];},Game_System['prototype'][_0x2c6443(0x3d0)]=function(_0x2de2ff){const _0x5e27bf=_0x2c6443;if(this['_MessageCoreSettings']===undefined)this[_0x5e27bf(0x216)]();if(this[_0x5e27bf(0x3b4)][_0x5e27bf(0x229)]===undefined)this['initMessageCore']();this[_0x5e27bf(0x3b4)]['choiceTextAlign']=_0x2de2ff[_0x5e27bf(0x2e8)]();},VisuMZ['MessageCore'][_0x2c6443(0x356)]=Game_Screen[_0x2c6443(0x272)][_0x2c6443(0x3a5)],Game_Screen[_0x2c6443(0x272)]['clearPictures']=function(){const _0x45b74a=_0x2c6443;VisuMZ['MessageCore'][_0x45b74a(0x356)]['call'](this),this[_0x45b74a(0x43d)]();},Game_Screen[_0x2c6443(0x272)][_0x2c6443(0x43d)]=function(){const _0x3d40b7=_0x2c6443;this[_0x3d40b7(0x267)]=[],this[_0x3d40b7(0x2fa)]=[],this[_0x3d40b7(0x2e4)]=[];},Game_Screen['prototype'][_0x2c6443(0x348)]=function(_0x4f913a){const _0x4efbf3=_0x2c6443;if(this[_0x4efbf3(0x267)]===undefined)this[_0x4efbf3(0x43d)]();const _0x3411ac=this['realPictureId'](_0x4f913a);return this[_0x4efbf3(0x267)][_0x3411ac]=this[_0x4efbf3(0x267)][_0x3411ac]||{},this[_0x4efbf3(0x267)][_0x3411ac];},Game_Screen['prototype'][_0x2c6443(0x3e1)]=function(_0x54dda7,_0x468608){const _0x469086=_0x2c6443;return _0x468608=_0x468608['toLowerCase']()[_0x469086(0x3bf)](),this['getPictureTextData'](_0x54dda7)[_0x468608]||'';},Game_Screen[_0x2c6443(0x272)]['setPictureText']=function(_0x12444b,_0x449e2a,_0x20bfe2){const _0x30d97d=_0x2c6443;_0x20bfe2=_0x20bfe2[_0x30d97d(0x2e8)]()['trim'](),this[_0x30d97d(0x348)](_0x12444b)[_0x20bfe2]=_0x449e2a||'';},Game_Screen[_0x2c6443(0x272)][_0x2c6443(0x34f)]=function(_0x56337f){const _0x12e36d=_0x2c6443;if(this[_0x12e36d(0x267)]===undefined)this[_0x12e36d(0x43d)]();const _0x8096c=this[_0x12e36d(0x445)](_0x56337f);this[_0x12e36d(0x267)][_0x8096c]=null;},Game_Screen['prototype'][_0x2c6443(0x3c8)]=function(_0x1088ae){const _0x1620e9=_0x2c6443;if(this[_0x1620e9(0x267)]===undefined)this[_0x1620e9(0x43d)]();const _0x4369a3=this[_0x1620e9(0x445)](_0x1088ae);return this[_0x1620e9(0x2fa)][_0x4369a3]||0x0;},Game_Screen[_0x2c6443(0x272)]['setPictureTextBuffer']=function(_0x5263a1,_0x4a2afb){const _0x18b7cb=_0x2c6443;if(this[_0x18b7cb(0x267)]===undefined)this['clearAllPictureTexts']();const _0x31508c=this[_0x18b7cb(0x445)](_0x5263a1);this[_0x18b7cb(0x2fa)][_0x31508c]=Math['max'](0x0,_0x4a2afb);},Game_Screen[_0x2c6443(0x272)][_0x2c6443(0x1dd)]=function(_0x296ab1){const _0x31718c=_0x2c6443;if(this[_0x31718c(0x267)]===undefined)this[_0x31718c(0x43d)]();const _0x31b004=this[_0x31718c(0x445)](_0x296ab1);this['_pictureTextBuffer'][_0x31b004]=undefined;},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x251)]=Game_Screen[_0x2c6443(0x272)][_0x2c6443(0x40a)],Game_Screen[_0x2c6443(0x272)][_0x2c6443(0x40a)]=function(_0x212a5f){const _0x2a165c=_0x2c6443;VisuMZ['MessageCore'][_0x2a165c(0x251)][_0x2a165c(0x369)](this,_0x212a5f),this[_0x2a165c(0x34f)](_0x212a5f),this[_0x2a165c(0x1dd)](_0x212a5f),this[_0x2a165c(0x344)](_0x212a5f);},Game_Screen[_0x2c6443(0x272)]['requestPictureTextRefreshAll']=function(){const _0x457793=_0x2c6443;for(const _0x5d5c67 of this[_0x457793(0x460)]){if(_0x5d5c67){let _0x218a34=this[_0x457793(0x460)][_0x457793(0x1e6)](_0x5d5c67);this['requestPictureTextRefresh'](_0x218a34);}}},Game_Screen['prototype'][_0x2c6443(0x344)]=function(_0x435d66){const _0x1806c3=_0x2c6443;this[_0x1806c3(0x2e4)]=this[_0x1806c3(0x2e4)]||[],this[_0x1806c3(0x2e4)]['push'](_0x435d66);},Game_Screen[_0x2c6443(0x272)][_0x2c6443(0x304)]=function(_0x577a79){const _0x44e42a=_0x2c6443;return this['_pictureTextRefresh']=this['_pictureTextRefresh']||[],this['_pictureTextRefresh'][_0x44e42a(0x315)](_0x577a79);},Game_Screen[_0x2c6443(0x272)][_0x2c6443(0x281)]=function(_0x9a5460){const _0x2d8eff=_0x2c6443;this[_0x2d8eff(0x2e4)]=this['_pictureTextRefresh']||[],this[_0x2d8eff(0x2e4)][_0x2d8eff(0x3b3)](_0x9a5460);},VisuMZ['MessageCore']['Game_Party_initialize']=Game_Party['prototype'][_0x2c6443(0x2bf)],Game_Party['prototype'][_0x2c6443(0x2bf)]=function(){const _0x2eb4bf=_0x2c6443;VisuMZ[_0x2eb4bf(0x3ca)]['Game_Party_initialize']['call'](this),this[_0x2eb4bf(0x216)]();},Game_Party['prototype'][_0x2c6443(0x216)]=function(){const _0x2a2fb4=_0x2c6443;this[_0x2a2fb4(0x299)]={'type':0x0,'id':0x0,'quantity':0x0};},Game_Party['prototype'][_0x2c6443(0x420)]=function(){const _0x449782=_0x2c6443;if(this['_lastGainedItemData']===undefined)this['initMessageCore']();return this[_0x449782(0x299)];},Game_Party[_0x2c6443(0x272)]['setLastGainedItemData']=function(_0x143a95,_0x1a0054){const _0x26e97d=_0x2c6443;if(this[_0x26e97d(0x299)]===undefined)this[_0x26e97d(0x216)]();if(!_0x143a95)return;if(DataManager[_0x26e97d(0x430)](_0x143a95))this[_0x26e97d(0x299)]['type']=0x0;else{if(DataManager[_0x26e97d(0x394)](_0x143a95))this[_0x26e97d(0x299)][_0x26e97d(0x3fd)]=0x1;else DataManager[_0x26e97d(0x1fd)](_0x143a95)&&(this[_0x26e97d(0x299)][_0x26e97d(0x3fd)]=0x2);}this[_0x26e97d(0x299)]['id']=_0x143a95['id'],this[_0x26e97d(0x299)]['quantity']=_0x1a0054;},VisuMZ[_0x2c6443(0x3ca)]['Game_Party_gainItem']=Game_Party[_0x2c6443(0x272)][_0x2c6443(0x431)],Game_Party[_0x2c6443(0x272)][_0x2c6443(0x431)]=function(_0x314380,_0x31f591,_0x160757){const _0x4d53a5=_0x2c6443;VisuMZ[_0x4d53a5(0x3ca)]['Game_Party_gainItem'][_0x4d53a5(0x369)](this,_0x314380,_0x31f591,_0x160757),_0x31f591>0x0&&this[_0x4d53a5(0x295)](_0x314380,_0x31f591);},VisuMZ['MessageCore'][_0x2c6443(0x425)]=Game_Map[_0x2c6443(0x272)][_0x2c6443(0x2bf)],Game_Map['prototype'][_0x2c6443(0x2bf)]=function(){const _0x11dcee=_0x2c6443;VisuMZ['MessageCore'][_0x11dcee(0x425)]['call'](this),this[_0x11dcee(0x340)]=[];},VisuMZ['MessageCore'][_0x2c6443(0x407)]=Game_Map[_0x2c6443(0x272)][_0x2c6443(0x221)],Game_Map[_0x2c6443(0x272)]['setupEvents']=function(){const _0xdaa84a=_0x2c6443;VisuMZ[_0xdaa84a(0x3ca)]['Game_Map_setupEvents'][_0xdaa84a(0x369)](this),this[_0xdaa84a(0x340)]=[];},VisuMZ[_0x2c6443(0x3ca)]['Game_Map_updateEvents']=Game_Map[_0x2c6443(0x272)][_0x2c6443(0x32c)],Game_Map[_0x2c6443(0x272)][_0x2c6443(0x32c)]=function(){const _0x35d174=_0x2c6443;VisuMZ[_0x35d174(0x3ca)]['Game_Map_updateEvents']['call'](this),this[_0x35d174(0x39a)]();},Game_Map['prototype'][_0x2c6443(0x405)]=function(_0x4c69f1){const _0xa0d98b=_0x2c6443;if(!$dataCommonEvents[_0x4c69f1])return;this['_messageCommonEvents']=this[_0xa0d98b(0x340)]||[];const _0x127b19=this[_0xa0d98b(0x2e2)][_0xa0d98b(0x261)],_0x599381=new Game_MessageCommonEvent(_0x4c69f1,_0x127b19);this[_0xa0d98b(0x340)][_0xa0d98b(0x3f0)](_0x599381);},Game_Map['prototype'][_0x2c6443(0x39a)]=function(){const _0xc98724=_0x2c6443;this[_0xc98724(0x340)]=this[_0xc98724(0x340)]||[];for(const _0x86fb79 of this[_0xc98724(0x340)]){!_0x86fb79[_0xc98724(0x2e2)]?this['_messageCommonEvents'][_0xc98724(0x3b3)](_0x86fb79):_0x86fb79[_0xc98724(0x282)]();}},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x381)]=Game_Map[_0x2c6443(0x272)][_0x2c6443(0x293)],Game_Map[_0x2c6443(0x272)][_0x2c6443(0x293)]=function(){VisuMZ['MessageCore']['Game_Map_refresh']['call'](this),$gameScreen['requestPictureTextRefreshAll']();},Game_Interpreter[_0x2c6443(0x272)][_0x2c6443(0x313)]=function(_0x43c121){const _0x5c1714=_0x2c6443;if($gameMessage[_0x5c1714(0x3a8)]())return![];return this[_0x5c1714(0x2d4)](_0x43c121),this[_0x5c1714(0x38a)](_0x43c121),this[_0x5c1714(0x3ee)](_0x43c121),this[_0x5c1714(0x43e)](_0x5c1714(0x226)),!![];},Game_Interpreter['prototype'][_0x2c6443(0x2d4)]=function(_0x3c98bf){const _0x574b6c=_0x2c6443;$gameMessage[_0x574b6c(0x3a2)](_0x3c98bf[0x0],_0x3c98bf[0x1]),$gameMessage[_0x574b6c(0x30e)](_0x3c98bf[0x2]),$gameMessage[_0x574b6c(0x3bb)](_0x3c98bf[0x3]),$gameMessage[_0x574b6c(0x3e9)](_0x3c98bf[0x4]);},Game_Interpreter['prototype'][_0x2c6443(0x38a)]=function(_0x2def48){const _0x128040=_0x2c6443;while(this[_0x128040(0x3b0)]()){this[_0x128040(0x2a7)]++;if(this[_0x128040(0x427)]()[_0x128040(0x209)]===0x191){let _0x56de2a=this[_0x128040(0x427)]()['parameters'][0x0];_0x56de2a=VisuMZ['MessageCore']['ParseAddedText'](_0x56de2a),$gameMessage[_0x128040(0x400)](_0x56de2a);}if(this['isBreakShowTextCommands']())break;}},Game_Interpreter['prototype'][_0x2c6443(0x3b0)]=function(){const _0x524dc9=_0x2c6443;return this[_0x524dc9(0x285)]()===0x65&&$gameSystem[_0x524dc9(0x38c)]()>0x4?!![]:this['nextEventCode']()===0x191;},VisuMZ[_0x2c6443(0x3ca)]['ParseAddedText']=function(_0x48fbad){return _0x48fbad=_0x48fbad['replace'](/<(?:NEXT PAGE|NEXTPAGE)>/gi,''),_0x48fbad;},Game_Interpreter[_0x2c6443(0x272)][_0x2c6443(0x260)]=function(){const _0x32320e=_0x2c6443;if(this['currentCommand']()&&this[_0x32320e(0x427)]()[_0x32320e(0x1fc)][0x0][_0x32320e(0x22e)](/<(?:NEXT PAGE|NEXTPAGE)>/gi))return!![];return $gameMessage[_0x32320e(0x370)]['length']>=$gameSystem[_0x32320e(0x38c)]()&&this[_0x32320e(0x285)]()!==0x191;},Game_Interpreter[_0x2c6443(0x272)]['prepareShowTextFollowups']=function(_0x16f410){const _0x3b018b=_0x2c6443;switch(this[_0x3b018b(0x285)]()){case 0x66:this[_0x3b018b(0x2a7)]++,this[_0x3b018b(0x2a5)](this[_0x3b018b(0x427)]()['parameters']);break;case 0x67:this[_0x3b018b(0x2a7)]++,this[_0x3b018b(0x205)](this[_0x3b018b(0x427)]()[_0x3b018b(0x1fc)]);break;case 0x68:this[_0x3b018b(0x2a7)]++,this[_0x3b018b(0x2ed)](this['currentCommand']()['parameters']);break;}},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x437)]=Game_Interpreter[_0x2c6443(0x272)][_0x2c6443(0x2a5)],Game_Interpreter['prototype'][_0x2c6443(0x2a5)]=function(_0x2c266c){const _0x128dc7=_0x2c6443;_0x2c266c=this['addContinuousShowChoices'](),VisuMZ[_0x128dc7(0x3ca)][_0x128dc7(0x437)]['call'](this,_0x2c266c);},Game_Interpreter[_0x2c6443(0x272)][_0x2c6443(0x3c2)]=function(){const _0x27ac68=_0x2c6443,_0x12e684=this[_0x27ac68(0x2a7)],_0x252a59=[];let _0x247302=0x0;this[_0x27ac68(0x2a7)]++;while(this['_index']<this[_0x27ac68(0x3ae)][_0x27ac68(0x2f8)]){if(this[_0x27ac68(0x427)]()[_0x27ac68(0x36f)]===this[_0x27ac68(0x215)]){if(this['currentCommand']()[_0x27ac68(0x209)]===0x194&&this[_0x27ac68(0x285)]()!==0x66)break;else{if(this[_0x27ac68(0x427)]()[_0x27ac68(0x209)]===0x66)this[_0x27ac68(0x2ac)](_0x247302,this['currentCommand'](),_0x12e684),this[_0x27ac68(0x2a7)]-=0x2;else this[_0x27ac68(0x427)]()[_0x27ac68(0x209)]===0x192&&(this[_0x27ac68(0x427)]()[_0x27ac68(0x1fc)][0x0]=_0x247302,_0x247302++);}}this[_0x27ac68(0x2a7)]++;}return this[_0x27ac68(0x2a7)]=_0x12e684,this[_0x27ac68(0x427)]()[_0x27ac68(0x1fc)];},Game_Interpreter[_0x2c6443(0x272)][_0x2c6443(0x2ac)]=function(_0x1703ca,_0x24de2f,_0x10b38b){const _0x5aaf5d=_0x2c6443;this['adjustShowChoiceDefault'](_0x1703ca,_0x24de2f,_0x10b38b),this[_0x5aaf5d(0x36c)](_0x1703ca,_0x24de2f,_0x10b38b),this[_0x5aaf5d(0x284)](_0x24de2f,_0x10b38b);},Game_Interpreter[_0x2c6443(0x272)][_0x2c6443(0x456)]=function(_0x531085,_0xdd9d4b,_0x126e43){const _0xed09c=_0x2c6443;if(_0xdd9d4b[_0xed09c(0x1fc)][0x2]<0x0)return;const _0x2e5b5c=_0xdd9d4b[_0xed09c(0x1fc)][0x2]+_0x531085;this[_0xed09c(0x3ae)][_0x126e43]['parameters'][0x2]=_0x2e5b5c;},Game_Interpreter[_0x2c6443(0x272)]['adjustShowChoiceCancel']=function(_0xa361fc,_0x5d2f4c,_0xef56d7){const _0x3104f0=_0x2c6443;if(_0x5d2f4c[_0x3104f0(0x1fc)][0x1]>=0x0){var _0x252793=_0x5d2f4c[_0x3104f0(0x1fc)][0x1]+_0xa361fc;this[_0x3104f0(0x3ae)][_0xef56d7][_0x3104f0(0x1fc)][0x1]=_0x252793;}else _0x5d2f4c[_0x3104f0(0x1fc)][0x1]===-0x2&&(this['_list'][_0xef56d7][_0x3104f0(0x1fc)][0x1]=_0x5d2f4c['parameters'][0x1]);},Game_Interpreter[_0x2c6443(0x272)][_0x2c6443(0x284)]=function(_0x269f2e,_0x3e1aef){const _0x1867a0=_0x2c6443;for(const _0x583289 of _0x269f2e['parameters'][0x0]){this['_list'][_0x3e1aef][_0x1867a0(0x1fc)][0x0][_0x1867a0(0x3f0)](_0x583289);}this[_0x1867a0(0x3ae)][_0x1867a0(0x266)](this[_0x1867a0(0x2a7)]-0x1,0x2);};function Game_MessageCommonEvent(){const _0x49a985=_0x2c6443;this[_0x49a985(0x2bf)](...arguments);}function _0x4523(_0x46361d,_0x5818ff){const _0x4ea5c9=_0x4ea5();return _0x4523=function(_0x4523f0,_0x55c716){_0x4523f0=_0x4523f0-0x1dc;let _0x37e3b6=_0x4ea5c9[_0x4523f0];return _0x37e3b6;},_0x4523(_0x46361d,_0x5818ff);}Game_MessageCommonEvent[_0x2c6443(0x272)]['initialize']=function(_0x2f21dd,_0x2cacf5){const _0x58b212=_0x2c6443;this[_0x58b212(0x2bd)]=_0x2f21dd,this[_0x58b212(0x261)]=_0x2cacf5||0x0,this['refresh']();},Game_MessageCommonEvent['prototype'][_0x2c6443(0x3ef)]=function(){return $dataCommonEvents[this['_commonEventId']];},Game_MessageCommonEvent[_0x2c6443(0x272)][_0x2c6443(0x2c5)]=function(){return this['event']()['list'];},Game_MessageCommonEvent[_0x2c6443(0x272)][_0x2c6443(0x293)]=function(){const _0x62c08c=_0x2c6443;this[_0x62c08c(0x2e2)]=new Game_Interpreter(),this['_interpreter'][_0x62c08c(0x298)](this[_0x62c08c(0x2c5)](),this['_eventId']);},Game_MessageCommonEvent['prototype'][_0x2c6443(0x282)]=function(){const _0x5dde0d=_0x2c6443;this['_interpreter']&&(this['_interpreter'][_0x5dde0d(0x23f)]()?this[_0x5dde0d(0x2e2)][_0x5dde0d(0x282)]():this[_0x5dde0d(0x3a3)]());},Game_MessageCommonEvent[_0x2c6443(0x272)][_0x2c6443(0x3a3)]=function(){const _0x5de903=_0x2c6443;this[_0x5de903(0x2e2)]=null;},Scene_Message[_0x2c6443(0x272)][_0x2c6443(0x3e0)]=function(){const _0x3140e5=_0x2c6443,_0x7a84db=Math['min'](Graphics[_0x3140e5(0x327)],$gameSystem[_0x3140e5(0x3e2)]()),_0x2fea3b=$gameSystem[_0x3140e5(0x38c)](),_0xcda90a=this[_0x3140e5(0x411)](_0x2fea3b,![]),_0x284524=(Graphics[_0x3140e5(0x200)]-_0x7a84db)/0x2,_0x255f65=0x0;return new Rectangle(_0x284524,_0x255f65,_0x7a84db,_0xcda90a);},VisuMZ['MessageCore'][_0x2c6443(0x3bc)]=Scene_Options[_0x2c6443(0x272)][_0x2c6443(0x28a)],Scene_Options[_0x2c6443(0x272)][_0x2c6443(0x28a)]=function(){const _0x3b3798=_0x2c6443;let _0x10bac3=VisuMZ['MessageCore'][_0x3b3798(0x3bc)][_0x3b3798(0x369)](this);const _0x4ae6af=VisuMZ[_0x3b3798(0x3ca)][_0x3b3798(0x306)];if(_0x4ae6af[_0x3b3798(0x412)][_0x3b3798(0x326)]&&_0x4ae6af[_0x3b3798(0x412)]['AdjustRect'])_0x10bac3++;return _0x10bac3;},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x45a)]=Sprite_Picture[_0x2c6443(0x272)][_0x2c6443(0x461)],Sprite_Picture[_0x2c6443(0x272)][_0x2c6443(0x461)]=function(){const _0x264ac3=_0x2c6443;VisuMZ['MessageCore'][_0x264ac3(0x45a)][_0x264ac3(0x369)](this),this[_0x264ac3(0x1f5)]();},VisuMZ[_0x2c6443(0x3ca)]['Sprite_Picture_update']=Sprite_Picture['prototype'][_0x2c6443(0x282)],Sprite_Picture[_0x2c6443(0x272)][_0x2c6443(0x282)]=function(){const _0x4f1595=_0x2c6443;VisuMZ[_0x4f1595(0x3ca)]['Sprite_Picture_update'][_0x4f1595(0x369)](this),this[_0x4f1595(0x371)]();},Sprite_Picture[_0x2c6443(0x272)][_0x2c6443(0x371)]=function(){const _0x285762=_0x2c6443;if(!this[_0x285762(0x1e7)])return;this[_0x285762(0x1ee)](),this[_0x285762(0x337)](),this[_0x285762(0x3e6)](),this[_0x285762(0x21a)]();},Sprite_Picture[_0x2c6443(0x272)][_0x2c6443(0x1f5)]=function(){const _0x50a10d=_0x2c6443;if(this[_0x50a10d(0x395)])return;if(this[_0x50a10d(0x2cf)])return;const _0x4c73b6=new Rectangle(0x0,0x0,0x0,0x0);this[_0x50a10d(0x395)]=new Window_Base(_0x4c73b6),this[_0x50a10d(0x395)]['padding']=0x0,this['_pictureTextSprite']=new Sprite(),this[_0x50a10d(0x35d)](this[_0x50a10d(0x2cf)],0x0),this[_0x50a10d(0x26d)]=0x0,this['_pictureTextHeight']=0x0,this[_0x50a10d(0x418)]={};},Sprite_Picture[_0x2c6443(0x272)][_0x2c6443(0x1ee)]=function(){const _0x4ab884=_0x2c6443;if(!this[_0x4ab884(0x395)])return;if(this['_pictureTextWidth']===this[_0x4ab884(0x327)]&&this['_pictureTextHeight']===this[_0x4ab884(0x3c3)])return;this[_0x4ab884(0x26d)]=this[_0x4ab884(0x327)],this[_0x4ab884(0x421)]=this[_0x4ab884(0x3c3)],this[_0x4ab884(0x418)]={},this['_pictureTextWindow'][_0x4ab884(0x29d)](0x0,0x0,this[_0x4ab884(0x327)],this[_0x4ab884(0x3c3)]);},Sprite_Picture[_0x2c6443(0x272)][_0x2c6443(0x337)]=function(){const _0xe17989=_0x2c6443;if(!this[_0xe17989(0x2cf)])return;this[_0xe17989(0x2cf)][_0xe17989(0x246)]['x']=this[_0xe17989(0x246)]['x'],this[_0xe17989(0x2cf)][_0xe17989(0x246)]['y']=this[_0xe17989(0x246)]['y'];},Sprite_Picture[_0x2c6443(0x272)][_0x2c6443(0x3e6)]=function(){const _0x1b87e4=_0x2c6443;if(!this[_0x1b87e4(0x395)])return;if(!this[_0x1b87e4(0x2e6)]())return;const _0xc59337=['upperleft','up',_0x1b87e4(0x3a4),_0x1b87e4(0x3ba),_0x1b87e4(0x3f1),_0x1b87e4(0x287),_0x1b87e4(0x265),'down',_0x1b87e4(0x275)];this['_pictureTextWindow'][_0x1b87e4(0x26f)]();for(const _0x40332c of _0xc59337){this[_0x1b87e4(0x1f2)](_0x40332c);}},Sprite_Picture[_0x2c6443(0x272)][_0x2c6443(0x2e6)]=function(){const _0x4753cc=_0x2c6443;if($gameScreen[_0x4753cc(0x304)](this[_0x4753cc(0x30a)]))return!![];const _0x2a3bdc=[_0x4753cc(0x44b),'up',_0x4753cc(0x3a4),'left',_0x4753cc(0x3f1),_0x4753cc(0x287),'lowerleft','down',_0x4753cc(0x275)];for(const _0x44fe57 of _0x2a3bdc){const _0x467ca1=$gameScreen[_0x4753cc(0x3e1)](this[_0x4753cc(0x30a)],_0x44fe57);if(this[_0x4753cc(0x418)][_0x44fe57]===_0x467ca1)continue;return!![];}return![];},Sprite_Picture['prototype'][_0x2c6443(0x1f2)]=function(_0x527f2c){const _0x1e891c=_0x2c6443;$gameScreen['clearPictureTextRefresh'](this[_0x1e891c(0x30a)]);const _0x319cef=$gameScreen[_0x1e891c(0x3e1)](this[_0x1e891c(0x30a)],_0x527f2c);this[_0x1e891c(0x418)][_0x527f2c]=_0x319cef;const _0x2aea41=this['_pictureTextWindow'][_0x1e891c(0x1f7)](_0x319cef);let _0x18e588=$gameScreen[_0x1e891c(0x3c8)](this[_0x1e891c(0x30a)]),_0x45b1c8=_0x18e588,_0x168230=_0x18e588;if(['up','center',_0x1e891c(0x256)][_0x1e891c(0x315)](_0x527f2c))_0x45b1c8=Math['floor']((this[_0x1e891c(0x327)]-_0x2aea41['width'])/0x2);else[_0x1e891c(0x3a4),'right','lowerright'][_0x1e891c(0x315)](_0x527f2c)&&(_0x45b1c8=Math['floor'](this[_0x1e891c(0x327)]-_0x2aea41[_0x1e891c(0x327)]-_0x18e588));if([_0x1e891c(0x3ba),'center',_0x1e891c(0x287)]['includes'](_0x527f2c))_0x168230=Math[_0x1e891c(0x301)]((this['height']-_0x2aea41[_0x1e891c(0x3c3)])/0x2);else[_0x1e891c(0x265),'down',_0x1e891c(0x275)][_0x1e891c(0x315)](_0x527f2c)&&(_0x168230=Math[_0x1e891c(0x301)](this['height']-_0x2aea41[_0x1e891c(0x3c3)]-_0x18e588));this[_0x1e891c(0x395)][_0x1e891c(0x451)](_0x319cef,_0x45b1c8,_0x168230);},Sprite_Picture[_0x2c6443(0x272)][_0x2c6443(0x21a)]=function(){const _0x5c77b3=_0x2c6443;if(!this[_0x5c77b3(0x395)])return;if(!this[_0x5c77b3(0x2cf)])return;this['_pictureTextSprite']['bitmap']=this[_0x5c77b3(0x395)]['contents'];},VisuMZ[_0x2c6443(0x3ca)]['Window_Base_initialize']=Window_Base['prototype']['initialize'],Window_Base[_0x2c6443(0x272)][_0x2c6443(0x2bf)]=function(_0x1deaf5){const _0x240373=_0x2c6443;this[_0x240373(0x216)](_0x1deaf5),VisuMZ[_0x240373(0x3ca)][_0x240373(0x325)][_0x240373(0x369)](this,_0x1deaf5);},Window_Base['prototype'][_0x2c6443(0x216)]=function(_0x41c5df){const _0x5854d8=_0x2c6443;this[_0x5854d8(0x3d8)](),this[_0x5854d8(0x450)](),this['registerResetRect'](_0x41c5df);},Window_Base['prototype'][_0x2c6443(0x3d8)]=function(){const _0x4b2201=_0x2c6443;this[_0x4b2201(0x28d)]('default');},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x28d)]=function(_0x2d400f){this['_textAlignment']=_0x2d400f;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x3ea)]=function(){return this['_textAlignment'];},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x2e1)]=Window_Base[_0x2c6443(0x272)][_0x2c6443(0x1f7)],Window_Base[_0x2c6443(0x272)][_0x2c6443(0x1f7)]=function(_0x3608b4){const _0x50d3b8=_0x2c6443;return this[_0x50d3b8(0x450)](),VisuMZ[_0x50d3b8(0x3ca)][_0x50d3b8(0x2e1)]['call'](this,_0x3608b4);},Window_Base['prototype'][_0x2c6443(0x3f7)]=function(_0x109c0e){const _0x592c63=_0x2c6443;return VisuMZ['MessageCore'][_0x592c63(0x2e1)][_0x592c63(0x369)](this,_0x109c0e);},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x379)]=Window_Base[_0x2c6443(0x272)][_0x2c6443(0x2d3)],Window_Base[_0x2c6443(0x272)][_0x2c6443(0x2d3)]=function(_0x49b0c1){const _0x300c1b=_0x2c6443;VisuMZ['MessageCore'][_0x300c1b(0x379)]['call'](this,_0x49b0c1);if(_0x49b0c1['drawing'])this['setTextAlignment'](_0x300c1b(0x43c));},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x450)]=function(){const _0x5b2108=_0x2c6443;this[_0x5b2108(0x240)](![]);},Window_Base['prototype'][_0x2c6443(0x3cf)]=function(){const _0x48f4ba=_0x2c6443;return this[_0x48f4ba(0x458)];},Window_Base['prototype']['setWordWrap']=function(_0xc5df1c){const _0x47e3bc=_0x2c6443;return this[_0x47e3bc(0x458)]=_0xc5df1c,'';},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x32e)]=function(_0x248abd){const _0x22a231=_0x2c6443;this[_0x22a231(0x23e)]=JsonEx['makeDeepCopy'](_0x248abd);},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x3d4)]=function(){const _0x22d729=_0x2c6443;this[_0x22d729(0x305)][_0x22d729(0x329)]=$gameSystem[_0x22d729(0x372)](),this[_0x22d729(0x305)][_0x22d729(0x27e)]=$gameSystem['mainFontSize'](),this[_0x22d729(0x305)][_0x22d729(0x3b2)]=![],this['contents'][_0x22d729(0x2a9)]=![],this['resetTextColor']();},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x2f7)]=function(){const _0x23c13d=_0x2c6443;this[_0x23c13d(0x361)](ColorManager['normalColor']()),this['changeOutlineColor'](ColorManager[_0x23c13d(0x2c1)]());const _0x51863c=VisuMZ[_0x23c13d(0x3ca)][_0x23c13d(0x306)][_0x23c13d(0x40d)];_0x51863c[_0x23c13d(0x31e)]===undefined&&(_0x51863c[_0x23c13d(0x31e)]=0x3),this[_0x23c13d(0x305)][_0x23c13d(0x30b)]=_0x51863c[_0x23c13d(0x31e)],this[_0x23c13d(0x311)](![]);},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x311)]=function(_0x22676d){const _0x2c1b82=_0x2c6443;this[_0x2c1b82(0x37c)]=_0x22676d;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x409)]=function(){const _0x4e041e=_0x2c6443;return this[_0x4e041e(0x37c)];},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x25c)]=function(){return![];},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x393)]=function(){const _0x36a81e=_0x2c6443,_0x5f67cd=[_0x36a81e(0x329),_0x36a81e(0x27e),_0x36a81e(0x3b2),_0x36a81e(0x2a9),_0x36a81e(0x365),_0x36a81e(0x3d7),_0x36a81e(0x30b),_0x36a81e(0x44e)];let _0x9f04ce={};for(const _0x1da8b9 of _0x5f67cd){_0x9f04ce[_0x1da8b9]=this[_0x36a81e(0x305)][_0x1da8b9];}return _0x9f04ce;},Window_Base['prototype']['returnPreservedFontSettings']=function(_0x31a477){const _0x29abf7=_0x2c6443;for(const _0xb1248 in _0x31a477){this[_0x29abf7(0x305)][_0xb1248]=_0x31a477[_0xb1248];}},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x303)]=Window_Base[_0x2c6443(0x272)]['update'],Window_Base['prototype'][_0x2c6443(0x282)]=function(){const _0x16c2ec=_0x2c6443;VisuMZ['MessageCore'][_0x16c2ec(0x303)]['call'](this),this[_0x16c2ec(0x3c6)]();},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x2cd)]=function(){return![];},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x3c6)]=function(){const _0x7789d7=_0x2c6443;this[_0x7789d7(0x392)]>0x0&&(this[_0x7789d7(0x2cd)]()&&(this['x']=this[_0x7789d7(0x259)](this['x'],this[_0x7789d7(0x32a)]),this['y']=this[_0x7789d7(0x259)](this['y'],this[_0x7789d7(0x25b)]),this[_0x7789d7(0x327)]=this[_0x7789d7(0x259)](this[_0x7789d7(0x327)],this[_0x7789d7(0x264)]),this[_0x7789d7(0x3c3)]=this[_0x7789d7(0x259)](this[_0x7789d7(0x3c3)],this[_0x7789d7(0x34d)]),this[_0x7789d7(0x2ce)]()),this['_moveDuration']--);},Window_Base[_0x2c6443(0x272)]['clampPlacementPosition']=function(_0x5ab9d0,_0x39f053){const _0x48af46=_0x2c6443;!_0x5ab9d0&&(this['width']=Math[_0x48af46(0x291)](this['width'],Graphics[_0x48af46(0x327)]),this['height']=Math['min'](this['height'],Graphics['height']));if(!_0x39f053){const _0x532ccf=-(Math[_0x48af46(0x301)](Graphics['width']-Graphics[_0x48af46(0x200)])/0x2),_0x23af8f=_0x532ccf+Graphics[_0x48af46(0x327)]-this[_0x48af46(0x327)],_0x1fc605=-(Math['floor'](Graphics['height']-Graphics[_0x48af46(0x382)])/0x2),_0x51a7a7=_0x1fc605+Graphics['height']-this[_0x48af46(0x3c3)];this['x']=this['x'][_0x48af46(0x2de)](_0x532ccf,_0x23af8f),this['y']=this['y']['clamp'](_0x1fc605,_0x51a7a7);}},Window_Base[_0x2c6443(0x272)]['applyMoveEasing']=function(_0x226774,_0x5e816e){const _0x5e0349=_0x2c6443,_0x4d8425=this[_0x5e0349(0x392)],_0x383839=this[_0x5e0349(0x347)],_0x3170b3=this[_0x5e0349(0x1f4)]((_0x383839-_0x4d8425)/_0x383839),_0x8b6af5=this[_0x5e0349(0x1f4)]((_0x383839-_0x4d8425+0x1)/_0x383839),_0x4b2e3f=(_0x226774-_0x5e816e*_0x3170b3)/(0x1-_0x3170b3);return _0x4b2e3f+(_0x5e816e-_0x4b2e3f)*_0x8b6af5;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x1f4)]=function(_0xc9a326){const _0x10c995=_0x2c6443,_0xa9886e=0x2;switch(this[_0x10c995(0x2c9)]){case 0x0:return _0xc9a326;case 0x1:return this[_0x10c995(0x1fa)](_0xc9a326,_0xa9886e);case 0x2:return this[_0x10c995(0x276)](_0xc9a326,_0xa9886e);case 0x3:return this[_0x10c995(0x402)](_0xc9a326,_0xa9886e);default:return Imported[_0x10c995(0x452)]?VisuMZ[_0x10c995(0x259)](_0xc9a326,this['_moveEasingType']):_0xc9a326;}},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x26e)]=function(_0x598179,_0x2a4ccf,_0xbce5ad,_0x317f3f,_0x474dc6,_0x1679e0){const _0x47eac0=_0x2c6443;this[_0x47eac0(0x32a)]=_0x598179,this[_0x47eac0(0x25b)]=_0x2a4ccf,this[_0x47eac0(0x264)]=_0xbce5ad||this[_0x47eac0(0x327)],this[_0x47eac0(0x34d)]=_0x317f3f||this[_0x47eac0(0x3c3)],this[_0x47eac0(0x392)]=_0x474dc6||0x1;if(this[_0x47eac0(0x392)]<=0x0)this['_moveDuration']=0x1;this[_0x47eac0(0x347)]=this[_0x47eac0(0x392)],this[_0x47eac0(0x2c9)]=_0x1679e0||0x0;if(_0x474dc6<=0x0)this['updateMove']();},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x3ff)]=function(_0x474e22,_0x48f98b,_0x1f01f2,_0x24b810,_0x1b291d,_0x143b83){const _0x486e29=_0x2c6443;this[_0x486e29(0x32a)]=this['x']+_0x474e22,this['_moveTargetY']=this['y']+_0x48f98b,this[_0x486e29(0x264)]=this[_0x486e29(0x327)]+(_0x1f01f2||0x0),this[_0x486e29(0x34d)]=this[_0x486e29(0x3c3)]+(_0x24b810||0x0),this[_0x486e29(0x392)]=_0x1b291d||0x1;if(this[_0x486e29(0x392)]<=0x0)this[_0x486e29(0x392)]=0x1;this[_0x486e29(0x347)]=this['_moveDuration'],this[_0x486e29(0x2c9)]=_0x143b83||0x0;if(_0x1b291d<=0x0)this[_0x486e29(0x3c6)]();},Window_Base[_0x2c6443(0x272)]['resetRect']=function(_0x46cff9,_0x40063e){const _0x5a5796=_0x2c6443;this[_0x5a5796(0x26e)](this[_0x5a5796(0x23e)]['x'],this[_0x5a5796(0x23e)]['y'],this[_0x5a5796(0x23e)][_0x5a5796(0x327)],this[_0x5a5796(0x23e)][_0x5a5796(0x3c3)],_0x46cff9,_0x40063e);},VisuMZ['MessageCore'][_0x2c6443(0x320)]=Window_Base[_0x2c6443(0x272)][_0x2c6443(0x361)],Window_Base[_0x2c6443(0x272)][_0x2c6443(0x361)]=function(_0x2f941f){const _0x35a3e1=_0x2c6443;if(this[_0x35a3e1(0x409)]())return;_0x2f941f=_0x2f941f[_0x35a3e1(0x39e)](/\,/g,''),this[_0x35a3e1(0x44d)]=this['_textColorStack']||[],this[_0x35a3e1(0x44d)][_0x35a3e1(0x3b9)](this[_0x35a3e1(0x305)][_0x35a3e1(0x365)]),VisuMZ['MessageCore'][_0x35a3e1(0x320)][_0x35a3e1(0x369)](this,_0x2f941f);},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x387)]=function(_0x366b40){const _0x288cfa=_0x2c6443;this[_0x288cfa(0x385)](_0x366b40);if(this[_0x288cfa(0x409)]())return;_0x366b40[_0x288cfa(0x33c)]&&(this[_0x288cfa(0x44d)]=this['_textColorStack']||[],this[_0x288cfa(0x305)]['textColor']=this[_0x288cfa(0x44d)][_0x288cfa(0x297)]()||ColorManager['normalColor']());},Window_Base['prototype'][_0x2c6443(0x1ef)]=function(_0x45249d){const _0x41a1ed=_0x2c6443;return _0x45249d=this['convertTextMacros'](_0x45249d),_0x45249d=this['convertBackslashCharacters'](_0x45249d),_0x45249d=this[_0x41a1ed(0x2d1)](_0x45249d),_0x45249d=this['convertButtonAssistEscapeCharacters'](_0x45249d),_0x45249d=this[_0x41a1ed(0x2af)](_0x45249d),_0x45249d=this['convertShowChoiceEscapeCodes'](_0x45249d),_0x45249d=this['convertFontSettingsEscapeCharacters'](_0x45249d),_0x45249d=this[_0x41a1ed(0x1ed)](_0x45249d),_0x45249d=this['convertLockColorsEscapeCharacters'](_0x45249d),_0x45249d=this[_0x41a1ed(0x446)](_0x45249d),_0x45249d=this['convertHardcodedEscapeReplacements'](_0x45249d),_0x45249d=this[_0x41a1ed(0x202)](_0x45249d),_0x45249d=this[_0x41a1ed(0x232)](_0x45249d),_0x45249d=this[_0x41a1ed(0x2c4)](_0x45249d),_0x45249d=this[_0x41a1ed(0x2d1)](_0x45249d),_0x45249d=this[_0x41a1ed(0x35c)](_0x45249d),_0x45249d=this[_0x41a1ed(0x3ac)](_0x45249d),_0x45249d;},Window_Base['prototype'][_0x2c6443(0x20c)]=function(_0x34e4f6){const _0xd7f6b8=_0x2c6443;this['_textMacroFound']=![];for(const _0x3d0f48 of VisuMZ['MessageCore']['Settings'][_0xd7f6b8(0x22d)]){_0x34e4f6[_0xd7f6b8(0x22e)](_0x3d0f48['textCodeCheck'])&&(this[_0xd7f6b8(0x34e)]=!![],_0x34e4f6=_0x34e4f6[_0xd7f6b8(0x39e)](_0x3d0f48[_0xd7f6b8(0x2a8)],_0x3d0f48[_0xd7f6b8(0x3b7)]['bind'](this)));}return _0x34e4f6;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x244)]=function(_0x4c77df){const _0x3a3763=_0x2c6443;return _0x4c77df=_0x4c77df[_0x3a3763(0x39e)](/\\/g,'\x1b'),_0x4c77df=_0x4c77df[_0x3a3763(0x39e)](/\x1b\x1b/g,'\x5c'),_0x4c77df;},Window_Base[_0x2c6443(0x272)]['convertVariableEscapeCharacters']=function(_0x4457eb){const _0x812de=_0x2c6443;for(;;){if(_0x4457eb['match'](/\\V\[(\d+)\]/gi))_0x4457eb=_0x4457eb['replace'](/\\V\[(\d+)\]/gi,(_0x4d7441,_0x3e78ab)=>this['convertBackslashCharacters'](String($gameVariables[_0x812de(0x27c)](parseInt(_0x3e78ab)))));else{if(_0x4457eb[_0x812de(0x22e)](/\x1bV\[(\d+)\]/gi))_0x4457eb=_0x4457eb[_0x812de(0x39e)](/\x1bV\[(\d+)\]/gi,(_0x1aaf73,_0x1b8dd2)=>this['convertBackslashCharacters'](String($gameVariables['value'](parseInt(_0x1b8dd2)))));else break;}}return _0x4457eb;},Window_Base[_0x2c6443(0x272)]['convertButtonAssistEscapeCharacters']=function(_0x4866bf){const _0xcd6b13=_0x2c6443;return Imported[_0xcd6b13(0x452)]&&(_0x4866bf=_0x4866bf[_0xcd6b13(0x39e)](/<Up (?:KEY|BUTTON)>/gi,this[_0xcd6b13(0x242)]('up')),_0x4866bf=_0x4866bf[_0xcd6b13(0x39e)](/<Left (?:KEY|BUTTON)>/gi,this[_0xcd6b13(0x242)](_0xcd6b13(0x3ba))),_0x4866bf=_0x4866bf[_0xcd6b13(0x39e)](/<Right (?:KEY|BUTTON)>/gi,this[_0xcd6b13(0x242)](_0xcd6b13(0x287))),_0x4866bf=_0x4866bf[_0xcd6b13(0x39e)](/<Down (?:KEY|BUTTON)>/gi,this['convertButtonAssistText']('down')),_0x4866bf=_0x4866bf[_0xcd6b13(0x39e)](/<Ok (?:KEY|BUTTON)>/gi,this[_0xcd6b13(0x242)]('ok')),_0x4866bf=_0x4866bf[_0xcd6b13(0x39e)](/<Cancel (?:KEY|BUTTON)>/gi,this[_0xcd6b13(0x242)]('cancel')),_0x4866bf=_0x4866bf[_0xcd6b13(0x39e)](/<Menu (?:KEY|BUTTON)>/gi,this[_0xcd6b13(0x242)](_0xcd6b13(0x3b6))),_0x4866bf=_0x4866bf[_0xcd6b13(0x39e)](/<Shift (?:KEY|BUTTON)>/gi,this[_0xcd6b13(0x242)](_0xcd6b13(0x297))),_0x4866bf=_0x4866bf[_0xcd6b13(0x39e)](/<(?:PAGEUP|PAGE UP) (?:KEY|BUTTON)>/gi,this[_0xcd6b13(0x242)]('pageup')),_0x4866bf=_0x4866bf['replace'](/<(?:PAGEDOWN|PAGEDN|PAGE DOWN) (?:KEY|BUTTON)>/gi,this[_0xcd6b13(0x242)]('pagedown'))),_0x4866bf;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x242)]=function(_0x20e9eb){const _0x2066af=_0x2c6443;let _0x2848cc=TextManager[_0x2066af(0x3c0)](_0x20e9eb)||'';return _0x2848cc=this['convertBackslashCharacters'](_0x2848cc),_0x2848cc=this[_0x2066af(0x2d1)](_0x2848cc),_0x2848cc[_0x2066af(0x3bf)]();},Window_Base[_0x2c6443(0x272)]['preConvertEscapeCharacters']=function(_0x768da){const _0x179a47=_0x2c6443;return this[_0x179a47(0x271)](),_0x768da;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x2c4)]=function(_0x5b3c39){return _0x5b3c39;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x3f4)]=function(_0x44cb1d){const _0x46a243=_0x2c6443;return _0x44cb1d=_0x44cb1d[_0x46a243(0x39e)](/<(?:SHOW|HIDE|DISABLE|ENABLE)>/gi,''),_0x44cb1d=_0x44cb1d[_0x46a243(0x39e)](/<(?:SHOW|HIDE|DISABLE|ENABLE)[ ](?:SWITCH|SWITCHES):[ ](.*?)>/gi,''),_0x44cb1d=_0x44cb1d[_0x46a243(0x39e)](/<(?:SHOW|HIDE|DISABLE|ENABLE)[ ](?:ALL|ANY)[ ](?:SWITCH|SWITCHES):[ ](.*?)>/gi,''),_0x44cb1d=_0x44cb1d['replace'](/<CHOICE WIDTH:[ ](\d+)>/gi,''),_0x44cb1d=_0x44cb1d[_0x46a243(0x39e)](/<CHOICE INDENT:[ ](\d+)>/gi,''),_0x44cb1d;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x235)]=function(_0x1b2ac7){const _0x51c9d8=_0x2c6443;return _0x1b2ac7=_0x1b2ac7[_0x51c9d8(0x39e)](/<B>/gi,'\x1bBOLD[1]'),_0x1b2ac7=_0x1b2ac7[_0x51c9d8(0x39e)](/<\/B>/gi,_0x51c9d8(0x3a0)),_0x1b2ac7=_0x1b2ac7[_0x51c9d8(0x39e)](/<I>/gi,_0x51c9d8(0x39c)),_0x1b2ac7=_0x1b2ac7[_0x51c9d8(0x39e)](/<\/I>/gi,_0x51c9d8(0x2a6)),_0x1b2ac7;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x1ed)]=function(_0x1fa2d1){const _0x4f7698=_0x2c6443;return _0x1fa2d1=_0x1fa2d1[_0x4f7698(0x39e)](/<LEFT>/gi,_0x4f7698(0x1df)),_0x1fa2d1=_0x1fa2d1[_0x4f7698(0x39e)](/<\/LEFT>/gi,_0x4f7698(0x2a1)),_0x1fa2d1=_0x1fa2d1[_0x4f7698(0x39e)](/<CENTER>/gi,'\x1bTEXTALIGNMENT[2]'),_0x1fa2d1=_0x1fa2d1[_0x4f7698(0x39e)](/<\/CENTER>/gi,_0x4f7698(0x2a1)),_0x1fa2d1=_0x1fa2d1[_0x4f7698(0x39e)](/<RIGHT>/gi,_0x4f7698(0x38e)),_0x1fa2d1=_0x1fa2d1['replace'](/<\/RIGHT>/gi,'\x1bTEXTALIGNMENT[0]'),_0x1fa2d1;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x33d)]=function(_0x100bbb){const _0x10d747=_0x2c6443;return _0x100bbb=_0x100bbb[_0x10d747(0x39e)](/<COLORLOCK>/gi,'\x1bCOLORLOCK[1]'),_0x100bbb=_0x100bbb[_0x10d747(0x39e)](/<\/COLORLOCK>/gi,_0x10d747(0x462)),_0x100bbb=_0x100bbb['replace'](/\(\(\(/gi,'\x1bCOLORLOCK[1]'),_0x100bbb=_0x100bbb[_0x10d747(0x39e)](/\)\)\)/gi,_0x10d747(0x462)),_0x100bbb;},Window_Base[_0x2c6443(0x272)]['convertBaseEscapeCharacters']=function(_0xc4f925){const _0x589af3=_0x2c6443;return _0xc4f925=_0xc4f925[_0x589af3(0x39e)](/\x1bN\[(\d+)\]/gi,(_0x39d5b5,_0x28aa69)=>this[_0x589af3(0x234)](parseInt(_0x28aa69))),_0xc4f925=_0xc4f925[_0x589af3(0x39e)](/\x1bP\[(\d+)\]/gi,(_0x3b2be4,_0x4c6595)=>this[_0x589af3(0x296)](parseInt(_0x4c6595))),_0xc4f925=_0xc4f925[_0x589af3(0x39e)](/\x1bG/gi,TextManager[_0x589af3(0x40c)]),_0xc4f925;},Window_Base['prototype'][_0x2c6443(0x3e3)]=function(_0x110f82){const _0x569bb8=_0x2c6443;return _0x110f82=_0x110f82[_0x569bb8(0x39e)](/\<(?:BATTLE|CURRENT BATTLE) TARGET\>/gi,this[_0x569bb8(0x20f)]()),_0x110f82=_0x110f82[_0x569bb8(0x39e)](/\<(?:BATTLE|CURRENT BATTLE) (?:USER|SUBJECT)\>/gi,this[_0x569bb8(0x39f)]()),_0x110f82=_0x110f82[_0x569bb8(0x39e)](/\<(?:BATTLE|CURRENT BATTLE) (?:ITEM|SKILL|ACTION)\>/gi,this[_0x569bb8(0x23b)](!![])),_0x110f82=_0x110f82['replace'](/\<(?:BATTLE|CURRENT BATTLE) (?:ITEM|SKILL|ACTION) NAME\>/gi,this[_0x569bb8(0x23b)](![])),_0x110f82;},Window_Base['prototype'][_0x2c6443(0x20f)]=function(){const _0x56662f=_0x2c6443;if(!SceneManager[_0x56662f(0x360)]())return'';if(BattleManager['_target'])return BattleManager[_0x56662f(0x357)][_0x56662f(0x206)]();if(BattleManager[_0x56662f(0x424)][0x0])return BattleManager['_targets'][0x0]['name']();return'';},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x39f)]=function(){const _0x9e1d2f=_0x2c6443;if(!SceneManager['isSceneBattle']())return'';let _0x3ff15c=null;return _0x3ff15c=BattleManager['_subject'],!_0x3ff15c&&BattleManager[_0x9e1d2f(0x22c)]()&&(_0x3ff15c=BattleManager[_0x9e1d2f(0x3fe)]()),_0x3ff15c?_0x3ff15c[_0x9e1d2f(0x206)]():'';},Window_Base[_0x2c6443(0x272)]['battleActionName']=function(_0x203695){const _0x2a4d46=_0x2c6443;if(!SceneManager[_0x2a4d46(0x360)]())return'';let _0x41688b=BattleManager['_action']||null;!_0x41688b&&BattleManager['isInputting']()&&(_0x41688b=BattleManager[_0x2a4d46(0x444)]());if(_0x41688b&&_0x41688b['item']()){let _0x2bc0cf='';if(_0x203695)_0x2bc0cf+=_0x2a4d46(0x435)[_0x2a4d46(0x233)](_0x41688b[_0x2a4d46(0x367)]()[_0x2a4d46(0x3e4)]);return _0x2bc0cf+=_0x41688b['item']()[_0x2a4d46(0x206)],_0x2bc0cf;}return'';},Window_Base[_0x2c6443(0x272)]['convertMessageCoreEscapeActions']=function(_0x2e7052){const _0x2a4eae=_0x2c6443;for(const _0x24a316 of VisuMZ[_0x2a4eae(0x3ca)][_0x2a4eae(0x306)][_0x2a4eae(0x3f8)]){_0x2e7052[_0x2a4eae(0x22e)](_0x24a316[_0x2a4eae(0x2a8)])&&(_0x2e7052=_0x2e7052[_0x2a4eae(0x39e)](_0x24a316['textCodeCheck'],_0x24a316['textCodeResult']),_0x2e7052=this[_0x2a4eae(0x2d1)](_0x2e7052));}return _0x2e7052;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x232)]=function(_0x2e61d0){const _0x5881d5=_0x2c6443;for(const _0x2a7d44 of VisuMZ[_0x5881d5(0x3ca)][_0x5881d5(0x306)][_0x5881d5(0x351)]){_0x2e61d0['match'](_0x2a7d44[_0x5881d5(0x2a8)])&&(_0x2e61d0=_0x2e61d0[_0x5881d5(0x39e)](_0x2a7d44['textCodeCheck'],_0x2a7d44[_0x5881d5(0x3b7)]['bind'](this)),_0x2e61d0=this['convertVariableEscapeCharacters'](_0x2e61d0));}return _0x2e61d0;},Window_Base[_0x2c6443(0x272)]['actorName']=function(_0x565f0f){const _0x53c4b6=_0x2c6443,_0x77f6f5=_0x565f0f>=0x1?$gameActors[_0x53c4b6(0x3fe)](_0x565f0f):null,_0x2722d1=_0x77f6f5?_0x77f6f5[_0x53c4b6(0x206)]():'',_0x117eef=Number(VisuMZ[_0x53c4b6(0x3ca)][_0x53c4b6(0x306)][_0x53c4b6(0x237)][_0x53c4b6(0x1e3)]);return this['isAutoColorAffected']()&&_0x117eef!==0x0?'\x1bC[%1]%2\x1bPREVCOLOR[0]'[_0x53c4b6(0x233)](_0x117eef,_0x2722d1):_0x2722d1;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x296)]=function(_0x4b74de){const _0x5628c9=_0x2c6443,_0x4f8995=_0x4b74de>=0x1?$gameParty[_0x5628c9(0x31f)]()[_0x4b74de-0x1]:null,_0x463a71=_0x4f8995?_0x4f8995[_0x5628c9(0x206)]():'',_0x41948c=Number(VisuMZ['MessageCore']['Settings'][_0x5628c9(0x237)][_0x5628c9(0x1e3)]);return this[_0x5628c9(0x25c)]()&&_0x41948c!==0x0?_0x5628c9(0x2cb)[_0x5628c9(0x233)](_0x41948c,_0x463a71):_0x463a71;},Window_Base['prototype'][_0x2c6443(0x35c)]=function(_0x424d5a){const _0x1f84ec=_0x2c6443;return this[_0x1f84ec(0x25c)]()&&(_0x424d5a=this[_0x1f84ec(0x334)](_0x424d5a),_0x424d5a=this[_0x1f84ec(0x442)](_0x424d5a)),_0x424d5a;},Window_Base['prototype'][_0x2c6443(0x334)]=function(_0x14774d){const _0x52303b=_0x2c6443;for(autoColor of VisuMZ[_0x52303b(0x3ca)][_0x52303b(0x374)]){_0x14774d=_0x14774d[_0x52303b(0x39e)](autoColor[0x0],autoColor[0x1]);}return _0x14774d;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x463)]=function(){const _0x4a372a=_0x2c6443;this[_0x4a372a(0x333)]=[];},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x271)]=function(){const _0x492e5d=_0x2c6443;this[_0x492e5d(0x463)]();const _0x1b8e87=VisuMZ[_0x492e5d(0x3ca)][_0x492e5d(0x306)][_0x492e5d(0x237)],_0x56627c=_0x1b8e87[_0x492e5d(0x1e3)];if(_0x56627c<=0x0)return;for(const _0x27042f of $gameActors[_0x492e5d(0x286)]){if(!_0x27042f)continue;const _0x37671b=_0x27042f[_0x492e5d(0x206)]();if(_0x37671b['trim']()[_0x492e5d(0x2f8)]<=0x0)continue;if(/^\d+$/[_0x492e5d(0x24f)](_0x37671b))continue;if(_0x37671b[_0x492e5d(0x22e)](/-----/i))continue;let _0x55661d=VisuMZ[_0x492e5d(0x3ca)][_0x492e5d(0x386)](_0x37671b);const _0x509249=new RegExp('\x5cb'+_0x55661d+'\x5cb','g'),_0x2b9da6=_0x492e5d(0x2cb)['format'](_0x56627c,_0x37671b);this[_0x492e5d(0x333)]['push']([_0x509249,_0x2b9da6]);}},Window_Base['prototype']['processActorNameAutoColorChanges']=function(_0x33e9a6){const _0x26daca=_0x2c6443;this[_0x26daca(0x333)]===undefined&&this[_0x26daca(0x271)]();for(autoColor of this[_0x26daca(0x333)]){_0x33e9a6=_0x33e9a6[_0x26daca(0x39e)](autoColor[0x0],autoColor[0x1]);}return _0x33e9a6;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x41b)]=function(_0x30db53,_0xfb042e,_0x240aa8){const _0x45927f=_0x2c6443;if(!_0x30db53)return'';const _0x5aa6cf=_0x30db53[_0xfb042e];let _0x5454bb='';if(_0x5aa6cf&&_0x240aa8&&_0x5aa6cf[_0x45927f(0x3e4)]){const _0x3bd57c=_0x45927f(0x2ad);_0x5454bb=_0x3bd57c[_0x45927f(0x233)](_0x5aa6cf['iconIndex'],_0x5aa6cf[_0x45927f(0x206)]);}else _0x5aa6cf?_0x5454bb=_0x5aa6cf[_0x45927f(0x206)]:_0x5454bb='';return this[_0x45927f(0x25c)]()&&(_0x5454bb=this[_0x45927f(0x33f)](_0x5454bb,_0x30db53)),_0x5454bb;},Window_Base['prototype']['lastGainedObjectName']=function(_0x147cb6){const _0x1adcf0=_0x2c6443,_0x5709b9=$gameParty[_0x1adcf0(0x420)]();if(_0x5709b9['id']<0x0)return'';let _0x2c65d1=null;if(_0x5709b9[_0x1adcf0(0x3fd)]===0x0)_0x2c65d1=$dataItems[_0x5709b9['id']];if(_0x5709b9[_0x1adcf0(0x3fd)]===0x1)_0x2c65d1=$dataWeapons[_0x5709b9['id']];if(_0x5709b9[_0x1adcf0(0x3fd)]===0x2)_0x2c65d1=$dataArmors[_0x5709b9['id']];if(!_0x2c65d1)return'';return _0x147cb6?_0x1adcf0(0x2ad)[_0x1adcf0(0x233)](_0x2c65d1[_0x1adcf0(0x3e4)],_0x2c65d1['name']):_0x2c65d1[_0x1adcf0(0x206)];},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x2fe)]=function(){const _0x568620=_0x2c6443,_0x169a73=$gameParty['getLastGainedItemData']();if(_0x169a73['id']<=0x0)return'';return _0x169a73[_0x568620(0x443)];},Window_Base['prototype']['applyDatabaseAutoColor']=function(_0x15bd7a,_0x4d3503){const _0x11bae1=_0x2c6443,_0x49359c=VisuMZ['MessageCore'][_0x11bae1(0x306)][_0x11bae1(0x237)];let _0xd84c9a=0x0;if(_0x4d3503===$dataActors)_0xd84c9a=_0x49359c[_0x11bae1(0x1e3)];if(_0x4d3503===$dataClasses)_0xd84c9a=_0x49359c[_0x11bae1(0x21d)];if(_0x4d3503===$dataSkills)_0xd84c9a=_0x49359c[_0x11bae1(0x28f)];if(_0x4d3503===$dataItems)_0xd84c9a=_0x49359c[_0x11bae1(0x212)];if(_0x4d3503===$dataWeapons)_0xd84c9a=_0x49359c[_0x11bae1(0x2b8)];if(_0x4d3503===$dataArmors)_0xd84c9a=_0x49359c[_0x11bae1(0x404)];if(_0x4d3503===$dataEnemies)_0xd84c9a=_0x49359c[_0x11bae1(0x22b)];if(_0x4d3503===$dataStates)_0xd84c9a=_0x49359c[_0x11bae1(0x342)];return _0xd84c9a>0x0&&(_0x15bd7a=_0x11bae1(0x2cb)['format'](_0xd84c9a,_0x15bd7a)),_0x15bd7a;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x3ac)]=function(_0x19c9be){const _0x20c318=_0x2c6443;_0x19c9be=_0x19c9be[_0x20c318(0x39e)](/<(?:WORDWRAP|WORD WRAP)>/gi,(_0x249455,_0x17ce1d)=>this['setWordWrap'](!![])),_0x19c9be=_0x19c9be[_0x20c318(0x39e)](/<(?:NOWORDWRAP|NO WORD WRAP)>/gi,(_0x49c417,_0x707d1e)=>this['setWordWrap'](![])),_0x19c9be=_0x19c9be[_0x20c318(0x39e)](/<\/(?:WORDWRAP|WORD WRAP)>/gi,(_0x4da249,_0xd322fd)=>this['setWordWrap'](![]));if(_0x19c9be[_0x20c318(0x22e)](Window_Message[_0x20c318(0x2be)]))this[_0x20c318(0x240)](![]);else _0x19c9be[_0x20c318(0x22e)](Window_Message['_autoPosRegExp'])&&this[_0x20c318(0x240)](![]);if(!this[_0x20c318(0x3cf)]())return _0x19c9be;if(_0x19c9be[_0x20c318(0x2f8)]<=0x0)return _0x19c9be;return VisuMZ['MessageCore'][_0x20c318(0x306)][_0x20c318(0x389)]['LineBreakSpace']?(_0x19c9be=_0x19c9be['replace'](/[\n\r]+/g,'\x20'),_0x19c9be=_0x19c9be[_0x20c318(0x39e)](/<(?:BR|LINEBREAK)>/gi,'\x20\x0a')):(_0x19c9be=_0x19c9be[_0x20c318(0x39e)](/[\n\r]+/g,''),_0x19c9be=_0x19c9be[_0x20c318(0x39e)](/<(?:BR|LINEBREAK)>/gi,'\x0a')),_0x19c9be=this[_0x20c318(0x2e0)](_0x19c9be),_0x19c9be=_0x19c9be[_0x20c318(0x419)]('\x20')[_0x20c318(0x201)](_0x20c318(0x3d1)),_0x19c9be=_0x19c9be[_0x20c318(0x39e)](/<(?:BR|LINEBREAK)>/gi,'\x0a'),_0x19c9be=_0x19c9be[_0x20c318(0x39e)](/<LINE\x1bWrapBreak[0]BREAK>/gi,'\x0a'),_0x19c9be;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x2e0)]=function(_0x58c0f4){return _0x58c0f4;},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x3cd)]=Window_Base[_0x2c6443(0x272)][_0x2c6443(0x2b6)],Window_Base[_0x2c6443(0x272)][_0x2c6443(0x2b6)]=function(_0x234b89){const _0x5433ca=_0x2c6443;VisuMZ[_0x5433ca(0x3ca)]['Window_Base_processNewLine'][_0x5433ca(0x369)](this,_0x234b89),this[_0x5433ca(0x3c5)](_0x234b89);},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x40e)]=Window_Base[_0x2c6443(0x272)]['processControlCharacter'],Window_Base[_0x2c6443(0x272)]['processControlCharacter']=function(_0x590737,_0x5a550a){const _0x25f38a=_0x2c6443;VisuMZ[_0x25f38a(0x3ca)]['Window_Base_processControlCharacter']['call'](this,_0x590737,_0x5a550a),_0x5a550a===_0x25f38a(0x3d1)&&this[_0x25f38a(0x2a2)](_0x590737);},Window_Base[_0x2c6443(0x272)]['obtainEscapeString']=function(_0x4582e7){const _0x5a9062=_0x2c6443;var _0x567308=/^\<(.*?)\>/['exec'](_0x4582e7[_0x5a9062(0x428)]['slice'](_0x4582e7[_0x5a9062(0x317)]));return _0x567308?(_0x4582e7[_0x5a9062(0x317)]+=_0x567308[0x0]['length'],String(_0x567308[0x0][_0x5a9062(0x377)](0x1,_0x567308[0x0]['length']-0x1))):'';},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x332)]=Window_Base[_0x2c6443(0x272)][_0x2c6443(0x3fb)],Window_Base[_0x2c6443(0x272)][_0x2c6443(0x3fb)]=function(_0x2b97b4,_0x58baa0){const _0x29ceed=_0x2c6443;switch(_0x2b97b4){case'C':_0x58baa0[_0x29ceed(0x33c)]?VisuMZ[_0x29ceed(0x3ca)][_0x29ceed(0x332)]['call'](this,_0x2b97b4,_0x58baa0):this[_0x29ceed(0x385)](_0x58baa0);break;case'I':case'{':case'}':VisuMZ[_0x29ceed(0x3ca)]['Window_Base_processEscapeCharacter'][_0x29ceed(0x369)](this,_0x2b97b4,_0x58baa0);break;case'FS':this[_0x29ceed(0x2a0)](_0x58baa0);break;case'PX':this['processPxTextCode'](_0x58baa0);break;case'PY':this[_0x29ceed(0x447)](_0x58baa0);break;case _0x29ceed(0x433):this[_0x29ceed(0x3b1)](this[_0x29ceed(0x385)](_0x58baa0));break;case _0x29ceed(0x27a):this[_0x29ceed(0x31a)](_0x58baa0);break;case _0x29ceed(0x42b):this[_0x29ceed(0x331)](_0x58baa0);break;case _0x29ceed(0x38b):this[_0x29ceed(0x380)](_0x58baa0);break;case _0x29ceed(0x39b):this['processFontChangeItalic'](this[_0x29ceed(0x385)](_0x58baa0));break;case _0x29ceed(0x2ca):this[_0x29ceed(0x26a)](_0x58baa0);break;case _0x29ceed(0x1dc):this[_0x29ceed(0x387)](_0x58baa0);break;case _0x29ceed(0x3f9):this[_0x29ceed(0x20b)](_0x58baa0);break;case _0x29ceed(0x274):this[_0x29ceed(0x1eb)](_0x58baa0);break;case _0x29ceed(0x26b):this[_0x29ceed(0x2a2)](_0x58baa0);break;default:this[_0x29ceed(0x38d)](_0x2b97b4,_0x58baa0);}},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x38d)]=function(_0x17c962,_0x5a620b){const _0x5ef2cd=_0x2c6443;for(const _0x2af9bb of VisuMZ[_0x5ef2cd(0x3ca)][_0x5ef2cd(0x306)][_0x5ef2cd(0x3f8)]){if(_0x2af9bb[_0x5ef2cd(0x3e5)]===_0x17c962){if(_0x2af9bb[_0x5ef2cd(0x2b3)]==='')this[_0x5ef2cd(0x385)](_0x5a620b);_0x2af9bb['ActionJS'][_0x5ef2cd(0x369)](this,_0x5a620b);if(this[_0x5ef2cd(0x42a)]===Window_Message){const _0x59f5d3=_0x2af9bb[_0x5ef2cd(0x2c8)]||0x0;if(_0x59f5d3>0x0)this[_0x5ef2cd(0x43f)](_0x59f5d3);}}}},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x35b)]=function(){const _0x234d72=_0x2c6443;this['contents'][_0x234d72(0x27e)]+=VisuMZ[_0x234d72(0x3ca)][_0x234d72(0x306)][_0x234d72(0x40d)][_0x234d72(0x2cc)],this['contents'][_0x234d72(0x27e)]=Math[_0x234d72(0x291)](this[_0x234d72(0x305)][_0x234d72(0x27e)],VisuMZ['MessageCore'][_0x234d72(0x306)][_0x234d72(0x40d)]['FontBiggerCap']);},Window_Base['prototype']['makeFontSmaller']=function(){const _0x2e88fe=_0x2c6443;this[_0x2e88fe(0x305)][_0x2e88fe(0x27e)]-=VisuMZ[_0x2e88fe(0x3ca)][_0x2e88fe(0x306)][_0x2e88fe(0x40d)][_0x2e88fe(0x2cc)],this[_0x2e88fe(0x305)][_0x2e88fe(0x27e)]=Math[_0x2e88fe(0x2d6)](this[_0x2e88fe(0x305)][_0x2e88fe(0x27e)],VisuMZ[_0x2e88fe(0x3ca)][_0x2e88fe(0x306)][_0x2e88fe(0x40d)][_0x2e88fe(0x207)]);},Window_Base[_0x2c6443(0x272)]['processFsTextCode']=function(_0x297776){const _0x489d61=_0x2c6443,_0xf6ea9d=this[_0x489d61(0x385)](_0x297776);this[_0x489d61(0x305)][_0x489d61(0x27e)]=_0xf6ea9d[_0x489d61(0x2de)](VisuMZ['MessageCore'][_0x489d61(0x306)][_0x489d61(0x40d)][_0x489d61(0x207)],VisuMZ[_0x489d61(0x3ca)][_0x489d61(0x306)]['General'][_0x489d61(0x355)]);},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x2f0)]=function(_0x456591){const _0x435684=_0x2c6443;let _0x2d07db=this[_0x435684(0x305)]['fontSize'];const _0x304071=/\x1b({|}|FS)(\[(\d+)])?/gi;for(;;){const _0x301e95=_0x304071[_0x435684(0x3ed)](_0x456591);if(!_0x301e95)break;const _0x581b32=String(_0x301e95[0x1])[_0x435684(0x42f)]();if(_0x581b32==='{')this[_0x435684(0x35b)]();else{if(_0x581b32==='}')this[_0x435684(0x352)]();else _0x581b32==='FS'&&(this[_0x435684(0x305)][_0x435684(0x27e)]=parseInt(_0x301e95[0x3])[_0x435684(0x2de)](VisuMZ[_0x435684(0x3ca)][_0x435684(0x306)][_0x435684(0x40d)][_0x435684(0x207)],VisuMZ[_0x435684(0x3ca)]['Settings'][_0x435684(0x40d)][_0x435684(0x355)]));}this['contents']['fontSize']>_0x2d07db&&(_0x2d07db=this[_0x435684(0x305)]['fontSize']);}return _0x2d07db;},Window_Base[_0x2c6443(0x272)]['processPxTextCode']=function(_0x2521c3){const _0x510913=_0x2c6443;_0x2521c3['x']=this[_0x510913(0x385)](_0x2521c3),VisuMZ[_0x510913(0x3ca)][_0x510913(0x306)]['General'][_0x510913(0x324)]&&(_0x2521c3['x']+=_0x2521c3['startX']);},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x447)]=function(_0x2c7727){const _0x4920a6=_0x2c6443;_0x2c7727['y']=this[_0x4920a6(0x385)](_0x2c7727),VisuMZ['MessageCore']['Settings'][_0x4920a6(0x40d)][_0x4920a6(0x324)]&&(_0x2c7727['y']+=_0x2c7727[_0x4920a6(0x273)]);},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x3b1)]=function(_0x2b83cb){const _0x30fe9a=_0x2c6443;this[_0x30fe9a(0x305)][_0x30fe9a(0x3b2)]=!!_0x2b83cb;},Window_Base['prototype'][_0x2c6443(0x2ee)]=function(_0x45a953){const _0xb5ab6d=_0x2c6443;this['contents'][_0xb5ab6d(0x2a9)]=!!_0x45a953;},Window_Base[_0x2c6443(0x272)]['processTextAlignmentChange']=function(_0x3d91f7){const _0x1197df=_0x2c6443,_0x510fdb=this[_0x1197df(0x385)](_0x3d91f7);if(!_0x3d91f7['drawing'])return;switch(_0x510fdb){case 0x0:this[_0x1197df(0x28d)](_0x1197df(0x43c));return;case 0x1:this[_0x1197df(0x28d)]('left');break;case 0x2:this['setTextAlignment'](_0x1197df(0x3f1));break;case 0x3:this['setTextAlignment'](_0x1197df(0x287));break;}this[_0x1197df(0x3c5)](_0x3d91f7);},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x3c5)]=function(_0x5f5160){const _0x4841f9=_0x2c6443;if(!_0x5f5160[_0x4841f9(0x33c)])return;if(_0x5f5160[_0x4841f9(0x2a3)])return;if(this['getTextAlignment']()===_0x4841f9(0x43c))return;let _0x1e9d46=_0x5f5160[_0x4841f9(0x428)][_0x4841f9(0x1e6)](_0x4841f9(0x3e7),_0x5f5160[_0x4841f9(0x317)]+0x1),_0x45f636=_0x5f5160[_0x4841f9(0x428)][_0x4841f9(0x1e6)]('\x0a',_0x5f5160[_0x4841f9(0x317)]+0x1);if(_0x1e9d46<0x0)_0x1e9d46=_0x5f5160[_0x4841f9(0x428)]['length']+0x1;if(_0x45f636>0x0)_0x1e9d46=Math[_0x4841f9(0x291)](_0x1e9d46,_0x45f636);const _0x1ee7dc=_0x5f5160['text'][_0x4841f9(0x294)](_0x5f5160['index'],_0x1e9d46),_0x50307e=this[_0x4841f9(0x375)](_0x1ee7dc)['width'],_0x16f097=_0x5f5160[_0x4841f9(0x327)]||this[_0x4841f9(0x300)]-0x8,_0x3c048c=this[_0x4841f9(0x42a)]===Window_Message&&$gameMessage[_0x4841f9(0x1fb)]()!=='';switch(this[_0x4841f9(0x3ea)]()){case _0x4841f9(0x3ba):_0x5f5160['x']=_0x5f5160[_0x4841f9(0x449)];break;case _0x4841f9(0x3f1):_0x5f5160['x']=_0x5f5160['startX'],_0x5f5160['x']+=Math[_0x4841f9(0x301)]((_0x16f097-_0x50307e)/0x2);_0x3c048c&&(_0x5f5160['x']-=_0x5f5160[_0x4841f9(0x449)]/0x2);break;case _0x4841f9(0x287):_0x5f5160['x']=_0x16f097-_0x50307e+_0x5f5160[_0x4841f9(0x449)];_0x3c048c&&(_0x5f5160['x']-=_0x5f5160[_0x4841f9(0x449)]);break;}},Window_Base['prototype'][_0x2c6443(0x375)]=function(_0x17b482){const _0x5923ec=_0x2c6443;_0x17b482=_0x17b482[_0x5923ec(0x39e)](/\x1b!/g,''),_0x17b482=_0x17b482[_0x5923ec(0x39e)](/\x1b\|/g,''),_0x17b482=_0x17b482['replace'](/\x1b\./g,'');const _0x580a13=this[_0x5923ec(0x21f)](_0x17b482,0x0,0x0,0x0),_0x5acaa8=this['getPreservedFontSettings']();return _0x580a13['drawing']=![],this['processAllText'](_0x580a13),this[_0x5923ec(0x2c0)](_0x5acaa8),{'width':_0x580a13[_0x5923ec(0x36d)],'height':_0x580a13[_0x5923ec(0x36b)]};},Window_Base[_0x2c6443(0x21e)]=VisuMZ['MessageCore']['Settings'][_0x2c6443(0x389)][_0x2c6443(0x2f5)]||0x0,Window_Base[_0x2c6443(0x272)]['processWrapBreak']=function(_0x4c71db){const _0x18d893=_0x2c6443,_0x399284=(_0x4c71db[_0x18d893(0x2a3)]?-0x1:0x1)*this[_0x18d893(0x33b)]('\x20');_0x4c71db['x']+=_0x399284;if(this[_0x18d893(0x385)](_0x4c71db)>0x0)_0x4c71db['x']+=_0x399284;if(_0x4c71db['rtl'])return;let _0x44e5f2=_0x4c71db[_0x18d893(0x428)][_0x18d893(0x1e6)]('\x1bWrapBreak[0]',_0x4c71db['index']+0x1),_0x33bf19=_0x4c71db['text'][_0x18d893(0x1e6)]('\x0a',_0x4c71db[_0x18d893(0x317)]+0x1);if(_0x44e5f2<0x0)_0x44e5f2=_0x4c71db[_0x18d893(0x428)]['length']+0x1;if(_0x33bf19>0x0)_0x44e5f2=Math[_0x18d893(0x291)](_0x44e5f2,_0x33bf19);const _0x32c2b0=_0x4c71db['text'][_0x18d893(0x294)](_0x4c71db[_0x18d893(0x317)],_0x44e5f2),_0x4b5e36=this[_0x18d893(0x26c)](_0x32c2b0)[_0x18d893(0x327)];let _0x418d00=_0x4c71db[_0x18d893(0x327)]||this['innerWidth'];_0x418d00-=Window_Base['WORD_WRAP_PADDING'];if(this[_0x18d893(0x42a)]===Window_Message){const _0xcf8b99=$gameMessage[_0x18d893(0x1fb)]()===''?0x0:ImageManager[_0x18d893(0x415)]+0x14;_0x418d00-=_0xcf8b99,VisuMZ[_0x18d893(0x3ca)][_0x18d893(0x306)][_0x18d893(0x389)][_0x18d893(0x436)]&&(_0x418d00-=_0xcf8b99);}let _0x5da61b=![];if(_0x4c71db['x']+_0x4b5e36>_0x4c71db['startX']+_0x418d00)_0x5da61b=!![];if(_0x4b5e36===0x0)_0x5da61b=!![];_0x5da61b&&(_0x4c71db[_0x18d893(0x428)]=_0x4c71db[_0x18d893(0x428)][_0x18d893(0x377)](0x0,_0x4c71db[_0x18d893(0x317)])+'\x0a'+_0x4c71db[_0x18d893(0x428)][_0x18d893(0x35e)](_0x4c71db[_0x18d893(0x317)]));},Window_Base[_0x2c6443(0x272)]['textSizeExWordWrap']=function(_0x5cc610){const _0x1d36e5=_0x2c6443,_0x5cd152=this[_0x1d36e5(0x21f)](_0x5cc610,0x0,0x0,0x0),_0x1a36da=this['getPreservedFontSettings']();return _0x5cd152[_0x1d36e5(0x33c)]=![],this['setWordWrap'](![]),this[_0x1d36e5(0x2d3)](_0x5cd152),this[_0x1d36e5(0x240)](!![]),this[_0x1d36e5(0x2c0)](_0x1a36da),{'width':_0x5cd152[_0x1d36e5(0x36d)],'height':_0x5cd152['outputHeight']};},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x380)]=function(_0x178e6e){return this['obtainEscapeParam'](_0x178e6e);},Window_Base['prototype'][_0x2c6443(0x26a)]=function(_0x5c3c38){const _0x47feb5=_0x2c6443,_0xf7f805=this[_0x47feb5(0x214)](_0x5c3c38)[_0x47feb5(0x419)](',');if(!_0x5c3c38[_0x47feb5(0x33c)])return;const _0x17d8df=_0xf7f805[0x0][_0x47feb5(0x3bf)](),_0xe5b430=_0xf7f805[0x1]||0x0,_0x10852c=_0xf7f805[0x2]||0x0,_0x1a4ccb=ImageManager[_0x47feb5(0x22f)](_0x17d8df),_0x270063=this[_0x47feb5(0x305)]['paintOpacity'];_0x1a4ccb[_0x47feb5(0x253)](this[_0x47feb5(0x20d)][_0x47feb5(0x345)](this,_0x1a4ccb,_0x5c3c38['x'],_0x5c3c38['y'],_0xe5b430,_0x10852c,_0x270063));},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x20d)]=function(_0x13acb9,_0x1ed376,_0x379949,_0x5c27be,_0x4e251a,_0x4276bd){const _0x48a303=_0x2c6443;_0x5c27be=_0x5c27be||_0x13acb9[_0x48a303(0x327)],_0x4e251a=_0x4e251a||_0x13acb9[_0x48a303(0x3c3)],this[_0x48a303(0x339)][_0x48a303(0x44e)]=_0x4276bd,this[_0x48a303(0x339)][_0x48a303(0x25f)](_0x13acb9,0x0,0x0,_0x13acb9['width'],_0x13acb9[_0x48a303(0x3c3)],_0x1ed376,_0x379949,_0x5c27be,_0x4e251a),this[_0x48a303(0x339)]['paintOpacity']=0xff;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x31a)]=function(_0x2baccb){const _0x41a65a=_0x2c6443,_0x49427c=this[_0x41a65a(0x214)](_0x2baccb)[_0x41a65a(0x419)](',');if(!_0x2baccb['drawing'])return;const _0x22029d=_0x49427c[0x0][_0x41a65a(0x3bf)](),_0x5c797f=ImageManager[_0x41a65a(0x22f)](_0x22029d),_0x59d17c=JsonEx[_0x41a65a(0x2ff)](_0x2baccb),_0x8ad179=this['contents'][_0x41a65a(0x44e)];_0x5c797f['addLoadListener'](this[_0x41a65a(0x30d)][_0x41a65a(0x345)](this,_0x5c797f,_0x59d17c,_0x8ad179));},Window_Base['prototype'][_0x2c6443(0x30d)]=function(_0x180d2b,_0x2e2b36,_0x595293){const _0x29291f=_0x2c6443,_0x1190e0=_0x2e2b36['width']||this[_0x29291f(0x300)],_0x22541d=this[_0x29291f(0x2a7)]!==undefined?this[_0x29291f(0x3aa)]():this[_0x29291f(0x257)],_0x13d7c8=_0x1190e0/_0x180d2b['width'],_0x142a2e=_0x22541d/_0x180d2b[_0x29291f(0x3c3)],_0x53f5f0=Math[_0x29291f(0x291)](_0x13d7c8,_0x142a2e,0x1),_0x1a2a2b=this['_index']!==undefined?(this['itemRectWithPadding'](0x0)['height']-this[_0x29291f(0x24e)]())/0x2:0x0,_0x52615c=_0x180d2b[_0x29291f(0x327)]*_0x53f5f0,_0x2511cc=_0x180d2b[_0x29291f(0x3c3)]*_0x53f5f0,_0x35da26=Math['floor']((_0x1190e0-_0x52615c)/0x2)+_0x2e2b36[_0x29291f(0x449)],_0x5f0eb2=Math[_0x29291f(0x301)]((_0x22541d-_0x2511cc)/0x2)+_0x2e2b36[_0x29291f(0x273)]-_0x1a2a2b*0x2;this[_0x29291f(0x339)]['paintOpacity']=_0x595293,this[_0x29291f(0x339)][_0x29291f(0x25f)](_0x180d2b,0x0,0x0,_0x180d2b[_0x29291f(0x327)],_0x180d2b[_0x29291f(0x3c3)],_0x35da26,_0x5f0eb2,_0x52615c,_0x2511cc),this[_0x29291f(0x339)][_0x29291f(0x44e)]=0xff;},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x331)]=function(_0x15c797){const _0x3c1be9=_0x2c6443,_0x4d3854=this[_0x3c1be9(0x385)](_0x15c797);if(_0x15c797[_0x3c1be9(0x33c)])this['setColorLock'](_0x4d3854>0x0);},Window_Base[_0x2c6443(0x272)][_0x2c6443(0x1eb)]=function(_0x49f3ca){const _0x204315=_0x2c6443,_0x55c41e=this['obtainEscapeParam'](_0x49f3ca);this[_0x204315(0x42a)]===Window_Message&&_0x49f3ca['drawing']&&this[_0x204315(0x398)](_0x55c41e);},Window_Help[_0x2c6443(0x272)][_0x2c6443(0x450)]=function(){const _0x193b24=_0x2c6443;this[_0x193b24(0x240)]($gameSystem['isHelpWindowWordWrap']());},Window_Help[_0x2c6443(0x272)][_0x2c6443(0x25c)]=function(){return!![];},VisuMZ['MessageCore'][_0x2c6443(0x335)]=Window_Help['prototype'][_0x2c6443(0x293)],Window_Help[_0x2c6443(0x272)]['refresh']=function(){const _0x4f9637=_0x2c6443;this[_0x4f9637(0x463)](),VisuMZ['MessageCore']['Window_Help_refresh'][_0x4f9637(0x369)](this),this['resetWordWrap']();},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x31b)]=Window_Options['prototype'][_0x2c6443(0x314)],Window_Options[_0x2c6443(0x272)]['addGeneralOptions']=function(){const _0x3fe389=_0x2c6443;VisuMZ['MessageCore'][_0x3fe389(0x31b)]['call'](this),this[_0x3fe389(0x3f2)]();},Window_Options['prototype'][_0x2c6443(0x3f2)]=function(){const _0x3f3279=_0x2c6443;VisuMZ[_0x3f3279(0x3ca)][_0x3f3279(0x306)][_0x3f3279(0x412)][_0x3f3279(0x326)]&&this[_0x3f3279(0x358)]();},Window_Options[_0x2c6443(0x272)][_0x2c6443(0x358)]=function(){const _0x1a82c4=_0x2c6443,_0x2ac41e=TextManager[_0x1a82c4(0x417)],_0x3b5d40=_0x1a82c4(0x1f1);this[_0x1a82c4(0x42d)](_0x2ac41e,_0x3b5d40);},VisuMZ['MessageCore']['Window_Options_statusText']=Window_Options[_0x2c6443(0x272)]['statusText'],Window_Options[_0x2c6443(0x272)][_0x2c6443(0x2f3)]=function(_0x5a4285){const _0x5572d2=_0x2c6443,_0x12bc8e=this[_0x5572d2(0x307)](_0x5a4285);if(_0x12bc8e===_0x5572d2(0x1f1))return this[_0x5572d2(0x3ab)]();return VisuMZ['MessageCore'][_0x5572d2(0x432)][_0x5572d2(0x369)](this,_0x5a4285);},VisuMZ['MessageCore'][_0x2c6443(0x222)]=Window_Options[_0x2c6443(0x272)][_0x2c6443(0x40f)],Window_Options[_0x2c6443(0x272)][_0x2c6443(0x40f)]=function(_0xa2279f){const _0x25d1c6=_0x2c6443;if(_0xa2279f===_0x25d1c6(0x1f1))return!![];return VisuMZ[_0x25d1c6(0x3ca)][_0x25d1c6(0x222)][_0x25d1c6(0x369)](this,_0xa2279f);},Window_Options[_0x2c6443(0x272)][_0x2c6443(0x3ab)]=function(){const _0x3e6d4e=_0x2c6443,_0x21d786=this[_0x3e6d4e(0x292)](_0x3e6d4e(0x1f1));return _0x21d786>0xa?TextManager[_0x3e6d4e(0x2e9)]:_0x21d786;},VisuMZ['MessageCore']['Window_Options_changeVolume']=Window_Options['prototype']['changeVolume'],Window_Options['prototype'][_0x2c6443(0x3a9)]=function(_0x1b2288,_0x3b656c,_0x1ed5d7){const _0x24fe9d=_0x2c6443;if(_0x1b2288===_0x24fe9d(0x1f1))return this[_0x24fe9d(0x42c)](_0x1b2288,_0x3b656c,_0x1ed5d7);VisuMZ[_0x24fe9d(0x3ca)][_0x24fe9d(0x353)]['call'](this,_0x1b2288,_0x3b656c,_0x1ed5d7);},Window_Options[_0x2c6443(0x272)]['changeTextSpeed']=function(_0xd7ad82,_0x20313c,_0x49da48){const _0xc167f0=_0x2c6443,_0x501486=this[_0xc167f0(0x292)](_0xd7ad82),_0x43fa5f=0x1,_0x45b793=_0x501486+(_0x20313c?_0x43fa5f:-_0x43fa5f);_0x45b793>0xb&&_0x49da48?this['changeValue'](_0xd7ad82,0x1):this[_0xc167f0(0x217)](_0xd7ad82,_0x45b793[_0xc167f0(0x2de)](0x1,0xb));},Window_Message[_0x2c6443(0x272)]['contentsHeight']=function(){const _0x11b011=_0x2c6443;let _0x601313=Window_Base['prototype']['contentsHeight']['call'](this);return _0x601313-=this[_0x11b011(0x225)](),_0x601313;},Window_Message[_0x2c6443(0x272)]['refreshDimmerBitmap']=function(){const _0x183872=_0x2c6443;Window_Base['prototype']['refreshDimmerBitmap'][_0x183872(0x369)](this),VisuMZ[_0x183872(0x3ca)][_0x183872(0x306)][_0x183872(0x40d)][_0x183872(0x2b9)]&&this['stretchDimmerSprite']();},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x2fc)]=function(){const _0xb0c171=_0x2c6443;this['_dimmerSprite']['x']=Math[_0xb0c171(0x3fa)](this[_0xb0c171(0x327)]/0x2),this[_0xb0c171(0x3d6)][_0xb0c171(0x246)]['x']=0.5,this['_dimmerSprite'][_0xb0c171(0x408)]['x']=Graphics[_0xb0c171(0x327)];},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x44a)]=Window_Message[_0x2c6443(0x272)][_0x2c6443(0x316)],Window_Message[_0x2c6443(0x272)][_0x2c6443(0x316)]=function(){const _0x513159=_0x2c6443;VisuMZ[_0x513159(0x3ca)][_0x513159(0x44a)][_0x513159(0x369)](this),this[_0x513159(0x463)](),this[_0x513159(0x450)](),this['setColorLock'](![]),this['setTextAlignment'](_0x513159(0x43c)),this['setTextDelay'](VisuMZ['MessageCore'][_0x513159(0x306)]['General'][_0x513159(0x41e)]);},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x450)]=function(){const _0x51f804=_0x2c6443;this[_0x51f804(0x240)]($gameSystem[_0x51f804(0x45f)]());},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x25c)]=function(){return!![];},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x3f5)]=function(_0x32f21b){const _0x4dfbfb=_0x2c6443,_0x19420a=0xb-ConfigManager[_0x4dfbfb(0x1f1)];_0x32f21b=Math[_0x4dfbfb(0x3fa)](_0x32f21b*_0x19420a),this[_0x4dfbfb(0x2d2)]=_0x32f21b,this[_0x4dfbfb(0x3c7)]=_0x32f21b;},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x32f)]=Window_Message[_0x2c6443(0x272)]['isTriggered'],Window_Message[_0x2c6443(0x272)]['isTriggered']=function(){const _0x5c0e4a=_0x2c6443;return VisuMZ[_0x5c0e4a(0x3ca)][_0x5c0e4a(0x32f)][_0x5c0e4a(0x369)](this)||Input[_0x5c0e4a(0x248)](VisuMZ[_0x5c0e4a(0x3ca)]['Settings'][_0x5c0e4a(0x40d)][_0x5c0e4a(0x23c)]);},VisuMZ['MessageCore'][_0x2c6443(0x416)]=Window_Message[_0x2c6443(0x272)][_0x2c6443(0x279)],Window_Message[_0x2c6443(0x272)][_0x2c6443(0x279)]=function(){const _0x1cca73=_0x2c6443;let _0x4a1f68=this['y'];this['x']=Math[_0x1cca73(0x3fa)]((Graphics[_0x1cca73(0x200)]-this[_0x1cca73(0x327)])/0x2),VisuMZ[_0x1cca73(0x3ca)][_0x1cca73(0x416)]['call'](this);if(this[_0x1cca73(0x37d)])this['y']=_0x4a1f68;this['updateXyOffsets'](),this[_0x1cca73(0x2e3)](),this['clampPlacementPosition']();},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x1f6)]=Window_Message[_0x2c6443(0x272)][_0x2c6443(0x3dc)],Window_Message['prototype']['newPage']=function(_0x11d327){const _0x3160ed=_0x2c6443;this[_0x3160ed(0x43a)](_0x11d327),this[_0x3160ed(0x2d0)](_0x11d327),VisuMZ['MessageCore'][_0x3160ed(0x1f6)]['call'](this,_0x11d327),this['createContents']();},Window_Message['prototype']['convertNewPageTextStateMacros']=function(_0x345dd7){const _0x10fe6f=_0x2c6443;if(!_0x345dd7)return;this[_0x10fe6f(0x2c7)]=![],_0x345dd7[_0x10fe6f(0x428)]=this['convertTextMacros'](_0x345dd7[_0x10fe6f(0x428)]),this['_textMacroFound']&&(_0x345dd7[_0x10fe6f(0x428)]=this[_0x10fe6f(0x3ac)](_0x345dd7['text']),this[_0x10fe6f(0x2c7)]=!![]);},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x3ac)]=function(_0x518abe){const _0x5dfd9b=_0x2c6443;if(this[_0x5dfd9b(0x2c7)])return _0x518abe;return Window_Base[_0x5dfd9b(0x272)][_0x5dfd9b(0x3ac)][_0x5dfd9b(0x369)](this,_0x518abe);},Window_Message[_0x2c6443(0x272)]['onNewPageMessageCore']=function(_0x5ccf18){const _0x147fd5=_0x2c6443;this[_0x147fd5(0x3db)](_0x5ccf18),this[_0x147fd5(0x3cc)](_0x5ccf18),this['updateDimensions']();},VisuMZ[_0x2c6443(0x3ca)]['Window_Message_terminateMessage']=Window_Message['prototype'][_0x2c6443(0x319)],Window_Message[_0x2c6443(0x272)][_0x2c6443(0x319)]=function(){const _0x548f81=_0x2c6443;VisuMZ[_0x548f81(0x3ca)][_0x548f81(0x453)][_0x548f81(0x369)](this),this[_0x548f81(0x316)]();if(this[_0x548f81(0x406)])this['messagePositionReset']();},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x288)]=function(){const _0x33c64d=_0x2c6443;this[_0x33c64d(0x327)]=$gameSystem['getMessageWindowWidth']()+this['addedWidth']();;this['width']=Math[_0x33c64d(0x291)](Graphics[_0x33c64d(0x327)],this[_0x33c64d(0x327)]);const _0x34483a=$gameSystem[_0x33c64d(0x38c)]();this[_0x33c64d(0x3c3)]=SceneManager[_0x33c64d(0x3f3)][_0x33c64d(0x411)](_0x34483a,![])+this[_0x33c64d(0x225)](),this[_0x33c64d(0x3c3)]=Math[_0x33c64d(0x291)](Graphics['height'],this[_0x33c64d(0x3c3)]);if($gameTemp[_0x33c64d(0x322)])this['resetPositionX']();},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x204)]=function(){return 0x0;},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x225)]=function(){return 0x0;},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x2aa)]=function(){const _0x322e33=_0x2c6443;this['x']=(Graphics[_0x322e33(0x200)]-this[_0x322e33(0x327)])/0x2,$gameTemp[_0x322e33(0x322)]=undefined,this[_0x322e33(0x2ce)]();},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x3c6)]=function(){const _0x8627da=_0x2c6443,_0xd34cc9={'x':this['x'],'y':this['y']};Window_Base[_0x8627da(0x272)]['updateMove']['call'](this),this[_0x8627da(0x399)](_0xd34cc9);},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x2cd)]=function(){return!![];},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x399)]=function(_0x3d4215){const _0x113c29=_0x2c6443;this['_nameBoxWindow']&&(this[_0x113c29(0x41f)]['x']+=this['x']-_0x3d4215['x'],this[_0x113c29(0x41f)]['y']+=this['y']-_0x3d4215['y']);},Window_Message[_0x2c6443(0x272)]['resetRect']=function(_0x31fb42,_0x1bbdd4){const _0x36e34e=_0x2c6443;this[_0x36e34e(0x26e)](this[_0x36e34e(0x23e)]['x'],this[_0x36e34e(0x33e)]*(Graphics[_0x36e34e(0x382)]-this['height'])/0x2,this[_0x36e34e(0x23e)][_0x36e34e(0x327)],this[_0x36e34e(0x23e)][_0x36e34e(0x3c3)],_0x31fb42,_0x1bbdd4);},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x380)]=function(_0x1f952a){const _0xf4f08e=_0x2c6443,_0x456fda=Window_Base['prototype'][_0xf4f08e(0x380)][_0xf4f08e(0x369)](this,_0x1f952a);_0x1f952a[_0xf4f08e(0x33c)]&&this['launchMessageCommonEvent'](_0x456fda);},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x43f)]=function(_0x4d7e26){const _0x40f819=_0x2c6443;if($gameParty['inBattle']()){}else $gameMap[_0x40f819(0x405)](_0x4d7e26);},Window_Message[_0x2c6443(0x272)]['processCharacter']=function(_0x499e89){const _0x1b6c49=_0x2c6443;this[_0x1b6c49(0x2d2)]--,this[_0x1b6c49(0x2d2)]<=0x0&&(this['onProcessCharacter'](_0x499e89),Window_Base[_0x1b6c49(0x272)][_0x1b6c49(0x2d5)][_0x1b6c49(0x369)](this,_0x499e89));},Window_Message[_0x2c6443(0x272)]['onProcessCharacter']=function(_0x1be0ed){const _0x11910a=_0x2c6443;this[_0x11910a(0x2d2)]=this['_textDelay'];if(this[_0x11910a(0x3c7)]<=0x0)this['_showFast']=!![];},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x1e2)]=Window_Message[_0x2c6443(0x272)][_0x2c6443(0x3fb)],Window_Message['prototype'][_0x2c6443(0x3fb)]=function(_0x26432d,_0x4d8a34){const _0x42c84b=_0x2c6443;!_0x4d8a34[_0x42c84b(0x33c)]?Window_Base[_0x42c84b(0x272)][_0x42c84b(0x3fb)][_0x42c84b(0x369)](this,_0x26432d,_0x4d8a34):VisuMZ[_0x42c84b(0x3ca)]['Window_Message_processEscapeCharacter'][_0x42c84b(0x369)](this,_0x26432d,_0x4d8a34);},VisuMZ['MessageCore'][_0x2c6443(0x391)]=Window_Message[_0x2c6443(0x272)][_0x2c6443(0x1de)],Window_Message['prototype'][_0x2c6443(0x1de)]=function(_0x41eb43){const _0x463d93=_0x2c6443;if(this['_currentAutoSize'])return![];return VisuMZ['MessageCore'][_0x463d93(0x391)][_0x463d93(0x369)](this,_0x41eb43);},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x3db)]=function(_0x2d96c6){const _0x172886=_0x2c6443;let _0x48ddb6=_0x2d96c6['text'];this[_0x172886(0x376)]={};if(this[_0x172886(0x3cf)]())return _0x48ddb6;_0x48ddb6=_0x48ddb6[_0x172886(0x39e)](/<POSITION:[ ]*(.*)>/gi,(_0x29bce9,_0x4091b7)=>{const _0x1f6c06=_0x172886,_0x2ce164=_0x4091b7[_0x1f6c06(0x419)](',')['map'](_0x5b005b=>Number(_0x5b005b)||0x0);if(_0x2ce164[0x0]!==undefined)this['_forcedPosition']['x']=Number(_0x2ce164[0x0]);if(_0x2ce164[0x1]!==undefined)this[_0x1f6c06(0x376)]['y']=Number(_0x2ce164[0x1]);if(_0x2ce164[0x2]!==undefined)this['_forcedPosition']['width']=Number(_0x2ce164[0x2]);if(_0x2ce164[0x3]!==undefined)this[_0x1f6c06(0x376)][_0x1f6c06(0x3c3)]=Number(_0x2ce164[0x3]);return'';}),_0x48ddb6=_0x48ddb6[_0x172886(0x39e)](/<COORDINATES:[ ]*(.*)>/gi,(_0xb4b80c,_0x417d28)=>{const _0x4b1b04=_0x417d28['split'](',')['map'](_0x1fda3f=>Number(_0x1fda3f)||0x0);if(_0x4b1b04[0x0]!==undefined)this['_forcedPosition']['x']=Number(_0x4b1b04[0x0]);if(_0x4b1b04[0x1]!==undefined)this['_forcedPosition']['y']=Number(_0x4b1b04[0x1]);return'';}),_0x48ddb6=_0x48ddb6[_0x172886(0x39e)](/<DIMENSIONS:[ ]*(.*)>/gi,(_0x5b236d,_0x41c25a)=>{const _0x1839b5=_0x172886,_0x3e3725=_0x41c25a['split'](',')['map'](_0x1908f9=>Number(_0x1908f9)||0x0);if(_0x3e3725[0x0]!==undefined)this[_0x1839b5(0x376)][_0x1839b5(0x327)]=Number(_0x3e3725[0x2]);if(_0x3e3725[0x1]!==undefined)this[_0x1839b5(0x376)][_0x1839b5(0x3c3)]=Number(_0x3e3725[0x3]);return'';}),_0x48ddb6=_0x48ddb6[_0x172886(0x39e)](/<OFFSET:[ ]*(.*)>/gi,(_0x303e03,_0x5df8fd)=>{const _0x14cc1b=_0x172886,_0x398832=_0x5df8fd[_0x14cc1b(0x419)](',')[_0x14cc1b(0x3c9)](_0x1ae229=>Number(_0x1ae229)||0x0);let _0x104963=_0x398832[0x0]||0x0,_0x354a5d=_0x398832[0x1]||0x0;return $gameSystem['setMessageWindowXyOffsets'](_0x104963,_0x354a5d),'';}),_0x2d96c6[_0x172886(0x428)]=_0x48ddb6;},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x2ec)]=function(){const _0x5d03e9=_0x2c6443,_0xba2027=$gameSystem[_0x5d03e9(0x350)]();this['x']+=_0xba2027['x'],this['y']+=_0xba2027['y'];},Window_Message['prototype'][_0x2c6443(0x2e3)]=function(){const _0x4af785=_0x2c6443;this[_0x4af785(0x376)]=this['_forcedPosition']||{};const _0x1c4b00=['x','y',_0x4af785(0x327),_0x4af785(0x3c3)];for(const _0x14e452 of _0x1c4b00){this[_0x4af785(0x376)][_0x14e452]!==undefined&&(this[_0x14e452]=Number(this[_0x4af785(0x376)][_0x14e452]));}},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x3cc)]=function(_0x4f7ac8){const _0x19b602=_0x2c6443;this[_0x19b602(0x423)]=![];let _0x5bf3cf=_0x4f7ac8[_0x19b602(0x428)];_0x5bf3cf=_0x5bf3cf['replace'](/<(?:AUTO|AUTOSIZE|AUTO SIZE)>/gi,()=>{const _0x2ceda6=_0x19b602;return this[_0x2ceda6(0x268)](_0x5bf3cf,!![],!![]),this[_0x2ceda6(0x208)]('none'),'';}),_0x5bf3cf=_0x5bf3cf[_0x19b602(0x39e)](/<(?:AUTOWIDTH|AUTO WIDTH)>/gi,()=>{const _0x5a3cbc=_0x19b602;return this[_0x5a3cbc(0x268)](_0x5bf3cf,!![],![]),this['processAutoPosition']('none'),'';}),_0x5bf3cf=_0x5bf3cf['replace'](/<(?:AUTOHEIGHT|AUTO HEIGHT)>/gi,()=>{const _0x54ed5a=_0x19b602;return this[_0x54ed5a(0x268)](_0x5bf3cf,![],!![]),this[_0x54ed5a(0x208)]('none'),'';});if(SceneManager[_0x19b602(0x360)]())_0x5bf3cf=_0x5bf3cf[_0x19b602(0x39e)](/<(?:AUTOACTOR|AUTO ACTOR):[ ](.*?)>/gi,(_0x54b6c7,_0x2ec8fd)=>{const _0x311374=_0x19b602;return this[_0x311374(0x268)](_0x5bf3cf,!![],!![]),this[_0x311374(0x208)](_0x311374(0x308),Number(_0x2ec8fd)||0x1),'';}),_0x5bf3cf=_0x5bf3cf[_0x19b602(0x39e)](/<(?:AUTOPARTY|AUTO PARTY):[ ](.*?)>/gi,(_0xc10fd4,_0x185791)=>{const _0x4c3721=_0x19b602;return this[_0x4c3721(0x268)](_0x5bf3cf,!![],!![]),this['processAutoPosition']('battle\x20party',Number(_0x185791)||0x0),'';}),_0x5bf3cf=_0x5bf3cf[_0x19b602(0x39e)](/<(?:AUTOENEMY|AUTO ENEMY):[ ](.*?)>/gi,(_0x45c9d2,_0x49a0c6)=>{const _0x4c86b0=_0x19b602;return this['processAutoSize'](_0x5bf3cf,!![],!![]),this[_0x4c86b0(0x208)](_0x4c86b0(0x2bb),Number(_0x49a0c6)||0x0),'';});else SceneManager[_0x19b602(0x464)]()&&(_0x5bf3cf=_0x5bf3cf[_0x19b602(0x39e)](/<(?:AUTOPLAYER|AUTO PLAYER)>/gi,(_0x59de29,_0x2a6139)=>{const _0x5c56ef=_0x19b602;return this[_0x5c56ef(0x268)](_0x5bf3cf,!![],!![]),this[_0x5c56ef(0x208)](_0x5c56ef(0x397),0x0),'';}),_0x5bf3cf=_0x5bf3cf['replace'](/<(?:AUTOACTOR|AUTO ACTOR):[ ](.*?)>/gi,(_0x1e01ef,_0x35f633)=>{const _0x28184f=_0x19b602;return this[_0x28184f(0x268)](_0x5bf3cf,!![],!![]),this['processAutoPosition'](_0x28184f(0x346),Number(_0x35f633)||0x1),'';}),_0x5bf3cf=_0x5bf3cf[_0x19b602(0x39e)](/<(?:AUTOPARTY|AUTO PARTY):[ ](.*?)>/gi,(_0x3718c6,_0x3a3401)=>{const _0x4dd0e6=_0x19b602;return this[_0x4dd0e6(0x268)](_0x5bf3cf,!![],!![]),this[_0x4dd0e6(0x208)](_0x4dd0e6(0x3df),Number(_0x3a3401)||0x0),'';}),_0x5bf3cf=_0x5bf3cf['replace'](/<(?:AUTOEVENT|AUTO EVENT):[ ](.*?)>/gi,(_0x39d81a,_0xbf26da)=>{const _0x456fe1=_0x19b602;return this[_0x456fe1(0x268)](_0x5bf3cf,!![],!![]),this[_0x456fe1(0x208)](_0x456fe1(0x2eb),Number(_0xbf26da)||0x0),'';}));_0x4f7ac8[_0x19b602(0x428)]=_0x5bf3cf;},Window_Message[_0x2c6443(0x2be)]=/<(?:AUTO|AUTOSIZE|AUTO SIZE|AUTOWIDTH|AUTO WIDTH|AUTOHEIGHT|AUTO HEIGHT|AUTOPLAYER|AUTO PLAYER)>/gi,Window_Message[_0x2c6443(0x2f4)]=/<(?:AUTOPARTY|AUTO PARTY|AUTOPLAYER|AUTO PLAYER|AUTOEVENT|AUTO EVENT|AUTOENEMY|AUTO ENEMY|AUTOACTOR|AUTO ACTOR):[ ](.*?)>/gi,Window_Message['prototype'][_0x2c6443(0x268)]=function(_0x20386a,_0x58df3,_0x43b708){const _0x5ce2ce=_0x2c6443;_0x20386a=_0x20386a[_0x5ce2ce(0x39e)](Window_Message['_autoSizeRegexp'],''),_0x20386a=_0x20386a[_0x5ce2ce(0x39e)](Window_Message[_0x5ce2ce(0x2f4)],''),this[_0x5ce2ce(0x1ff)]=!![],this['_currentAutoSize']=!![],this[_0x5ce2ce(0x240)](![]);const _0x1f2ccc=this[_0x5ce2ce(0x3f7)](_0x20386a);if(_0x58df3){let _0x1ef78a=_0x1f2ccc[_0x5ce2ce(0x327)]+$gameSystem[_0x5ce2ce(0x2d7)]()*0x2+0x6;const _0x3412e9=$gameMessage[_0x5ce2ce(0x1fb)]()!=='',_0x4083a6=ImageManager['faceWidth'],_0x51a20c=0x14;_0x1ef78a+=_0x3412e9?_0x4083a6+_0x51a20c:0x4;if(_0x1ef78a%0x2!==0x0)_0x1ef78a+=0x1;$gameSystem[_0x5ce2ce(0x429)](_0x1ef78a);}if(_0x43b708){let _0x153b33=Math[_0x5ce2ce(0x219)](_0x1f2ccc[_0x5ce2ce(0x3c3)]/this[_0x5ce2ce(0x24e)]());$gameSystem[_0x5ce2ce(0x310)](_0x153b33);}this['updateAutoSizePosition'](),this['_refreshPauseSign'](),this[_0x5ce2ce(0x1ff)]=![],this['_messagePositionReset']=!![];},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x283)]=function(){const _0x3928f5=_0x2c6443;this[_0x3928f5(0x288)](),this['updatePlacement'](),this[_0x3928f5(0x2aa)](),this[_0x3928f5(0x263)](),this[_0x3928f5(0x305)][_0x3928f5(0x3a3)](),this[_0x3928f5(0x26f)]();},Window_Message['prototype'][_0x2c6443(0x208)]=function(_0x44f580,_0x5a472f){const _0x866c9e=_0x2c6443;switch(_0x44f580[_0x866c9e(0x2e8)]()[_0x866c9e(0x3bf)]()){case _0x866c9e(0x308):this[_0x866c9e(0x37d)]=$gameActors['actor'](_0x5a472f);break;case _0x866c9e(0x328):this[_0x866c9e(0x37d)]=$gameParty[_0x866c9e(0x31f)]()[_0x5a472f-0x1];break;case _0x866c9e(0x2bb):this[_0x866c9e(0x37d)]=$gameTroop['members']()[_0x5a472f-0x1];break;case _0x866c9e(0x397):this[_0x866c9e(0x37d)]=$gamePlayer;break;case _0x866c9e(0x346):const _0x14053d=$gameActors[_0x866c9e(0x3fe)](_0x5a472f)['index']();_0x14053d===0x0?this[_0x866c9e(0x37d)]=$gamePlayer:this[_0x866c9e(0x37d)]=$gamePlayer[_0x866c9e(0x2df)]()[_0x866c9e(0x20e)](_0x14053d-0x1);break;case _0x866c9e(0x3df):_0x5a472f===0x1?this['_autoPositionTarget']=$gamePlayer:this[_0x866c9e(0x37d)]=$gamePlayer[_0x866c9e(0x2df)]()[_0x866c9e(0x20e)](_0x5a472f-0x2);break;case _0x866c9e(0x2eb):this[_0x866c9e(0x37d)]=$gameMap[_0x866c9e(0x3ef)](_0x5a472f);break;}this[_0x866c9e(0x37d)]&&this[_0x866c9e(0x290)]();},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x236)]=Window_Message[_0x2c6443(0x272)][_0x2c6443(0x1f8)],Window_Message[_0x2c6443(0x272)]['synchronizeNameBox']=function(){const _0x45829c=_0x2c6443;this[_0x45829c(0x290)](),VisuMZ[_0x45829c(0x3ca)][_0x45829c(0x236)][_0x45829c(0x369)](this);},Window_Message['prototype'][_0x2c6443(0x290)]=function(){const _0x52a1e2=_0x2c6443;if(!this[_0x52a1e2(0x37d)])return;const _0x2b089f=SceneManager[_0x52a1e2(0x3f3)];if(!_0x2b089f)return;if(!_0x2b089f[_0x52a1e2(0x384)])return;const _0x16e6c5=_0x2b089f['_spriteset']['findTargetSprite'](this[_0x52a1e2(0x37d)]);if(!_0x16e6c5)return;let _0x433d50=_0x16e6c5['x'];_0x433d50-=this['width']/0x2,_0x433d50-=(Graphics['width']-Graphics['boxWidth'])/0x2,_0x433d50+=this[_0x52a1e2(0x2b4)]();let _0x422adf=_0x16e6c5['y'];_0x422adf-=this[_0x52a1e2(0x3c3)],_0x422adf-=(Graphics[_0x52a1e2(0x3c3)]-Graphics[_0x52a1e2(0x382)])/0x2,_0x422adf+=this[_0x52a1e2(0x243)](),_0x422adf-=_0x16e6c5[_0x52a1e2(0x3c3)]+0x8;const _0x3b284e=$gameSystem['getMessageWindowXyOffsets']();_0x433d50+=_0x3b284e['x'],_0x422adf+=_0x3b284e['y'],this['x']=Math['round'](_0x433d50),this['y']=Math[_0x52a1e2(0x3fa)](_0x422adf),this['clampPlacementPosition'](!![],![]),this[_0x52a1e2(0x376)]=this['_forcedPosition']||{},this[_0x52a1e2(0x376)]['x']=this['x'],this[_0x52a1e2(0x376)]['y']=this['y'],this[_0x52a1e2(0x376)][_0x52a1e2(0x327)]=this[_0x52a1e2(0x327)],this[_0x52a1e2(0x376)][_0x52a1e2(0x3c3)]=this['height'],this['_nameBoxWindow']['updatePlacement']();},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x2b4)]=function(){return 0x0;},Window_Message['prototype'][_0x2c6443(0x243)]=function(){return 0x0;},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x3ad)]=function(){const _0x57df0c=_0x2c6443;this[_0x57df0c(0x406)]=![],this[_0x57df0c(0x37d)]=undefined,$gameSystem[_0x57df0c(0x216)](),this['updateAutoSizePosition'](),this[_0x57df0c(0x23d)]=0x0;},Window_Message['prototype'][_0x2c6443(0x2af)]=function(_0x34f12c){const _0x294d92=_0x2c6443;return Window_Base[_0x294d92(0x272)][_0x294d92(0x2af)]['call'](this,_0x34f12c);},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x2c4)]=function(_0x21473c){const _0x1eb2fe=_0x2c6443;return Window_Base['prototype'][_0x1eb2fe(0x2c4)]['call'](this,_0x21473c);},Window_Message[_0x2c6443(0x272)]['flushTextState']=function(_0x2769d6){const _0x48ef9f=_0x2c6443;this['preFlushTextState'](_0x2769d6),Window_Base[_0x48ef9f(0x272)]['flushTextState']['call'](this,_0x2769d6),this[_0x48ef9f(0x28c)](_0x2769d6);},Window_Message['prototype'][_0x2c6443(0x2c3)]=function(_0x17dbb1){},Window_Message[_0x2c6443(0x272)][_0x2c6443(0x28c)]=function(_0x2ecb6f){},Window_NameBox[_0x2c6443(0x272)]['isAutoColorAffected']=function(){return![];},Window_NameBox[_0x2c6443(0x272)][_0x2c6443(0x2f7)]=function(){const _0x1c15f5=_0x2c6443;Window_Base[_0x1c15f5(0x272)]['resetTextColor']['call'](this),this['changeTextColor'](this[_0x1c15f5(0x3dd)]());},Window_NameBox['prototype'][_0x2c6443(0x3dd)]=function(){const _0x2c3a89=_0x2c6443,_0xf46350=VisuMZ[_0x2c3a89(0x3ca)][_0x2c3a89(0x306)][_0x2c3a89(0x40d)]['NameBoxWindowDefaultColor'];return ColorManager[_0x2c3a89(0x365)](_0xf46350);},VisuMZ['MessageCore'][_0x2c6443(0x280)]=Window_NameBox[_0x2c6443(0x272)][_0x2c6443(0x279)],Window_NameBox[_0x2c6443(0x272)]['updatePlacement']=function(){const _0x40f09a=_0x2c6443;VisuMZ[_0x40f09a(0x3ca)][_0x40f09a(0x280)]['call'](this),this[_0x40f09a(0x269)](),this[_0x40f09a(0x459)](),this[_0x40f09a(0x2ce)](),this[_0x40f09a(0x336)]();},Window_NameBox['prototype'][_0x2c6443(0x2af)]=function(_0x4df9e7){const _0x2efb11=_0x2c6443;return _0x4df9e7=_0x4df9e7[_0x2efb11(0x39e)](/<LEFT>/gi,this['setRelativePosition']['bind'](this,0x0)),_0x4df9e7=_0x4df9e7['replace'](/<CENTER>/gi,this[_0x2efb11(0x238)]['bind'](this,0x5)),_0x4df9e7=_0x4df9e7[_0x2efb11(0x39e)](/<RIGHT>/gi,this['setRelativePosition']['bind'](this,0xa)),_0x4df9e7=_0x4df9e7[_0x2efb11(0x39e)](/<POSITION:[ ](\d+)>/gi,(_0x3fed41,_0x56edd0)=>this['setRelativePosition'](parseInt(_0x56edd0))),_0x4df9e7=_0x4df9e7['replace'](/<\/LEFT>/gi,''),_0x4df9e7=_0x4df9e7[_0x2efb11(0x39e)](/<\/CENTER>/gi,''),_0x4df9e7=_0x4df9e7[_0x2efb11(0x39e)](/<\/RIGHT>/gi,''),Window_Base[_0x2efb11(0x272)]['preConvertEscapeCharacters'][_0x2efb11(0x369)](this,_0x4df9e7);},Window_NameBox[_0x2c6443(0x272)][_0x2c6443(0x238)]=function(_0x2024fd){const _0x5b1f7e=_0x2c6443;return this[_0x5b1f7e(0x33a)]=_0x2024fd,'';},Window_NameBox['prototype']['updateRelativePosition']=function(){const _0x952228=_0x2c6443;if($gameMessage[_0x952228(0x250)]())return;this[_0x952228(0x33a)]=this[_0x952228(0x33a)]||0x0;const _0x18b78f=this[_0x952228(0x3b5)],_0x20f19a=Math[_0x952228(0x301)](_0x18b78f['width']*this[_0x952228(0x33a)]/0xa);this['x']=_0x18b78f['x']+_0x20f19a-Math[_0x952228(0x301)](this[_0x952228(0x327)]/0x2),this['x']=this['x']['clamp'](_0x18b78f['x'],_0x18b78f['x']+_0x18b78f['width']-this[_0x952228(0x327)]);},Window_NameBox[_0x2c6443(0x272)][_0x2c6443(0x459)]=function(){const _0x17d704=_0x2c6443;if($gameMessage[_0x17d704(0x250)]())return;this['_relativePosition']=this[_0x17d704(0x33a)]||0x0;const _0x132618=VisuMZ[_0x17d704(0x3ca)][_0x17d704(0x306)]['General'][_0x17d704(0x341)],_0x491507=VisuMZ[_0x17d704(0x3ca)][_0x17d704(0x306)][_0x17d704(0x40d)][_0x17d704(0x309)],_0x4e1aee=(0x5-this['_relativePosition'])/0x5;this['x']+=Math[_0x17d704(0x301)](_0x132618*_0x4e1aee),this['y']+=_0x491507;},Window_NameBox[_0x2c6443(0x272)]['updateOverlappingY']=function(){const _0x27f0de=_0x2c6443,_0x16c71f=this['_messageWindow'],_0x160f81=_0x16c71f['y'],_0x235d56=VisuMZ[_0x27f0de(0x3ca)][_0x27f0de(0x306)][_0x27f0de(0x40d)]['NameBoxWindowOffsetY'];_0x160f81>this['y']&&_0x160f81<this['y']+this[_0x27f0de(0x3c3)]-_0x235d56&&(this['y']=_0x16c71f['y']+_0x16c71f[_0x27f0de(0x3c3)]);},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x378)]=Window_NameBox[_0x2c6443(0x272)][_0x2c6443(0x293)],Window_NameBox['prototype'][_0x2c6443(0x293)]=function(){const _0x21dc35=_0x2c6443;this[_0x21dc35(0x33a)]=0x0,VisuMZ['MessageCore']['Window_NameBox_refresh'][_0x21dc35(0x369)](this);},Window_ChoiceList['prototype'][_0x2c6443(0x3cf)]=function(){return![];},Window_ChoiceList[_0x2c6443(0x272)]['isAutoColorAffected']=function(){return!![];},Window_ChoiceList['prototype']['itemHeight']=function(){const _0x1871dd=_0x2c6443;return $gameSystem[_0x1871dd(0x3d9)]()+0x8;},Window_ChoiceList['prototype'][_0x2c6443(0x29b)]=function(){const _0x2ffea7=_0x2c6443;return $gameSystem[_0x2ffea7(0x2ef)]();},Window_ChoiceList['prototype'][_0x2c6443(0x362)]=function(){const _0x47c79c=_0x2c6443;this[_0x47c79c(0x293)](),this['selectDefault'](),this['open'](),this[_0x47c79c(0x25a)]();},Window_ChoiceList[_0x2c6443(0x272)]['refresh']=function(){const _0x244d31=_0x2c6443;this[_0x244d31(0x410)](),this[_0x244d31(0x2db)](),this[_0x244d31(0x3b5)]&&(this['updatePlacement'](),this[_0x244d31(0x1e4)]()),this['createContents'](),this[_0x244d31(0x413)](),this[_0x244d31(0x35a)](),Window_Selectable[_0x244d31(0x272)][_0x244d31(0x293)]['call'](this);},Window_ChoiceList[_0x2c6443(0x272)][_0x2c6443(0x2db)]=function(){const _0x3ebcd6=_0x2c6443,_0x535299=$gameMessage[_0x3ebcd6(0x24a)]();let _0x1d9d79=0x0;for(let _0x63e3be of _0x535299){_0x63e3be=this['convertChoiceMacros'](_0x63e3be);if(this[_0x3ebcd6(0x2d8)](_0x63e3be)){const _0x1b5eb3=this[_0x3ebcd6(0x45e)](_0x63e3be),_0x3aa2a2=this[_0x3ebcd6(0x363)](_0x63e3be);this[_0x3ebcd6(0x42d)](_0x1b5eb3,_0x3ebcd6(0x36e),_0x3aa2a2,_0x1d9d79);}_0x1d9d79++;}},Window_ChoiceList['prototype']['convertChoiceMacros']=function(_0x3b6298){const _0xa807de=_0x2c6443;return Window_Base[_0xa807de(0x272)][_0xa807de(0x20c)]['call'](this,_0x3b6298);},Window_ChoiceList['prototype'][_0x2c6443(0x2d8)]=function(_0x3177c2){const _0x2a55c5=_0x2c6443;if(Imported[_0x2a55c5(0x278)])$gameMessage[_0x2a55c5(0x24d)]();if(_0x3177c2[_0x2a55c5(0x22e)](/<HIDE>/i))return![];if(_0x3177c2['match'](/<SHOW>/i))return!![];if(_0x3177c2[_0x2a55c5(0x22e)](/<SHOW[ ](?:SW|SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x24bb60=RegExp['$1'][_0x2a55c5(0x419)](',')[_0x2a55c5(0x3c9)](_0x226c51=>Number(_0x226c51)||0x0);for(const _0x583f32 of _0x24bb60){if(!$gameSwitches[_0x2a55c5(0x27c)](_0x583f32))return![];}return!![];}if(_0x3177c2[_0x2a55c5(0x22e)](/<SHOW ALL[ ](?:SW|SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x3faefe=RegExp['$1'][_0x2a55c5(0x419)](',')['map'](_0x4b75fb=>Number(_0x4b75fb)||0x0);for(const _0x27fe13 of _0x3faefe){if(!$gameSwitches['value'](_0x27fe13))return![];}return!![];}if(_0x3177c2[_0x2a55c5(0x22e)](/<SHOW ANY[ ](?:SW|SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x717f44=RegExp['$1'][_0x2a55c5(0x419)](',')['map'](_0x207726=>Number(_0x207726)||0x0);for(const _0x396c6c of _0x717f44){if($gameSwitches['value'](_0x396c6c))return!![];}return![];}if(_0x3177c2[_0x2a55c5(0x22e)](/<HIDE[ ](?:SW|SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x4e5792=RegExp['$1']['split'](',')['map'](_0x4b4fa1=>Number(_0x4b4fa1)||0x0);for(const _0x2b228f of _0x4e5792){if(!$gameSwitches[_0x2a55c5(0x27c)](_0x2b228f))return!![];}return![];}if(_0x3177c2[_0x2a55c5(0x22e)](/<HIDE ALL[ ](?:SW|SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x3c7748=RegExp['$1'][_0x2a55c5(0x419)](',')[_0x2a55c5(0x3c9)](_0xfe7777=>Number(_0xfe7777)||0x0);for(const _0x6066bb of _0x3c7748){if(!$gameSwitches[_0x2a55c5(0x27c)](_0x6066bb))return!![];}return![];}if(_0x3177c2['match'](/<HIDE ANY[ ](?:SW|SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x589d95=RegExp['$1'][_0x2a55c5(0x419)](',')[_0x2a55c5(0x3c9)](_0x5f444a=>Number(_0x5f444a)||0x0);for(const _0x87fe29 of _0x589d95){if($gameSwitches[_0x2a55c5(0x27c)](_0x87fe29))return![];}return!![];}return!![];},Window_ChoiceList[_0x2c6443(0x272)]['parseChoiceText']=function(_0x46c4d4){const _0x3ff7b5=_0x2c6443;let _0x10809e=_0x46c4d4;return _0x10809e=_0x10809e[_0x3ff7b5(0x39e)](/<(?:BR|LINEBREAK)>/gi,'\x0a'),_0x10809e=_0x10809e[_0x3ff7b5(0x39e)](/<LINE\x1bWrapBreak[0]BREAK>/gi,'\x0a'),_0x10809e;},Window_ChoiceList[_0x2c6443(0x272)][_0x2c6443(0x363)]=function(_0x41b893){const _0x3f357a=_0x2c6443;if(Imported[_0x3f357a(0x278)])$gameMessage[_0x3f357a(0x24d)]();if(_0x41b893[_0x3f357a(0x22e)](/<DISABLE>/i))return![];if(_0x41b893['match'](/<ENABLE>/i))return!![];if(_0x41b893[_0x3f357a(0x22e)](/<ENABLE[ ](?:SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x1d5677=RegExp['$1'][_0x3f357a(0x419)](',')['map'](_0x4f5cef=>Number(_0x4f5cef)||0x0);for(const _0x41cdc7 of _0x1d5677){if(!$gameSwitches[_0x3f357a(0x27c)](_0x41cdc7))return![];}return!![];}if(_0x41b893[_0x3f357a(0x22e)](/<ENABLE ALL[ ](?:SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x218940=RegExp['$1']['split'](',')[_0x3f357a(0x3c9)](_0x317065=>Number(_0x317065)||0x0);for(const _0x1269f6 of _0x218940){if(!$gameSwitches[_0x3f357a(0x27c)](_0x1269f6))return![];}return!![];}if(_0x41b893[_0x3f357a(0x22e)](/<ENABLE ANY[ ](?:SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x2a32bd=RegExp['$1'][_0x3f357a(0x419)](',')[_0x3f357a(0x3c9)](_0x1fb82c=>Number(_0x1fb82c)||0x0);for(const _0x1dda77 of _0x2a32bd){if($gameSwitches['value'](_0x1dda77))return!![];}return![];}if(_0x41b893[_0x3f357a(0x22e)](/<DISABLE[ ](?:SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x5d25d8=RegExp['$1'][_0x3f357a(0x419)](',')['map'](_0x41d352=>Number(_0x41d352)||0x0);for(const _0x5d7b39 of _0x5d25d8){if(!$gameSwitches[_0x3f357a(0x27c)](_0x5d7b39))return!![];}return![];}if(_0x41b893[_0x3f357a(0x22e)](/<DISABLE ALL[ ](?:SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x5092a1=RegExp['$1'][_0x3f357a(0x419)](',')[_0x3f357a(0x3c9)](_0x2423d1=>Number(_0x2423d1)||0x0);for(const _0xa7f64a of _0x5092a1){if(!$gameSwitches['value'](_0xa7f64a))return!![];}return![];}if(_0x41b893[_0x3f357a(0x22e)](/<DISABLE ANY[ ](?:SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x57ea47=RegExp['$1'][_0x3f357a(0x419)](',')[_0x3f357a(0x3c9)](_0x4022d2=>Number(_0x4022d2)||0x0);for(const _0x6c4a6a of _0x57ea47){if($gameSwitches[_0x3f357a(0x27c)](_0x6c4a6a))return![];}return!![];}return!![];},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x27d)]=Window_ChoiceList[_0x2c6443(0x272)][_0x2c6443(0x279)],Window_ChoiceList[_0x2c6443(0x272)][_0x2c6443(0x279)]=function(){const _0x3c8bfa=_0x2c6443;VisuMZ[_0x3c8bfa(0x3ca)][_0x3c8bfa(0x27d)][_0x3c8bfa(0x369)](this),this['clampPlacementPosition']();},Window_ChoiceList[_0x2c6443(0x272)][_0x2c6443(0x1e4)]=function(){const _0x372524=_0x2c6443;if(!this[_0x372524(0x42e)])return;const _0x3c1833=0x8,_0x44490e=this['_cancelButton'],_0x4a92d5=this['x']+this[_0x372524(0x327)],_0xa2b604=Math[_0x372524(0x301)]((Graphics[_0x372524(0x327)]-Graphics[_0x372524(0x200)])/0x2);_0x4a92d5>=Graphics[_0x372524(0x200)]+_0xa2b604-_0x44490e[_0x372524(0x327)]+_0x3c1833?_0x44490e['x']=-_0x44490e['width']-_0x3c1833:_0x44490e['x']=this['width']+_0x3c1833,_0x44490e['y']=this['height']/0x2-_0x44490e[_0x372524(0x3c3)]/0x2;},VisuMZ[_0x2c6443(0x3ca)][_0x2c6443(0x25e)]=Window_ChoiceList[_0x2c6443(0x272)][_0x2c6443(0x255)],Window_ChoiceList[_0x2c6443(0x272)][_0x2c6443(0x255)]=function(){const _0x39a62d=_0x2c6443;return this[_0x39a62d(0x3b5)]?this[_0x39a62d(0x3d2)]():VisuMZ[_0x39a62d(0x3ca)][_0x39a62d(0x25e)][_0x39a62d(0x369)](this);},Window_ChoiceList['prototype'][_0x2c6443(0x3d2)]=function(){const _0x4335c5=_0x2c6443,_0x214f21=$gameMessage[_0x4335c5(0x262)]();if(_0x214f21===0x1)return(Graphics[_0x4335c5(0x200)]-this[_0x4335c5(0x2c2)]())/0x2;else return _0x214f21===0x2?this[_0x4335c5(0x3b5)]['x']+this[_0x4335c5(0x3b5)][_0x4335c5(0x327)]-this[_0x4335c5(0x2c2)]():this['_messageWindow']['x'];},Window_ChoiceList[_0x2c6443(0x272)]['windowWidth']=function(){const _0x2dd904=_0x2c6443,_0x4583fa=(this[_0x2dd904(0x24b)]()+this[_0x2dd904(0x37e)]())*this['maxCols']()+this['padding']*0x2;return Math[_0x2dd904(0x291)](_0x4583fa,Graphics[_0x2dd904(0x327)]);},Window_ChoiceList[_0x2c6443(0x272)][_0x2c6443(0x203)]=function(){const _0x2e3a7c=_0x2c6443,_0x2d7a62=$gameMessage['choices']()[_0x2e3a7c(0x3c9)](_0x14cf1e=>this['convertChoiceMacros'](_0x14cf1e))[_0x2e3a7c(0x30f)](_0x406fe6=>this[_0x2e3a7c(0x2d8)](_0x406fe6)),_0x57e78f=Math[_0x2e3a7c(0x219)](_0x2d7a62[_0x2e3a7c(0x2f8)]/this[_0x2e3a7c(0x29b)]());return Math[_0x2e3a7c(0x2d6)](0x1,Math[_0x2e3a7c(0x291)](_0x57e78f,this['maxLines']()));},Window_ChoiceList[_0x2c6443(0x272)]['maxLines']=function(){const _0x510592=_0x2c6443,_0x1dc7e8=this['_messageWindow'],_0x5a6207=_0x1dc7e8?_0x1dc7e8['y']:0x0,_0x5a9898=_0x1dc7e8?_0x1dc7e8[_0x510592(0x3c3)]:0x0,_0x4b593c=Graphics['boxHeight']/0x2;return _0x5a6207<_0x4b593c&&_0x5a6207+_0x5a9898>_0x4b593c?0x4:$gameSystem[_0x510592(0x31d)]();},Window_ChoiceList[_0x2c6443(0x272)][_0x2c6443(0x24b)]=function(){const _0x2f3a57=_0x2c6443;let _0x218893=this[_0x2f3a57(0x2fb)]();for(const _0xe391fc of this[_0x2f3a57(0x3ae)]){const _0xcc4c58=_0xe391fc['name'],_0x1b83f9=this[_0x2f3a57(0x223)](_0xcc4c58),_0xd24d21=this[_0x2f3a57(0x1f7)](_0xcc4c58)[_0x2f3a57(0x327)]+_0x1b83f9,_0x5419e8=Math['ceil'](_0xd24d21)+this[_0x2f3a57(0x27f)]()*0x2;_0x218893=Math[_0x2f3a57(0x2d6)](_0x218893,_0x5419e8);}return _0x218893;},Window_ChoiceList[_0x2c6443(0x272)]['getStartingChoiceWidth']=function(){const _0x468713=_0x2c6443;let _0x32aedc=0x60;const _0x26c1d1=$gameMessage[_0x468713(0x24a)]();for(const _0x35f380 of _0x26c1d1){_0x35f380[_0x468713(0x22e)](/<CHOICE WIDTH:[ ](\d+)>/gi)&&(_0x32aedc=Math[_0x468713(0x2d6)](_0x32aedc,Number(RegExp['$1'])));}return _0x32aedc;},Window_ChoiceList[_0x2c6443(0x272)][_0x2c6443(0x1e8)]=function(_0x6acfd3){const _0x10552a=_0x2c6443,_0x4ae744=this[_0x10552a(0x40b)](_0x6acfd3),_0x500f38=$gameSystem[_0x10552a(0x228)]()!=='default'?_0x10552a(0x36a)[_0x10552a(0x233)]($gameSystem['getChoiceListTextAlign']()):'',_0x12d9cc=_0x500f38+this[_0x10552a(0x2d9)](_0x6acfd3);this[_0x10552a(0x330)](this[_0x10552a(0x211)](_0x6acfd3));const _0x2fa3b0=this[_0x10552a(0x1f7)](_0x12d9cc)[_0x10552a(0x3c3)],_0x5351fe=_0x4ae744['x']+this[_0x10552a(0x223)](_0x12d9cc),_0x42e0d5=Math[_0x10552a(0x2d6)](_0x4ae744['y'],_0x4ae744['y']+Math[_0x10552a(0x3fa)]((_0x4ae744[_0x10552a(0x3c3)]-_0x2fa3b0)/0x2));this[_0x10552a(0x451)](_0x12d9cc,_0x5351fe,_0x42e0d5,_0x4ae744[_0x10552a(0x327)]);},Window_ChoiceList['prototype'][_0x2c6443(0x223)]=function(_0xb8192){const _0x27432a=_0x2c6443;let _0xfb11b0=0x0;return _0xb8192[_0x27432a(0x22e)](/<CHOICE INDENT:[ ](\d+)>/gi)&&(_0xfb11b0=Number(RegExp['$1'])),_0xfb11b0;},Window_ChoiceList['prototype'][_0x2c6443(0x401)]=function(){const _0x55739a=_0x2c6443;$gameMessage[_0x55739a(0x21b)](this[_0x55739a(0x2ab)]()),this['_messageWindow']['terminateMessage'](),this[_0x55739a(0x359)]();};function _0x4ea5(){const _0x846207=['addMessageCoreCommands','_scene','convertShowChoiceEscapeCodes','setTextDelay','[0]','textSizeExRaw','TextCodeActions','TEXTALIGNMENT','round','processEscapeCharacter','</LEFT>','type','actor','moveBy','add','callOkHandler','easeInOut','makeData','Armors','addMessageCommonEvent','_messagePositionReset','Game_Map_setupEvents','scale','isColorLocked','erasePicture','itemRectWithPadding','currencyUnit','General','Window_Base_processControlCharacter','isVolumeSymbol','clearCommandList','calcWindowHeight','TextSpeed','updateBackground','ConfigManager_makeData','faceWidth','Window_Message_updatePlacement','messageCoreTextSpeed','_pictureTextCache','split','3340DcPlCK','databaseObjectName','_messageOffsetY','MaxCols','MessageTextDelay','_nameBoxWindow','getLastGainedItemData','_pictureTextHeight','STR','_currentAutoSize','_targets','Game_Map_initialize','Undefined','currentCommand','text','setMessageWindowWidth','constructor','COLORLOCK','changeTextSpeed','addCommand','_cancelButton','toUpperCase','isItem','gainItem','Window_Options_statusText','BOLD','ARRAYNUM','\x1bI[%1]','TightWrap','Game_Interpreter_setupChoices','obtainExp','_messageOffsetX','convertNewPageTextStateMacros','MessageWindow','default','clearAllPictureTexts','setWaitMode','launchMessageCommonEvent','emerge','Scene_Boot_onDatabaseLoaded','processActorNameAutoColorChanges','quantity','inputtingAction','realPictureId','convertBaseEscapeCharacters','processPyTextCode','ParseArmorNotetags','startX','Window_Message_clearFlags','upperleft','<COLORLOCK>','_textColorStack','paintOpacity','messageRows','resetWordWrap','drawTextEx','VisuMZ_0_CoreEngine','Window_Message_terminateMessage','exit','<BR>','adjustShowChoiceDefault','Name','_wordWrap','updateOffsetPosition','Sprite_Picture_updateBitmap','PictureIDs','964403CSrJGy','ParseAllNotetags','parseChoiceText','isMessageWindowWordWrap','_pictures','updateBitmap','\x1bCOLORLOCK[0]','clearActorNameAutoColor','isSceneMap','PREVCOLOR','erasePictureTextBuffer','needsNewPage','\x1bTEXTALIGNMENT[1]','SWITCH','ChoiceWindowProperties','Window_Message_processEscapeCharacter','Actors','placeCancelButton','ChoiceWindowMaxRows','indexOf','visible','drawItem','return\x20\x27','choiceLineHeight','processCustomWait','%1\x20is\x20missing\x20a\x20required\x20plugin.\x0aPlease\x20install\x20%2\x20into\x20the\x20Plugin\x20Manager.','convertTextAlignmentEscapeCharacters','resizePictureText','convertEscapeCharacters','336wIwYbL','textSpeed','drawPictureTextZone','ParseSkillNotetags','calcMoveEasing','createPictureText','Window_Message_newPage','textSizeEx','synchronizeNameBox','<LEFT>','easeIn','faceName','parameters','isArmor','AddAutoColor','_autoSizeCheck','boxWidth','join','convertMessageCoreEscapeActions','numVisibleRows','addedWidth','setupNumInput','name','FontSmallerCap','processAutoPosition','code','PictureTextChange','processTextAlignmentChange','convertTextMacros','drawBackPicture','follower','battleTargetName','TextColor%1','isCommandEnabled','Items','setPictureTextBuffer','obtainEscapeString','_indent','initMessageCore','changeValue','surprise','ceil','attachPictureText','onChoice','messageWidth','Classes','WORD_WRAP_PADDING','createTextState','obtainGold','setupEvents','Window_Options_isVolumeSymbol','getChoiceIndent','AutoColorBypassList','addedHeight','message','STRUCT','getChoiceListTextAlign','choiceTextAlign','%1\x20is\x20incorrectly\x20placed\x20on\x20the\x20plugin\x20list.\x0aIt\x20is\x20a\x20Tier\x20%2\x20plugin\x20placed\x20over\x20other\x20Tier\x20%3\x20plugins.\x0aPlease\x20reorder\x20the\x20plugin\x20list\x20from\x20smallest\x20to\x20largest\x20tier\x20numbers.','Enemies','isInputting','TextMacros','match','loadPicture','ParseEnemyNotetags','MsgWindowOffsetX','convertMessageCoreEscapeReplacements','format','actorName','convertFontSettingsEscapeCharacters','Window_Message_synchronizeNameBox','AutoColor','setRelativePosition','393WOWBMt','10ZyLEMA','battleActionName','FastForwardKey','openness','_resetRect','isRunning','setWordWrap','TextJS','convertButtonAssistText','autoPositionOffsetY','convertBackslashCharacters','ARRAYJSON','anchor','CreateAutoColorRegExpLists','isPressed','SortObjectByKeyLength','choices','maxChoiceWidth','ChoiceWindowLineHeight','registerSelfEvent','lineHeight','test','isRTL','Game_Screen_erasePicture','ARRAYSTR','addLoadListener','victory','windowX','down','innerHeight','MaxRows','applyMoveEasing','activate','_moveTargetY','isAutoColorAffected','ANY','Window_ChoiceList_windowX','blt','isBreakShowTextCommands','_eventId','choicePositionType','updateTransform','_moveTargetWidth','lowerleft','splice','_pictureText','processAutoSize','updateRelativePosition','processDrawPicture','WRAPBREAK','textSizeExWordWrap','_pictureTextWidth','moveTo','createContents','HelpWindow','registerActorNameAutoColorChanges','prototype','startY','WAIT','lowerright','easeOut','setMessageWindowXyOffsets','VisuMZ_1_EventsMoveCore','updatePlacement','CENTERPICTURE','</CENTER>','value','Window_ChoiceList_updatePlacement','fontSize','itemPadding','Window_NameBox_updatePlacement','clearPictureTextRefresh','update','updateAutoSizePosition','addExtraShowChoices','nextEventCode','_data','right','updateDimensions','<WORDWRAP>','maxCommands','CreateAutoColorRegExpListEntries','postFlushTextState','setTextAlignment','ParseItemNotetags','Skills','updateAutoPosition','min','getConfigValue','refresh','substring','setLastGainedItemData','partyMemberName','shift','setup','_lastGainedItemData','choiceRows','maxCols',')))','move','ParseClassNotetags','TextAlign','processFsTextCode','\x1bTEXTALIGNMENT[0]','processWrapBreak','rtl','EVAL','setupChoices','\x1bITALIC[0]','_index','textCodeCheck','fontItalic','resetPositionX','currentExt','adjustShowChoiceExtension','\x1bi[%1]%2','Game_System_initialize','preConvertEscapeCharacters','PictureTextErase','SWITCHES','SHOW','Type','autoPositionOffsetX','TextManager_message','processNewLine','preemptive','Weapons','StretchDimmedBg','setMessageWindowWordWrap','battle\x20enemy','process_VisuMZ_MessageCore_TextCodes_Action','_commonEventId','_autoSizeRegexp','initialize','returnPreservedFontSettings','outlineColor','windowWidth','preFlushTextState','postConvertEscapeCharacters','list','CreateAutoColorFor','_macroBypassWordWrap','CommonEvent','_moveEasingType','PICTURE','\x1bC[%1]%2\x1bPREVCOLOR[0]','FontChangeValue','canMove','clampPlacementPosition','_pictureTextSprite','onNewPageMessageCore','convertVariableEscapeCharacters','_textDelayCount','processAllText','prepareShowTextCommand','processCharacter','max','windowPadding','isChoiceVisible','commandName','(((','makeCommandList','setChoiceListLineHeight','sort','clamp','followers','addWrapBreakAfterPunctuation','Window_Base_textSizeEx','_interpreter','updateForcedPlacement','_pictureTextRefresh','31462vbuEMW','anyPictureTextChanges','description','toLowerCase','instantTextSpeed','ConvertParams','map\x20event','updateXyOffsets','setupItemChoice','processFontChangeItalic','getChoiceListMaxColumns','maxFontSizeInLine','MessageWindowXyOffsets','return\x200','statusText','_autoPosRegExp','EndPadding','defeat','resetTextColor','length','</RIGHT>','_pictureTextBuffer','getStartingChoiceWidth','stretchDimmerSprite','Instant','lastGainedObjectQuantity','makeDeepCopy','innerWidth','floor','ChoiceWindowTextAlign','Window_Base_update','needsPictureTextRefresh','contents','Settings','commandSymbol','battle\x20actor','NameBoxWindowOffsetY','_pictureId','outlineWidth','MessageWidth','drawBackCenteredPicture','setBackground','filter','setMessageWindowRows','setColorLock','helpWordWrap','command101','addGeneralOptions','includes','clearFlags','index','ParseStateNotetags','terminateMessage','processDrawCenteredPicture','Window_Options_addGeneralOptions','</I>','getChoiceListMaxRows','DefaultOutlineWidth','members','Window_Base_changeTextColor','790657LLSQcx','_centerMessageWindow','OffsetY','RelativePXPY','Window_Base_initialize','AddOption','width','battle\x20party','fontFace','_moveTargetX','messageWordWrap','updateEvents','Rows','registerResetRect','Window_Message_isTriggered','changePaintOpacity','processColorLock','Window_Base_processEscapeCharacter','_autoColorActorNames','processStoredAutoColorChanges','Window_Help_refresh','updateOverlappingY','anchorPictureText','MsgWindowOffsetY','contentsBack','_relativePosition','textWidth','drawing','convertLockColorsEscapeCharacters','_positionType','applyDatabaseAutoColor','_messageCommonEvents','NameBoxWindowOffsetX','States','</WORDWRAP>','requestPictureTextRefresh','bind','map\x20actor','_wholeMoveDuration','getPictureTextData','DISABLE','ParseWeaponNotetags','ChoiceWindowMaxCols','setChoiceListMaxColumns','_moveTargetHeight','_textMacroFound','eraseAllPictureTexts','getMessageWindowXyOffsets','TextCodeReplace','makeFontSmaller','Window_Options_changeVolume','JSON','FontBiggerCap','Game_Screen_clearPictures','_target','addMessageCoreTextSpeedCommand','close','refreshDimmerBitmap','makeFontBigger','processAutoColorWords','addChildAt','substr','453635SPrBVl','isSceneBattle','changeTextColor','start','isChoiceEnabled','1180cRSdVP','textColor','</COLORLOCK>','item','LineHeight','call','<%1>','outputHeight','adjustShowChoiceCancel','outputWidth','choice','indent','_texts','updatePictureText','mainFontFace','onDatabaseLoaded','AutoColorRegExp','textSizeExTextAlignment','_forcedPosition','slice','Window_NameBox_refresh','Window_Base_processAllText','choiceCols','PictureTextRefresh','_colorLock','_autoPositionTarget','colSpacing','OffsetX','processCommonEvent','Game_Map_refresh','boxHeight','Padding','_spriteset','obtainEscapeParam','ConvertTextAutoColorRegExpFriendly','processPreviousColor','applyData','WordWrap','addContinuousShowTextCommands','COMMONEVENT','getMessageWindowRows','processMessageCoreEscapeActions','\x1bTEXTALIGNMENT[3]','parse','26QbfGOv','Window_Message_needsNewPage','_moveDuration','getPreservedFontSettings','isWeapon','_pictureTextWindow','levelUp','map\x20player','startWait','updateNameBoxMove','updateMessageCommonEvents','ITALIC','\x1bITALIC[1]','setChoiceListMaxRows','replace','battleUserName','\x1bBOLD[0]','</B>','setFaceImage','clear','upperright','clearPictures','<LINE\x20BREAK>','ARRAYEVAL','isBusy','changeVolume','itemHeight','textSpeedStatusText','prepareWordWrapEscapeCharacters','messagePositionReset','_list','ARRAYFUNC','isContinuePrepareShowTextCommands','processFontChangeBold','fontBold','remove','_MessageCoreSettings','_messageWindow','menu','textCodeResult','TextStr','unshift','left','setPositionType','Scene_Options_maxCommands','9MCUGKh','isHelpWindowWordWrap','trim','getInputButtonString','process_VisuMZ_MessageCore_TextCodes_Replace','addContinuousShowChoices','height','Width','processTextAlignmentX','updateMove','_textDelay','getPictureTextBuffer','map','MessageCore','process_VisuMZ_MessageCore_TextMacros','prepareAutoSizeEscapeCharacters','Window_Base_processNewLine','1662mqfqDM','isWordWrapEnabled','setChoiceListTextAlign','\x1bWrapBreak[0]','messageCoreWindowX','<RIGHT>','resetFontSettings','1279816wSplzE','_dimmerSprite','outLineColor','initTextAlignement','getChoiceListLineHeight','process_VisuMZ_MessageCore_AutoColor','prepareForcedPositionEscapeCharacters','newPage','defaultColor','<B>','map\x20party','messageWindowRect','getPictureText','getMessageWindowWidth','convertHardcodedEscapeReplacements','iconIndex','Match','drawPictureText','\x1bTEXTALIGNMENT','registerCommand','setSpeakerName','getTextAlignment','MessageWindowProperties','ConfigManager_applyData','exec','prepareShowTextFollowups','event','push','center'];_0x4ea5=function(){return _0x846207;};return _0x4ea5();}
+const _0x3fecc6=_0x12b6;(function(_0x48d3a1,_0x448652){const _0x3a4f05=_0x12b6,_0x5df32c=_0x48d3a1();while(!![]){try{const _0x4c7106=parseInt(_0x3a4f05(0x375))/0x1*(parseInt(_0x3a4f05(0x3b4))/0x2)+parseInt(_0x3a4f05(0x439))/0x3*(parseInt(_0x3a4f05(0x53c))/0x4)+parseInt(_0x3a4f05(0x304))/0x5+parseInt(_0x3a4f05(0x550))/0x6*(-parseInt(_0x3a4f05(0x393))/0x7)+parseInt(_0x3a4f05(0x3f7))/0x8+-parseInt(_0x3a4f05(0x186))/0x9+-parseInt(_0x3a4f05(0x4ce))/0xa*(parseInt(_0x3a4f05(0x196))/0xb);if(_0x4c7106===_0x448652)break;else _0x5df32c['push'](_0x5df32c['shift']());}catch(_0x2f6e8a){_0x5df32c['push'](_0x5df32c['shift']());}}}(_0x4335,0x4f1eb));var label='MessageCore',tier=tier||0x0,dependencies=[],pluginData=$plugins[_0x3fecc6(0x3c1)](function(_0x15c70a){const _0x2b15f0=_0x3fecc6;return _0x15c70a[_0x2b15f0(0x3e8)]&&_0x15c70a[_0x2b15f0(0x318)]['includes']('['+label+']');})[0x0];function _0x4335(){const _0x5908fc=['</WORDWRAP>','convertCsvToTsvFile','_pictures','<B>','Window_Base_update','application/%1','\x1bi[%1]%2','(((','\x1bCOLORLOCK[0]','textColor','drawTextEx','\x1bWrapJpBreak[0]','processControlCharacter','वाह','_textDelayCount','MsgWindowOffsetY','prepareShowTextFollowups','Would\x20you\x20like\x20the\x20plugin\x20to\x20create\x20the\x20base\x20%1\x20file?\x0a\x0a','onChoice','yes','status','\x1bTEXTALIGNMENT','ChoiceWindowLineHeight','changeVisuMzTextLocale','PictureTextChange','_pictureTextBuffer','width','VisuMZ_3_ActSeqCamera','split','Turkish','battleActionName','addContinuousShowChoices','pagedown','makeSkillList','moveTo','1651176FwVUPb','down','Type','down-left','ParseSkillNotetags','\x1bWrapBreak[0]','isOpen','faceWidth','French','setupEvents','ParseStateNotetags','drawText','getColor','TextJS','MessageRows','isInputting','Farewell','Vay','moveBy','Guau','CommonEvent','</COLORLOCK>','General','onLocalizationXhrError','isRTL','battle\x20actor','itemRectWithPadding','Window_Base_textSizeEx','EndPadding','#6dcff6','databaseObjectName','fontSize','down\x20right','realPictureId','Japanese','partyMemberName','outlineColor','_lastPluginCommandInterpreter','%1\x20is\x20missing\x20a\x20required\x20plugin.\x0aPlease\x20install\x20%2\x20into\x20the\x20Plugin\x20Manager.','middlecenter','isClosing','updateEvents','Window_Options_isVolumeSymbol','up-right','helpWordWrap','_choiceListWindow','follower','CheckCompatibility','remove','isPressed','autoPositionOffsetY','fontItalic','process_VisuMZ_MessageCore_TextCodes_Replace','Window_Message_updatePlacement','clearFlags','\x1bITALIC[1]','bind','processTextAlignmentChange','parse','COLORLOCK','obtainEscapeString','getPictureTextBuffer','toLowerCase','height','left','Window_Base_changeTextColor','374211XLyxWY','_moveTargetWidth','isSceneBattle','drawSkillCost','Window_ChoiceList_callCancelHandler','length','ARRAYSTRUCT','_autoPosRegExp','Game_Party_gainItem','center','_maxShuffleChoices','Window_Message_processEscapeCharacter','up-left','updateAutoSizePosition','maxLines','convertButtonAssistEscapeCharacters','setupShuffleChoices','Window_Base_initialize','upper\x20right','ওহে','Game_Map_updateEvents','GET','setWeaponChoice','getLocalizedText','_autoSizeRegexp','drawTextTopAligned','Wow','Press\x20Cancel\x20to\x20create\x20new\x20TSV.','scale','battleTargetName','CSV','changeTextSpeed','Bitmap_drawTextTopAligned','getChoiceListMaxColumns','Game_System_initialize','code','ChoiceWindowMaxRows','createLocalizationCsvFile','downcenter','updateBitmap','clearRect','Halo','getMessageWindowWidth','SkillTypeID','resetRect','CreateAutoColorRegExpListEntries','trim','Width','choiceListHelpWindowRect','%1\x20file\x20has\x20not\x20been\x20made.\x0a','MessageCore','loadCustomFontsMessageCore','paintOpacity','안녕히\x20가세요','_lastAltCase','convertNewPageTextStateMacros','index','clear','isVolumeSymbol','Hűha','itemChoiceEtypeId','members','_pictureTextWindow','writeFileSync','German','Game_Interpreter_PluginCommand','setLastPluginCommandInterpreter','setBackground','_texts','calcWindowHeight','isWeapon','choiceDistance','equipSlots','textSpeed','_choiceIndexArray','erasePictureTextBuffer','Hello','checkConvertCsvToTsv','Adiós','\x1bCASING[0]','_choices','push','NUM','updateTransform','Window_Options_changeVolume','Hallo','_forcedPosition','_textCasing','processCharacter','</LEFT>','startX','applyMoveEasing','requestPictureTextRefresh','replace','setChoiceListTextAlign','match','ARRAYEVAL','clearPictureTextRefresh','Hei','setMessageWindowWidth','processTextAlignmentX','right','setupChoices','statusText','clearPictures','drawBackground','TSV\x20file\x20is\x20now\x20created\x20and\x20stored\x20in\x20data\x20folder.','getMessageWindowXyOffsets','VisuMZ_1_SkillsStatesCore','_textColorStack','isRunning','#f26c4f','maxCommands','Ha\x20det','loadMessageFace','parameters','textWidth','lowerleft','data/','obtainEscapeParam','fontFace','_centerMessageWindow','AdjustRect','maxFontSizeInLine','MessageTextDelay','processCustomWait','updateDimensions','ParseLocalizationCsv','_moveDuration','setupNumInput','Spanish','windowX','choice','VisuMZ_4_ExtraEnemyDrops','drawPictureTextZone','MessageWidth','lastGainedObjectIcon','textSpeedStatusText','fontBold','setMessageWindowXyOffsets','down-center','newPage','Window_Message_isTriggered','ARRAYSTR','adjustShowChoiceExtension','Languages','NameBoxWindowOffsetX','</B>','unnamed','130wOhxxe','Chinese(Simplified)','filename','AddAutoColor','addMessageCoreTextSpeedCommand','_messageOffsetY','drawPictureText','_textMacroFound','requestChoiceBackgroundImage','setup','_currentAutoSize','onProcessCharacter','ANY','clearChoiceHelpDescriptions','addedHeight','itemChoiceStypeId','नमस्ते','Armors','convertLockColorsEscapeCharacters','AddOption','ParseClassNotetags','HIDE','_textCasingUpperState','currentCommand','NameBoxWindowOffsetY','SWITCH','#c69c6d','Window_Help_refresh','Press\x20OK\x20to\x20convert\x20to\x20TSV.\x0a','createTsvFile','dimColor2','blue','equipTypes','WORD_WRAP_PADDING','<LEFT>','choiceCancelType','placeCancelButton','setMessageWindowRows','slice','Window_EventItem_includes','WeaponTypeID','convertMessageCoreEscapeReplacements','adjustShowChoiceCancel','isTriggered','TextSpeed','SelectSkill','activate','initTextAlignement','updatePlacement','isSkill','ConfigManager_makeData','itemChoiceAtypeId','join','anchorPictureText','Cześć','fallbackFonts','maxShuffleChoices','isColorLocked','textSizeExRaw','convertShowChoiceEscapeCodes','mainModule','Russian','_indent','_itemChoiceWtypeId','Hej','setWaitMode','getTextAlignment','STRUCT','ALL','AutoColorRegExp','addWrapBreakAfterPunctuation','_helpWindow','shift','Romanian','You\x20do\x20not\x20have\x20a\x20language\x20%1\x20set\x20up.\x0a','isOptionValid','changeOutlineColor','anyPictureTextChanges','\x1bTEXTALIGNMENT[0]','Wauw','resetFontSettings','Finnish','EachMessageEnd','lower\x20right','OffsetY','WordWrap','_eventId','updateHelp','setChoices','lower\x20center','resizePictureText','Window_NameBox_refresh','bitmap','map\x20actor','DataManager_loadDatabase','getLastPluginCommandInterpreter','LineHeight','setWordWrap','textSizeExTextAlignment','armor','updatePictureText','Match','Scene_Options_maxCommands','numVisibleRows','choiceTextAlign','convertButtonAssistText','setChoiceMessageDistance','addMessageCommonEvent','Bitmap_drawText','SelectWeapon','20PgmWbk','clearCommandList','%1\x20file\x20is\x20now\x20created\x20and\x20stored\x20in\x20data\x20folder.\x0a','updateNameBoxMove','attachPictureText','Tot\x20ziens','setPictureTextBuffer','#fff799','inBattle','MaxCols','convertBaseEscapeCharacters','onLocalizationXhrLoad','#7cc576','Portuguese','Ciao','itemBackColor2','windowPadding','Scene_Message_createChoiceListWindow','Korean','</I>','33546LbZGEW','getRandomTextFromPool','getLastGainedItemData','OffsetX','createPictureText','commandSymbol','ParseEnemyNotetags','refreshWithTextCodeSupport','LineBreakSpace','upper-center','_textAlignment','வணக்கம்','pageup','SortObjectByKeyLength','Padding','TextColor%1','getCurrentLanguage','addChoiceDistance','drawBackCenteredPicture','outputHeight','upperleft','\x1bCOLORLOCK[1]','start','isChoiceWindow','setMessageWindowWordWrap','open','Hungarian','onDatabaseLoaded','Adeus','setFaceImage','advanced','itemChoiceActorId','downleft','startWait','charAt','_relativePosition','\x5c%1','postConvertEscapeCharacters','surprise','_itemChoiceEtypeId','processStoredAutoColorChanges','measureTextWidth','VisuMZ_1_EventsMoveCore','purple','919431XqkdAh','Scene_Boot_onDatabaseLoaded','FUNC','SHOW','updateChoiceListHelpWindowPlacement','loadPicture','makeFontBigger','hasPictureText','convertHardcodedEscapeReplacements','PREVCOLOR','format','LanguageFonts','random','setPositionType','instantTextSpeed','rtl','446721LBnlnE','Farvel','textCodeCheck','exec','drawChoiceLocationImage','map\x20player','close','convertCasingEscapeCharacters','ParseWeaponNotetags','_action','ว้าว','setHelpWindow','currencyUnit','processTextCasing','Items','makeItemList','mainFontFace','message','convertTextMacros','_moveTargetHeight','preFlushTextState','BOLD','padding','processDrawCenteredPicture','isSkillHidden','FastForwardKey','processFontChangeItalic','addExtraShowChoices','getChoiceListMinChoiceWidth','upper\x20center','colSpacing','\x1bC[%1]%2\x1bPREVCOLOR[0]','CsvFilename','postFlushTextState','upperright','makeCommandList','preConvertEscapeCharacters','addWindow','CreateAutoColorFor','#ffc8e0','_dimmerSprite','menu','none','Αντίο','getPreservedFontSettings','contentsHeight','lastGainedObjectName','FontSmallerCap','registerResetRect','_target','String_format','textSizeExWordWrap','terminateMessage','Name','Game_Map_refresh','getInputButtonString','blt','preemptive','DefaultOutlineWidth','Viszontlátásra','obtainGold','Game_Screen_erasePicture','MESSAGE_CORE_PLUGIN_NAME','Window_Options_addGeneralOptions','prototype','_messagePositionReset','messageCoreWindowX','%1\x20file\x20cannot\x20be\x20created.\x0aPlease\x20enter\x20Playtest\x20mode.\x0a','processFailsafeChoice','commandName','STR','some','getChoiceListTextAlign','makeCommandListScriptCall','clamp','resetPositionX','child_process','followers','skill','levelUp','Ahoj','violet','processFsTextCode','convertChoiceMacros','_moveTargetX','confirmConvertCsvToTsv','pink','Settings','upper-left','Window_Message_synchronizeNameBox','अलविदा','_pictureTextRefresh','processDrawPicture','Good-bye','prepareShowTextPluginCommandFollowups','makeDeepCopy','choices','Window_Base_processControlCharacter','event','_itemChoiceAtypeId','ஆஹா','outputWidth','messageCoreTextSpeed','MsgWindowOffsetX','updateOverlappingY','_choiceListHelpWindow','NameBoxWindowDefaultColor','textFont','Waouh','JSON','_interpreter','middleleft','upright','lower-right','processActorNameAutoColorChanges','itemChoiceActor','getSkillTypes','Auf\x20Wiedersehen','_scene','EachMessageStart','<I>','AutoColor','Window_Message_newPage','ParseArmorNotetags','Weapons','anchor','drawItemNumber','<LINE\x20BREAK>','open\x20.\x5cdata','setChoiceListMaxRows','deactivate','Merhaba','lower\x20left','updateForcedPlacement','obtainItem','Game_Party_initialize','processEscapeCharacter','currentExt','synchronizeNameBox','isBreakShowTextCommands','Polish','drawItemContents','Thai','LangFiletype','ArmorTypeID','splice','type','_messageOffsetX','isArmor','changeVolume','Filename','floor','actorSlotName','#acacac','Uau','Chinese(Traditional)','Localization','_scriptCall','getChoiceListLineHeight','gainItem','update','Ουάου','ChoiceWindowTextAlign','value','in\x20order\x20for\x20VisuMZ_1_MessageCore\x20to\x20work.','getLanguageName','onerror','up\x20left','requestPictureTextRefreshAll','Dutch','weapon','TextStr','Unnamed.ttf','defaultColor','processAutoPosition','parseChoiceText','TextAlign','PictureTextErase','changeTextColor','returnPreservedFontSettings','getPictureTextData','battle\x20party','Window_Message_terminateMessage','AutoColorBypassList','prepareAutoSizeEscapeCharacters','isAutoColorAffected','ConvertDefault','registerCommand','getConfigValue','PICTURE','middleright','startPause','etypeId','ARRAYNUM','isMessageWindowWordWrap','%1\x20file\x20detected.\x0a','Please\x20restart\x20the\x20game.','battleUserName','down-right','textSizeEx','_itemChoiceActorId','adjustShowChoiceDefault','powerUpColor','_moveEasingType','unshift','<%1>','FontBiggerCap','itemRect','upper-right','Skills','setColorLock','La\x20revedere','load','openLocalizationFolder','CreateAutoColorRegExpLists','Szia','_itemChoiceVariableId','processPreviousColor','calcMoveEasing','ITALIC','windowWidth','map\x20party','loadBitmap','lowerright','[XX]','addLoadListener','round','quantity','canMove','callOkHandler','textCodeResult','textLocale','updateOffsetPosition','_wholeMoveDuration','_messageCommonEvents','ShuffleArray','สวัสดี','drawMessageFace','drawCustomBackgroundColor','overrideMimeType','requestChoiceForegroundImage','command357','Danish','isBusy','_lastGainedItemData','processWrapBreak','min','choiceMinWidth','item','choiceLineHeight','_autoPositionTarget','innerHeight','return\x20\x27','WRAPBREAK','CENTERPICTURE','initMessageCore','StretchDimmedBg','<CENTER>','resetWordWrap','prepareForcedPositionEscapeCharacters','clearAllPictureTexts','_pictureTextHeight','actorName','DefaultLocale','erasePicture','return\x200','PictureTextRefresh','refresh','Window_Message_needsNewPage','name','ChoiceWindowDistance','processNewLine','clampPlacementPosition','version','_choiceCancelType','_index','false','isVisuMzLocalizationEnabled','createTextState','test','setChoiceListHelpWindow','applyData','</CENTER>','Undefined','VisuMZ_4_ExtraEnemyDrops\x20needs\x20to\x20be\x20updated\x20',')))','maxChoiceWidth','up\x20right','setHelpWindowWordWrap','ChoiceWindowMinWidth','emerge','processPxTextCode','process_VisuMZ_MessageCore_TextMacros','Window_ChoiceList_windowX','every','gradientFillRect','isPlaytest','drawing','loadDatabase','iconIndex','convertMessageCoreEscapeActions','_itemChoiceItypeId','ConfigManager_applyData','processAllText','getChoiceIndent','updateXyOffsets','RelativePXPY','\x1bCASING[3]','DISABLE','_choiceHelpDescriptions','leader','prepareWordWrapEscapeCharacters','createContents','Zbohom','isWordWrapEnabled','powerDownColor','setLastGainedItemData','Sprite_Picture_update','<COLORLOCK>','Enable','_spriteset','Window_Base_processNewLine','_textDelay','isCommandEnabled','white','makeFontSmaller','Actors','MessageWindow','messageCoreLocalization','ceil','centered','text','contents','Salut','drawBackPicture','buffer','\x1bTEXTALIGNMENT[1]','setChoiceListMaxColumns','processFontChangeBold','VariableID','setRelativePosition','addMessageCoreLocalizationCommand','prepareShowTextCommand','lower-left','processAutoColorWords','visuMzTextLocaleStatusText','_messageWindow','launchMessageCommonEvent','Game_Map_initialize','constructor','_wordWrap','ParseItemNotetags','こんにちは','processColorLock','さようなら','NonSupportedTextCodes','resetTextColor','_autoSizeCheck','MaxRows','VisuMZ_0_CoreEngine','<WORDWRAP>','updateRelativePosition','messageRows','itemHeight','UNDEFINED!','ChoiceWindowProperties','1792140DcBLWC','Bitmap_measureTextWidth','choiceAlignText','isChoiceEnabled','setChoiceListLineHeight','substring','Näkemiin','Привет','Languages.tsv','Enemies','TextManager_message','Window_ItemList_drawItemNumber','messageWordWrap','convertFontSettingsEscapeCharacters','Window_Base_processAllText','processMessageCoreEscapeActions','বিদায়','getChoiceListMaxRows','Window_NameBox_updatePlacement','setTextDelay','description','States','\x1bCASING[5]','_colorLock','%1\x27s\x20version\x20does\x20not\x20match\x20plugin\x27s.\x20Please\x20update\x20it\x20in\x20the\x20Plugin\x20Manager.','log','reduce','getPictureText','Вау','messageWidth','Swedish','updateAutoPosition','registerSelfEvent','isHelpWindowWordWrap','getMessageWindowRows','হ্যালো','toUpperCase','<RIGHT>','applyDatabaseAutoColor','itemChoiceWtypeId','setPictureText','faceName','_pictureTextCache','stringify','startY','Hola','choicePositionType','setSkillChoice','_pictureText','list','registerActorNameAutoColorChanges','Window_Command_addCommand','getStartingChoiceWidth','_list','loadLocalization','wtypeId','onload','addedWidth','Default','onNewPageMessageCore','innerWidth','actor','_pictureTextWidth','CustomFonts','lineHeight','Game_Map_setupEvents','choiceRows','TextCodeReplace','Sprite_Picture_updateBitmap','TextMacros','TsvFilename','autoPositionOffsetX','_autoColorActorNames','Arrivederci','setTextAlignment','addCommand','ActorID','choiceIndexArray','_MessageCoreSettings','path','setChoiceListMinChoiceWidth','exit','Window_Base_processEscapeCharacter','midright','call','getChoiceMessageDistance','visible','nextEventCode','Window_ChoiceList_updatePlacement','createChoiceListWindow','Bonjour','Selamat\x20tinggal','Do\x20widzenia','gray','max','switchOutTextForLocalization','_cancelButton','indexOf','Hejdå','substr','பிரியாவிடை','crisis','isChoiceVisible','makeCommandListShuffle','convertBackslashCharacters','\x1bTEXTALIGNMENT[3]','TextCodeActions','LocalizationType','upcenter','Distance','_moveTargetY','hide','maxCols','375086LgaLwi','messageWindowRect','easeIn','processPyTextCode','applyChoiceHelpDescriptions','<BR>','normalColor','isContinuePrepareShowTextCommands','Game_System_mainFontFace','Languages.csv','lastGainedObjectQuantity','boxHeight','_macroBypassWordWrap','Scene_Boot_loadGameFonts','eraseAllPictureTexts','_nameBoxWindow','contentsBack','itemChoiceItypeId','clearActorNameAutoColor','SelectArmor','map\x20event','tsv','_pictureTextSprite','#a186be','\x1bi[%1]','makeData','convertTextAlignmentEscapeCharacters','process_VisuMZ_MessageCore_AutoColor','changeValue','[0]','763mUfSEK','csv','parseLocalizedText','SplitJpCnCharacters','processAutoSize','itemBackColor1','apply','lowercenter','ConvertTextAutoColorRegExpFriendly','changeChoiceBackgroundColor','Classes','ImageManager_loadBitmap','ConvertParams','boxWidth','convertVariableEscapeCharacters','_resetRect','isSceneMap','map','updateMove','process_VisuMZ_MessageCore_TextCodes_Action','zoomScale','systemColor','Window_ChoiceList','skills','indent','down\x20left','refreshDimmerBitmap','English','Au\x20revoir','flushTextState','send','_pictureId','addContinuousShowTextCommands','2luxzaD','initialize','openness','randomInt','orange','TEXTALIGNMENT','updateMessageCommonEvents','choiceCols','victory','default','addMessageCoreCommands','loadGameFonts','EquipTypeID','filter','red','TightWrap','battle\x20enemy','MessageWindowXyOffsets','includes','setupItemChoice','stretchDimmerSprite','WAIT','ParseAddedText','mainFontSize','_itemChoiceStypeId','\x1bTEXTALIGNMENT[2]','setText','setArmorChoice','displayName','processCommonEvent','_commonEventId','Greek'];_0x4335=function(){return _0x5908fc;};return _0x4335();}function _0x12b6(_0x2351c4,_0x577681){const _0x4335ca=_0x4335();return _0x12b6=function(_0x12b676,_0x5b0051){_0x12b676=_0x12b676-0x184;let _0x99bc65=_0x4335ca[_0x12b676];return _0x99bc65;},_0x12b6(_0x2351c4,_0x577681);}VisuMZ[label]['Settings']=VisuMZ[label][_0x3fecc6(0x1ed)]||{},VisuMZ[_0x3fecc6(0x39f)]=function(_0x574053,_0x58ada5){const _0x402991=_0x3fecc6;for(const _0x4cee77 in _0x58ada5){if(_0x4cee77[_0x402991(0x498)](/(.*):(.*)/i)){const _0x43fad6=String(RegExp['$1']),_0x2f09f8=String(RegExp['$2'])['toUpperCase']()[_0x402991(0x467)]();let _0x1747ec,_0x5c7c94,_0x3caddc;switch(_0x2f09f8){case _0x402991(0x48b):_0x1747ec=_0x58ada5[_0x4cee77]!==''?Number(_0x58ada5[_0x4cee77]):0x0;break;case _0x402991(0x257):_0x5c7c94=_0x58ada5[_0x4cee77]!==''?JSON[_0x402991(0x431)](_0x58ada5[_0x4cee77]):[],_0x1747ec=_0x5c7c94[_0x402991(0x3a4)](_0x3f55cf=>Number(_0x3f55cf));break;case'EVAL':_0x1747ec=_0x58ada5[_0x4cee77]!==''?eval(_0x58ada5[_0x4cee77]):null;break;case _0x402991(0x499):_0x5c7c94=_0x58ada5[_0x4cee77]!==''?JSON[_0x402991(0x431)](_0x58ada5[_0x4cee77]):[],_0x1747ec=_0x5c7c94[_0x402991(0x3a4)](_0x3092d6=>eval(_0x3092d6));break;case _0x402991(0x203):_0x1747ec=_0x58ada5[_0x4cee77]!==''?JSON[_0x402991(0x431)](_0x58ada5[_0x4cee77]):'';break;case'ARRAYJSON':_0x5c7c94=_0x58ada5[_0x4cee77]!==''?JSON[_0x402991(0x431)](_0x58ada5[_0x4cee77]):[],_0x1747ec=_0x5c7c94[_0x402991(0x3a4)](_0x56b43c=>JSON['parse'](_0x56b43c));break;case _0x402991(0x188):_0x1747ec=_0x58ada5[_0x4cee77]!==''?new Function(JSON[_0x402991(0x431)](_0x58ada5[_0x4cee77])):new Function(_0x402991(0x29f));break;case'ARRAYFUNC':_0x5c7c94=_0x58ada5[_0x4cee77]!==''?JSON[_0x402991(0x431)](_0x58ada5[_0x4cee77]):[],_0x1747ec=_0x5c7c94[_0x402991(0x3a4)](_0x387fa2=>new Function(JSON[_0x402991(0x431)](_0x387fa2)));break;case _0x402991(0x1dc):_0x1747ec=_0x58ada5[_0x4cee77]!==''?String(_0x58ada5[_0x4cee77]):'';break;case _0x402991(0x4c8):_0x5c7c94=_0x58ada5[_0x4cee77]!==''?JSON['parse'](_0x58ada5[_0x4cee77]):[],_0x1747ec=_0x5c7c94['map'](_0x338ced=>String(_0x338ced));break;case _0x402991(0x511):_0x3caddc=_0x58ada5[_0x4cee77]!==''?JSON[_0x402991(0x431)](_0x58ada5[_0x4cee77]):{},_0x574053[_0x43fad6]={},VisuMZ[_0x402991(0x39f)](_0x574053[_0x43fad6],_0x3caddc);continue;case _0x402991(0x43f):_0x5c7c94=_0x58ada5[_0x4cee77]!==''?JSON['parse'](_0x58ada5[_0x4cee77]):[],_0x1747ec=_0x5c7c94['map'](_0x49bad2=>VisuMZ[_0x402991(0x39f)]({},JSON[_0x402991(0x431)](_0x49bad2)));break;default:continue;}_0x574053[_0x43fad6]=_0x1747ec;}}return _0x574053;},(_0x40af70=>{const _0x7fc7ac=_0x3fecc6,_0x4e16b1=_0x40af70[_0x7fc7ac(0x2a3)];for(const _0x143950 of dependencies){if(!Imported[_0x143950]){alert(_0x7fc7ac(0x41d)[_0x7fc7ac(0x190)](_0x4e16b1,_0x143950)),SceneManager[_0x7fc7ac(0x355)]();break;}}const _0x409244=_0x40af70[_0x7fc7ac(0x318)];if(_0x409244[_0x7fc7ac(0x498)](/\[Version[ ](.*?)\]/i)){const _0x75e951=Number(RegExp['$1']);_0x75e951!==VisuMZ[label][_0x7fc7ac(0x2a7)]&&(alert(_0x7fc7ac(0x31c)[_0x7fc7ac(0x190)](_0x4e16b1,_0x75e951)),SceneManager[_0x7fc7ac(0x355)]());}if(_0x409244[_0x7fc7ac(0x498)](/\[Tier[ ](\d+)\]/i)){const _0x1a9375=Number(RegExp['$1']);_0x1a9375<tier?(alert('%1\x20is\x20incorrectly\x20placed\x20on\x20the\x20plugin\x20list.\x0aIt\x20is\x20a\x20Tier\x20%2\x20plugin\x20placed\x20over\x20other\x20Tier\x20%3\x20plugins.\x0aPlease\x20reorder\x20the\x20plugin\x20list\x20from\x20smallest\x20to\x20largest\x20tier\x20numbers.'[_0x7fc7ac(0x190)](_0x4e16b1,_0x1a9375,tier)),SceneManager[_0x7fc7ac(0x355)]()):tier=Math[_0x7fc7ac(0x362)](_0x1a9375,tier);}VisuMZ[_0x7fc7ac(0x39f)](VisuMZ[label][_0x7fc7ac(0x1ed)],_0x40af70[_0x7fc7ac(0x4ac)]);})(pluginData),PluginManager[_0x3fecc6(0x251)](pluginData[_0x3fecc6(0x2a3)],_0x3fecc6(0x2a4),_0x1fb20a=>{const _0x43b8a7=_0x3fecc6;VisuMZ[_0x43b8a7(0x39f)](_0x1fb20a,_0x1fb20a);const _0x105ed7=Number(_0x1fb20a[_0x43b8a7(0x371)])||0x0;$gameSystem[_0x43b8a7(0x538)](_0x105ed7);}),PluginManager['registerCommand'](pluginData['name'],_0x3fecc6(0x303),_0x3d6e0f=>{const _0x2d6f2f=_0x3fecc6;VisuMZ[_0x2d6f2f(0x39f)](_0x3d6e0f,_0x3d6e0f);const _0x3f0d69=_0x3d6e0f[_0x2d6f2f(0x52e)]||$gameSystem[_0x2d6f2f(0x234)]()||0x1,_0x46806a=_0x3d6e0f['MinWidth']??0x60,_0x24a999=_0x3d6e0f[_0x2d6f2f(0x2fc)]||$gameSystem[_0x2d6f2f(0x315)]()||0x1,_0x286f76=_0x3d6e0f[_0x2d6f2f(0x545)]||$gameSystem['getChoiceListMaxColumns']()||0x1,_0x3c2582=_0x3d6e0f[_0x2d6f2f(0x246)][_0x2d6f2f(0x435)]()||_0x2d6f2f(0x3bd);$gameSystem[_0x2d6f2f(0x308)](_0x3f0d69),$gameSystem[_0x2d6f2f(0x354)](_0x46806a),$gameSystem['setChoiceListMaxRows'](_0x24a999),$gameSystem[_0x2d6f2f(0x2e7)](_0x286f76),$gameSystem[_0x2d6f2f(0x497)](_0x3c2582);}),PluginManager[_0x3fecc6(0x251)](pluginData[_0x3fecc6(0x2a3)],'MessageWindowProperties',_0x50e54a=>{const _0x570d99=_0x3fecc6;VisuMZ['ConvertParams'](_0x50e54a,_0x50e54a);const _0x3d66cd=_0x50e54a['Rows']||$gameSystem[_0x570d99(0x326)]()||0x1,_0x28566a=_0x50e54a[_0x570d99(0x468)]||$gameSystem[_0x570d99(0x463)]()||0x1;$gameTemp[_0x570d99(0x4b2)]=!![];const _0x36488c=_0x50e54a['WordWrap'][_0x570d99(0x435)]();$gameSystem[_0x570d99(0x4f3)](_0x3d66cd),$gameSystem[_0x570d99(0x49c)](_0x28566a);['true',_0x570d99(0x2aa)][_0x570d99(0x3c6)](_0x36488c)&&$gameSystem['setMessageWindowWordWrap'](eval(_0x36488c));const _0x2c5fec=SceneManager[_0x570d99(0x20c)]['_messageWindow'];_0x2c5fec&&(_0x2c5fec[_0x570d99(0x298)](),_0x2c5fec[_0x570d99(0x4b7)](),_0x2c5fec['createContents']());}),PluginManager[_0x3fecc6(0x251)](pluginData[_0x3fecc6(0x2a3)],_0x3fecc6(0x3c5),_0x448117=>{const _0x550ff9=_0x3fecc6;VisuMZ[_0x550ff9(0x39f)](_0x448117,_0x448117),$gameSystem['setMessageWindowXyOffsets'](_0x448117[_0x550ff9(0x553)],_0x448117[_0x550ff9(0x522)]);const _0x4fb4ff=SceneManager[_0x550ff9(0x20c)][_0x550ff9(0x2f0)];_0x4fb4ff&&(_0x4fb4ff[_0x550ff9(0x298)](),_0x4fb4ff[_0x550ff9(0x4b7)](),_0x4fb4ff[_0x550ff9(0x2ce)]());}),PluginManager['registerCommand'](pluginData[_0x3fecc6(0x2a3)],_0x3fecc6(0x53b),_0x4542e9=>{const _0x32d2fc=_0x3fecc6;VisuMZ[_0x32d2fc(0x39f)](_0x4542e9,_0x4542e9),$gameMessage[_0x32d2fc(0x44f)](_0x4542e9[_0x32d2fc(0x2e9)]||0x0,_0x4542e9[_0x32d2fc(0x4f6)]||0x0);const _0x3985aa=$gameTemp[_0x32d2fc(0x52d)]();if(_0x3985aa)_0x3985aa[_0x32d2fc(0x50f)](_0x32d2fc(0x1a7));}),PluginManager[_0x3fecc6(0x251)](pluginData['name'],_0x3fecc6(0x388),_0x33e2cd=>{const _0x2b1390=_0x3fecc6;VisuMZ[_0x2b1390(0x39f)](_0x33e2cd,_0x33e2cd),$gameMessage['setArmorChoice'](_0x33e2cd[_0x2b1390(0x2e9)]||0x0,_0x33e2cd[_0x2b1390(0x226)]||0x0,_0x33e2cd[_0x2b1390(0x3c0)]||0x0);const _0x9dff9c=$gameTemp['getLastPluginCommandInterpreter']();if(_0x9dff9c)_0x9dff9c[_0x2b1390(0x50f)](_0x2b1390(0x1a7));}),PluginManager[_0x3fecc6(0x251)](pluginData[_0x3fecc6(0x2a3)],'SelectSkill',_0x4ef5f=>{const _0x5a82b9=_0x3fecc6;VisuMZ[_0x5a82b9(0x39f)](_0x4ef5f,_0x4ef5f),$gameMessage[_0x5a82b9(0x333)](_0x4ef5f[_0x5a82b9(0x2e9)]||0x0,_0x4ef5f[_0x5a82b9(0x350)]||0x0,_0x4ef5f[_0x5a82b9(0x464)]||0x0);const _0x5619b8=$gameTemp[_0x5a82b9(0x52d)]();if(_0x5619b8)_0x5619b8[_0x5a82b9(0x50f)](_0x5a82b9(0x1a7));}),PluginManager[_0x3fecc6(0x251)](pluginData[_0x3fecc6(0x2a3)],_0x3fecc6(0x3ec),_0xe0228f=>{const _0x598b5b=_0x3fecc6;VisuMZ[_0x598b5b(0x39f)](_0xe0228f,_0xe0228f);const _0x4ceb36=_0xe0228f['PictureIDs']||[],_0x435073=_0xe0228f[_0x598b5b(0x55e)]||0x0,_0x2b2371=[_0x598b5b(0x564),'up','upperright','left',_0x598b5b(0x442),_0x598b5b(0x49e),_0x598b5b(0x4ae),'down',_0x598b5b(0x275)];for(const _0x3d1c8d of _0x4ceb36){$gameScreen[_0x598b5b(0x542)](_0x3d1c8d,_0x435073);for(const _0x580d94 of _0x2b2371){if(_0xe0228f[_0x580d94]===undefined)continue;$gameScreen[_0x598b5b(0x32c)](_0x3d1c8d,_0xe0228f[_0x580d94],_0x580d94);}}}),PluginManager['registerCommand'](pluginData[_0x3fecc6(0x2a3)],_0x3fecc6(0x247),_0x40e1dd=>{const _0x167dcb=_0x3fecc6;VisuMZ[_0x167dcb(0x39f)](_0x40e1dd,_0x40e1dd);const _0x491d63=_0x40e1dd['PictureIDs']||[];for(const _0x396cee of _0x491d63){$gameScreen['eraseAllPictureTexts'](_0x396cee),$gameScreen['erasePictureTextBuffer'](_0x396cee);}}),PluginManager['registerCommand'](pluginData[_0x3fecc6(0x2a3)],_0x3fecc6(0x2a0),_0x28d94f=>{$gameScreen['requestPictureTextRefreshAll']();}),VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x187)]=Scene_Boot[_0x3fecc6(0x1d6)][_0x3fecc6(0x56b)],Scene_Boot[_0x3fecc6(0x1d6)][_0x3fecc6(0x56b)]=function(){const _0x48e262=_0x3fecc6;VisuMZ[_0x48e262(0x46b)][_0x48e262(0x187)]['call'](this),VisuMZ[_0x48e262(0x46b)][_0x48e262(0x426)](),this[_0x48e262(0x3a6)](),this[_0x48e262(0x42b)](),this[_0x48e262(0x2ba)](),this[_0x48e262(0x390)]();},VisuMZ['MessageCore']['CheckCompatibility']=function(){const _0x5a9173=_0x3fecc6;if(Imported[_0x5a9173(0x4be)]&&VisuMZ['ExtraEnemyDrops'][_0x5a9173(0x2a7)]<1.09){let _0x24e5ba='';_0x24e5ba+=_0x5a9173(0x2b2),_0x24e5ba+=_0x5a9173(0x23a),alert(_0x24e5ba),SceneManager['exit']();}},VisuMZ['MessageCore']['SortObjectByKeyLength']=function(_0xae1820){const _0xdfbe3a=_0x3fecc6,_0x4fd674=VisuMZ[_0xdfbe3a(0x46b)][_0xdfbe3a(0x1ed)][_0xae1820];_0x4fd674['sort']((_0x16f2ef,_0x4ddae)=>{const _0x196944=_0xdfbe3a;if(!_0x16f2ef||!_0x4ddae)return-0x1;return _0x4ddae[_0x196944(0x533)][_0x196944(0x43e)]-_0x16f2ef['Match'][_0x196944(0x43e)];});},Scene_Boot[_0x3fecc6(0x1d6)][_0x3fecc6(0x3a6)]=function(){const _0x2a7d03=_0x3fecc6;VisuMZ['MessageCore']['SortObjectByKeyLength'](_0x2a7d03(0x36e));for(const _0x566bc1 of VisuMZ[_0x2a7d03(0x46b)][_0x2a7d03(0x1ed)][_0x2a7d03(0x36e)]){_0x566bc1[_0x2a7d03(0x533)]=_0x566bc1['Match']['toUpperCase'](),_0x566bc1[_0x2a7d03(0x198)]=new RegExp('\x1b'+_0x566bc1[_0x2a7d03(0x533)],'gi'),_0x566bc1['textCodeResult']='\x1b'+_0x566bc1[_0x2a7d03(0x533)];if(_0x566bc1[_0x2a7d03(0x3f9)]==='')_0x566bc1['textCodeResult']+=_0x2a7d03(0x392);}},Scene_Boot[_0x3fecc6(0x1d6)][_0x3fecc6(0x42b)]=function(){const _0x4378c1=_0x3fecc6;VisuMZ[_0x4378c1(0x46b)][_0x4378c1(0x55d)](_0x4378c1(0x347));for(const _0x1a48a5 of VisuMZ[_0x4378c1(0x46b)][_0x4378c1(0x1ed)][_0x4378c1(0x347)]){_0x1a48a5[_0x4378c1(0x198)]=new RegExp('\x1b'+_0x1a48a5[_0x4378c1(0x533)]+_0x1a48a5[_0x4378c1(0x3f9)],'gi'),_0x1a48a5['TextStr']!==''&&_0x1a48a5[_0x4378c1(0x241)]!==_0x4378c1(0x2b1)?_0x1a48a5[_0x4378c1(0x27c)]=new Function(_0x4378c1(0x292)+_0x1a48a5[_0x4378c1(0x241)][_0x4378c1(0x496)](/\\/g,'\x1b')+'\x27'):_0x1a48a5[_0x4378c1(0x27c)]=_0x1a48a5[_0x4378c1(0x404)];}},Scene_Boot[_0x3fecc6(0x1d6)][_0x3fecc6(0x2ba)]=function(){const _0x14b346=_0x3fecc6;for(const _0x3b2949 of VisuMZ['MessageCore'][_0x14b346(0x1ed)][_0x14b346(0x349)]){_0x3b2949[_0x14b346(0x198)]=new RegExp('\x5c['+_0x3b2949[_0x14b346(0x533)]+'\x5c]','gi');if(_0x3b2949['TextStr']!==''&&_0x3b2949[_0x14b346(0x241)]!==_0x14b346(0x2b1)){let _0x4a51b2=_0x3b2949['TextStr'];_0x4a51b2=_0x4a51b2[_0x14b346(0x496)](/\\/g,'\x1b'),_0x4a51b2=_0x4a51b2[_0x14b346(0x496)]('\x27','\x5c\x27'),_0x4a51b2=_0x4a51b2['replace']('\x22','\x5c\x22'),_0x3b2949['textCodeResult']=new Function(_0x14b346(0x292)+_0x4a51b2+'\x27');}else _0x3b2949[_0x14b346(0x27c)]=_0x3b2949[_0x14b346(0x404)];}},Scene_Boot[_0x3fecc6(0x1d6)][_0x3fecc6(0x390)]=function(){const _0x51042a=_0x3fecc6,_0x56f343=VisuMZ['MessageCore']['Settings']['AutoColor'];!VisuMZ['ParseAllNotetags']&&(VisuMZ[_0x51042a(0x46b)]['AddAutoColor']($dataClasses,_0x56f343[_0x51042a(0x39d)]),VisuMZ[_0x51042a(0x46b)]['AddAutoColor']($dataSkills,_0x56f343[_0x51042a(0x267)]),VisuMZ[_0x51042a(0x46b)]['AddAutoColor']($dataItems,_0x56f343[_0x51042a(0x1a4)]),VisuMZ['MessageCore'][_0x51042a(0x4d1)]($dataWeapons,_0x56f343[_0x51042a(0x212)]),VisuMZ[_0x51042a(0x46b)][_0x51042a(0x4d1)]($dataArmors,_0x56f343[_0x51042a(0x4df)]),VisuMZ[_0x51042a(0x46b)][_0x51042a(0x4d1)]($dataEnemies,_0x56f343['Enemies']),VisuMZ['MessageCore'][_0x51042a(0x4d1)]($dataStates,_0x56f343[_0x51042a(0x319)])),VisuMZ[_0x51042a(0x46b)][_0x51042a(0x26c)]();},VisuMZ['MessageCore'][_0x3fecc6(0x24d)]=['V','N','P','C','I','PX','PY','G','{','}','<','>','FS','\x5c','$','.','|','!','<','>','^',_0x3fecc6(0x3d7),_0x3fecc6(0x4cc),_0x3fecc6(0x20e),_0x3fecc6(0x54f),_0x3fecc6(0x4f0),_0x3fecc6(0x492),_0x3fecc6(0x297),_0x3fecc6(0x2b0),_0x3fecc6(0x329),'</RIGHT>',_0x3fecc6(0x2d4),_0x3fecc6(0x40c),_0x3fecc6(0x3db),_0x3fecc6(0x2b3),_0x3fecc6(0x2fe),_0x3fecc6(0x3d4),_0x3fecc6(0x37a),_0x3fecc6(0x215),'PICTURE',_0x3fecc6(0x294),'COMMONEVENT',_0x3fecc6(0x3c9),_0x3fecc6(0x189),_0x3fecc6(0x4e3),'ENABLE',_0x3fecc6(0x2ca),_0x3fecc6(0x4e7),'SWITCHES',_0x3fecc6(0x512),_0x3fecc6(0x4da)],VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x4d1)]=function(_0x483f38,_0x5dceeb){const _0x4adcd4=_0x3fecc6;if(_0x5dceeb<=0x0)return;const _0x581da3=_0x483f38;for(const _0x376422 of _0x581da3){if(!_0x376422)continue;VisuMZ[_0x4adcd4(0x46b)][_0x4adcd4(0x1bc)](_0x376422,_0x5dceeb);}},VisuMZ['MessageCore'][_0x3fecc6(0x26c)]=function(){const _0x4c6324=_0x3fecc6;VisuMZ[_0x4c6324(0x46b)]['AutoColorRegExp']=[];for(let _0xc106c3=0x1;_0xc106c3<=0x1f;_0xc106c3++){const _0x133557=_0x4c6324(0x55f)[_0x4c6324(0x190)](_0xc106c3),_0x1afb3b=VisuMZ[_0x4c6324(0x46b)][_0x4c6324(0x1ed)][_0x4c6324(0x20f)][_0x133557];_0x1afb3b['sort']((_0x4a7476,_0x45dcf0)=>{const _0x4e4da7=_0x4c6324;if(!_0x4a7476||!_0x45dcf0)return-0x1;return _0x45dcf0[_0x4e4da7(0x43e)]-_0x4a7476['length'];}),this[_0x4c6324(0x466)](_0x1afb3b,_0xc106c3);}},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x466)]=function(_0x1ba64e,_0x59ce24){const _0x583442=_0x3fecc6;for(const _0x4f9279 of _0x1ba64e){if(_0x4f9279['length']<=0x0)continue;if(/^\d+$/[_0x583442(0x2ad)](_0x4f9279))continue;let _0x58b3d1=VisuMZ[_0x583442(0x46b)][_0x583442(0x39b)](_0x4f9279);if(_0x4f9279['match'](/[\u3000-\u303F]|[\u3040-\u309F]|[\u30A0-\u30FF]|[\uFF00-\uFFEF]|[\u4E00-\u9FAF]|[\u2605-\u2606]|[\u2190-\u2195]|\u203B/g))var _0xfde026=new RegExp(_0x58b3d1,'i');else var _0xfde026=new RegExp('\x5cb'+_0x58b3d1+'\x5cb','g');VisuMZ['MessageCore'][_0x583442(0x513)][_0x583442(0x48a)]([_0xfde026,'\x1bC[%1]%2\x1bPREVCOLOR[0]'[_0x583442(0x190)](_0x59ce24,_0x4f9279)]);}},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x39b)]=function(_0x9fc37b){const _0x4db175=_0x3fecc6;return _0x9fc37b=_0x9fc37b['replace'](/(\W)/gi,(_0x359d6a,_0x48da99)=>_0x4db175(0x574)[_0x4db175(0x190)](_0x48da99)),_0x9fc37b;},VisuMZ[_0x3fecc6(0x46b)]['ParseClassNotetags']=VisuMZ['ParseClassNotetags'],VisuMZ[_0x3fecc6(0x4e2)]=function(_0x56e7e6){const _0x2ed2c8=_0x3fecc6;VisuMZ[_0x2ed2c8(0x46b)]['ParseClassNotetags'][_0x2ed2c8(0x358)](this,_0x56e7e6);const _0x1ea3d7=VisuMZ[_0x2ed2c8(0x46b)][_0x2ed2c8(0x1ed)]['AutoColor'];VisuMZ[_0x2ed2c8(0x46b)][_0x2ed2c8(0x1bc)](_0x56e7e6,_0x1ea3d7['Classes']);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x3fb)]=VisuMZ['ParseSkillNotetags'],VisuMZ[_0x3fecc6(0x3fb)]=function(_0x285d69){const _0xcb5c0a=_0x3fecc6;VisuMZ[_0xcb5c0a(0x46b)][_0xcb5c0a(0x3fb)][_0xcb5c0a(0x358)](this,_0x285d69);const _0x926c0d=VisuMZ[_0xcb5c0a(0x46b)]['Settings']['AutoColor'];VisuMZ[_0xcb5c0a(0x46b)]['CreateAutoColorFor'](_0x285d69,_0x926c0d['Skills']);},0x7,VisuMZ['MessageCore'][_0x3fecc6(0x2f5)]=VisuMZ[_0x3fecc6(0x2f5)],VisuMZ['ParseItemNotetags']=function(_0x23af6f){const _0x4417f0=_0x3fecc6;VisuMZ[_0x4417f0(0x46b)][_0x4417f0(0x2f5)][_0x4417f0(0x358)](this,_0x23af6f);const _0x4c3600=VisuMZ[_0x4417f0(0x46b)][_0x4417f0(0x1ed)][_0x4417f0(0x20f)];VisuMZ[_0x4417f0(0x46b)][_0x4417f0(0x1bc)](_0x23af6f,_0x4c3600[_0x4417f0(0x1a4)]);},VisuMZ['MessageCore'][_0x3fecc6(0x19e)]=VisuMZ[_0x3fecc6(0x19e)],VisuMZ[_0x3fecc6(0x19e)]=function(_0x1e3b2a){const _0x334fe3=_0x3fecc6;VisuMZ['MessageCore']['ParseWeaponNotetags'][_0x334fe3(0x358)](this,_0x1e3b2a);const _0x59ed39=VisuMZ['MessageCore'][_0x334fe3(0x1ed)][_0x334fe3(0x20f)];VisuMZ[_0x334fe3(0x46b)][_0x334fe3(0x1bc)](_0x1e3b2a,_0x59ed39[_0x334fe3(0x212)]);},VisuMZ['MessageCore'][_0x3fecc6(0x211)]=VisuMZ['ParseArmorNotetags'],VisuMZ[_0x3fecc6(0x211)]=function(_0x3cf7c3){const _0x4d08bc=_0x3fecc6;VisuMZ[_0x4d08bc(0x46b)][_0x4d08bc(0x211)]['call'](this,_0x3cf7c3);const _0xdaec07=VisuMZ[_0x4d08bc(0x46b)][_0x4d08bc(0x1ed)][_0x4d08bc(0x20f)];VisuMZ[_0x4d08bc(0x46b)][_0x4d08bc(0x1bc)](_0x3cf7c3,_0xdaec07[_0x4d08bc(0x4df)]);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x556)]=VisuMZ[_0x3fecc6(0x556)],VisuMZ[_0x3fecc6(0x556)]=function(_0x4f19c9){const _0x4ca204=_0x3fecc6;VisuMZ[_0x4ca204(0x46b)][_0x4ca204(0x556)][_0x4ca204(0x358)](this,_0x4f19c9);const _0x1367de=VisuMZ[_0x4ca204(0x46b)][_0x4ca204(0x1ed)][_0x4ca204(0x20f)];VisuMZ[_0x4ca204(0x46b)][_0x4ca204(0x1bc)](_0x4f19c9,_0x1367de[_0x4ca204(0x30d)]);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x401)]=VisuMZ['ParseStateNotetags'],VisuMZ['ParseStateNotetags']=function(_0x51cb94){const _0x43fc15=_0x3fecc6;VisuMZ[_0x43fc15(0x46b)][_0x43fc15(0x401)][_0x43fc15(0x358)](this,_0x51cb94);const _0x5ca008=VisuMZ[_0x43fc15(0x46b)][_0x43fc15(0x1ed)]['AutoColor'];VisuMZ['MessageCore'][_0x43fc15(0x1bc)](_0x51cb94,_0x5ca008[_0x43fc15(0x319)]);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x1bc)]=function(_0x2dba28,_0x437970){const _0xa3ba0c=_0x3fecc6;if(_0x437970<=0x0)return;const _0x1ea037=VisuMZ[_0xa3ba0c(0x46b)][_0xa3ba0c(0x1ed)][_0xa3ba0c(0x20f)]['TextColor'+_0x437970];let _0x53e68c=_0x2dba28['name'][_0xa3ba0c(0x467)]();if(/^\d+$/[_0xa3ba0c(0x2ad)](_0x53e68c))return;if(VisuMZ[_0xa3ba0c(0x46b)][_0xa3ba0c(0x24d)]['includes'](_0x53e68c['toUpperCase']()))return;_0x53e68c=_0x53e68c[_0xa3ba0c(0x496)](/\\I\[(\d+)\]/gi,''),_0x53e68c=_0x53e68c['replace'](/\x1bI\[(\d+)\]/gi,'');if(_0x53e68c[_0xa3ba0c(0x43e)]<=0x0)return;if(_0x53e68c[_0xa3ba0c(0x498)](/-----/i))return;_0x1ea037[_0xa3ba0c(0x48a)](_0x53e68c);},VisuMZ['MessageCore'][_0x3fecc6(0x382)]=Scene_Boot['prototype'][_0x3fecc6(0x3bf)],Scene_Boot[_0x3fecc6(0x1d6)][_0x3fecc6(0x3bf)]=function(){const _0x4b444e=_0x3fecc6;VisuMZ['MessageCore'][_0x4b444e(0x382)]['call'](this),this[_0x4b444e(0x46c)]();},Scene_Boot[_0x3fecc6(0x1d6)][_0x3fecc6(0x46c)]=function(){const _0x442d21=_0x3fecc6,_0x6cfb0f=VisuMZ[_0x442d21(0x46b)][_0x442d21(0x1ed)][_0x442d21(0x343)]||[];for(const _0x17caab of _0x6cfb0f){if(!_0x17caab)continue;const _0x28ebe1=_0x17caab['FontFamily'];if(_0x28ebe1['trim']()==='')continue;if(_0x28ebe1[_0x442d21(0x435)]()[_0x442d21(0x467)]()===_0x442d21(0x4cd))continue;const _0x4c82b5=_0x17caab[_0x442d21(0x22c)];if(_0x4c82b5===_0x442d21(0x242))continue;FontManager[_0x442d21(0x26a)](_0x28ebe1,_0x4c82b5);}},VisuMZ['MessageCore'][_0x3fecc6(0x36f)]=VisuMZ[_0x3fecc6(0x46b)]['Settings'][_0x3fecc6(0x232)][_0x3fecc6(0x225)]??_0x3fecc6(0x38a),VisuMZ['MessageCore']['DataManager_loadDatabase']=DataManager[_0x3fecc6(0x2c0)],DataManager[_0x3fecc6(0x2c0)]=function(){const _0x500cc9=_0x3fecc6;VisuMZ['MessageCore'][_0x500cc9(0x52c)][_0x500cc9(0x358)](this),this[_0x500cc9(0x33a)]();},DataManager[_0x3fecc6(0x33a)]=function(){const _0x1f5d4d=_0x3fecc6;if(!TextManager[_0x1f5d4d(0x2ab)]())return;const _0x49ce7b=VisuMZ[_0x1f5d4d(0x46b)]['Settings'][_0x1f5d4d(0x232)];let _0x5afcdd='';const _0x3624ed=VisuMZ[_0x1f5d4d(0x46b)][_0x1f5d4d(0x36f)]??_0x1f5d4d(0x38a);if(_0x3624ed===_0x1f5d4d(0x394))_0x5afcdd=(_0x49ce7b[_0x1f5d4d(0x1b6)]??_0x1f5d4d(0x37e))||'';if(_0x3624ed===_0x1f5d4d(0x38a))_0x5afcdd=(_0x49ce7b[_0x1f5d4d(0x34a)]??_0x1f5d4d(0x30c))||'';if(!_0x5afcdd)return;const _0x6f9489='$dataLocalization',_0x2f0110=new XMLHttpRequest(),_0x2048bc=_0x1f5d4d(0x4af)+_0x5afcdd;window[_0x6f9489]=null,_0x2f0110[_0x1f5d4d(0x569)](_0x1f5d4d(0x44e),_0x2048bc),_0x2f0110[_0x1f5d4d(0x285)](_0x1f5d4d(0x3d9)[_0x1f5d4d(0x190)](_0x3624ed['toLowerCase']())),_0x2f0110['onload']=()=>this[_0x1f5d4d(0x547)](_0x2f0110,_0x6f9489),_0x2f0110[_0x1f5d4d(0x23c)]=()=>this[_0x1f5d4d(0x40e)](),_0x2f0110[_0x1f5d4d(0x3b1)]();},DataManager[_0x3fecc6(0x547)]=function(_0x4fd452,_0xcda99d){const _0x143a16=_0x3fecc6;if(_0x4fd452[_0x143a16(0x3e8)]>=0x190)return;const _0x1e30e0=_0x4fd452['responseText'];window[_0xcda99d]=VisuMZ['MessageCore']['ParseLocalizationCsv'](_0x1e30e0);},VisuMZ['MessageCore'][_0x3fecc6(0x4b8)]=function(_0x408c04){const _0x253c4b=_0x3fecc6,_0x1238f=VisuMZ[_0x253c4b(0x46b)]['LocalizationType']??_0x253c4b(0x38a),_0x5ebf8e=_0x1238f===_0x253c4b(0x394)?';':'\x09',_0x143eb7=_0x408c04[_0x253c4b(0x3f0)]('\x0a'),_0x3e8164=_0x143eb7[0x0][_0x253c4b(0x3f0)](_0x5ebf8e),_0x28ede9={};return _0x143eb7[_0x253c4b(0x4f4)](0x1)['forEach'](_0x140e36=>{const _0x3171aa=_0x253c4b;let _0x1339de=[],_0x425a35='',_0x8fe7e4=![];for(let _0x196d26=0x0;_0x196d26<_0x140e36[_0x3171aa(0x43e)];_0x196d26++){let _0x5a4875=_0x140e36[_0x196d26];if(_0x5a4875==='\x22')_0x8fe7e4&&_0x140e36[_0x196d26+0x1]==='\x22'?(_0x425a35+=_0x5a4875,_0x196d26++):_0x8fe7e4=!_0x8fe7e4;else _0x5a4875===_0x5ebf8e&&!_0x8fe7e4?(_0x1339de[_0x3171aa(0x48a)](_0x425a35),_0x425a35=''):_0x425a35+=_0x5a4875;}if(_0x425a35)_0x1339de[_0x3171aa(0x48a)](_0x425a35);if(!_0x1339de[0x0])_0x1339de[0x0]='';const _0x9d907b=_0x1339de[0x0]['replace'](/^"|"$/g,'')['toLowerCase']()[_0x3171aa(0x467)]();_0x28ede9[_0x9d907b]=_0x3e8164[_0x3171aa(0x4f4)](0x1)[_0x3171aa(0x31e)]((_0x541bc9,_0x198c23,_0x5cce9d)=>{const _0x2cc58e=_0x3171aa;return _0x541bc9[_0x198c23[_0x2cc58e(0x467)]()]=(_0x1339de[_0x5cce9d+0x1]||'')['replace'](/^"|"$/g,''),_0x541bc9;},{});}),_0x28ede9;},DataManager[_0x3fecc6(0x40e)]=function(){const _0x14b8eb=_0x3fecc6,_0x4df940=(VisuMZ[_0x14b8eb(0x46b)][_0x14b8eb(0x36f)]??_0x14b8eb(0x38a))[_0x14b8eb(0x328)]();let _0x50e27e='';_0x50e27e+=_0x14b8eb(0x518),_0x50e27e+=_0x14b8eb(0x3e5),_0x50e27e=_0x50e27e['format'](_0x4df940);if(confirm(_0x50e27e)){if(Utils[_0x14b8eb(0x519)](_0x14b8eb(0x2ad))){if(_0x4df940===_0x14b8eb(0x457))_0x50e27e=_0x14b8eb(0x53e),_0x50e27e=_0x50e27e[_0x14b8eb(0x190)](_0x4df940),alert(_0x50e27e),this[_0x14b8eb(0x45e)](),this[_0x14b8eb(0x26b)]();else return this[_0x14b8eb(0x486)]();_0x50e27e='';}else _0x50e27e=_0x14b8eb(0x1d9);}else _0x50e27e=_0x14b8eb(0x46a);_0x50e27e+=_0x14b8eb(0x25a),_0x50e27e=_0x50e27e[_0x14b8eb(0x190)](_0x4df940),alert(_0x50e27e),SceneManager[_0x14b8eb(0x355)]();},DataManager[_0x3fecc6(0x486)]=function(){const _0x274a6b=_0x3fecc6,_0x2e5b3e=VisuMZ[_0x274a6b(0x46b)]['Settings'][_0x274a6b(0x232)],_0x1985fc=_0x2e5b3e[_0x274a6b(0x1b6)]??_0x274a6b(0x37e),_0x4119e4=new XMLHttpRequest(),_0x51fc26=_0x274a6b(0x4af)+_0x1985fc;_0x4119e4[_0x274a6b(0x569)](_0x274a6b(0x44e),_0x51fc26),_0x4119e4[_0x274a6b(0x285)]('application/csv'),_0x4119e4[_0x274a6b(0x33c)]=()=>this[_0x274a6b(0x1eb)](_0x4119e4),_0x4119e4[_0x274a6b(0x23c)]=()=>this[_0x274a6b(0x4eb)](),_0x4119e4[_0x274a6b(0x3b1)]();},DataManager[_0x3fecc6(0x1eb)]=function(_0x2d4990){const _0x31e189=_0x3fecc6,_0x35dcc3=VisuMZ[_0x31e189(0x46b)]['Settings'][_0x31e189(0x232)],_0x43fc01=_0x35dcc3['CsvFilename']??_0x31e189(0x37e);let _0x360521=_0x31e189(0x259)['format'](_0x43fc01);_0x360521+=_0x31e189(0x4ea),_0x360521+=_0x31e189(0x454),confirm(_0x360521)?this[_0x31e189(0x3d5)](_0x2d4990):this[_0x31e189(0x4eb)]();},DataManager['convertCsvToTsvFile']=function(_0x15adfb){const _0x28041b=_0x3fecc6;if(_0x15adfb[_0x28041b(0x3e8)]>=0x190)return;const _0x3b759b=_0x15adfb['responseText'],_0x4d7a1e=_0x3b759b['replace'](/\;/gi,'\x09'),_0x20380c=VisuMZ[_0x28041b(0x46b)][_0x28041b(0x1ed)]['Localization'],_0x44286b=_0x20380c[_0x28041b(0x34a)]||_0x28041b(0x30c),_0x51ab60=require(_0x28041b(0x353)),_0x418e84=_0x51ab60['dirname'](process[_0x28041b(0x50a)][_0x28041b(0x4d0)]),_0x57e6e4=_0x51ab60['join'](_0x418e84,_0x28041b(0x4af)),_0x24a2ec=_0x57e6e4+_0x44286b,_0x4eaf8e=require('fs');_0x4eaf8e[_0x28041b(0x478)](_0x24a2ec,_0x4d7a1e);let _0x5ea343=_0x28041b(0x4a3);alert(_0x5ea343),_0x5ea343=_0x28041b(0x25a),alert(_0x5ea343),SceneManager[_0x28041b(0x355)]();},DataManager[_0x3fecc6(0x4eb)]=function(){const _0x417c24=_0x3fecc6;let _0x1a18c9='TSV\x20file\x20is\x20now\x20created\x20and\x20stored\x20in\x20data\x20folder.';alert(_0x1a18c9),this[_0x417c24(0x45e)](),this['openLocalizationFolder'](),_0x1a18c9=_0x417c24(0x25a),alert(_0x1a18c9),SceneManager[_0x417c24(0x355)]();},DataManager[_0x3fecc6(0x45e)]=function(){const _0x30344a=_0x3fecc6,_0x2172ec=['Key','English','Bengali',_0x30344a(0x4cf),_0x30344a(0x231),'Czech',_0x30344a(0x288),_0x30344a(0x23f),_0x30344a(0x51f),_0x30344a(0x3ff),_0x30344a(0x479),_0x30344a(0x3d3),'Hindi',_0x30344a(0x56a),'Indonesian','Italian',_0x30344a(0x419),_0x30344a(0x54e),'Norwegian',_0x30344a(0x222),_0x30344a(0x549),_0x30344a(0x517),_0x30344a(0x50b),'Slovak',_0x30344a(0x4bb),_0x30344a(0x322),'Tamil',_0x30344a(0x224),_0x30344a(0x3f1)],_0x3b1de7=['Greeting',_0x30344a(0x485),_0x30344a(0x327),'你好','你好','Ahoj',_0x30344a(0x50e),'Hallo','Hei',_0x30344a(0x35e),_0x30344a(0x48e),'Γειά\x20σου',_0x30344a(0x4de),_0x30344a(0x26d),_0x30344a(0x462),_0x30344a(0x54a),_0x30344a(0x2f6),'안녕하세요',_0x30344a(0x49b),_0x30344a(0x504),'Olá',_0x30344a(0x2e3),_0x30344a(0x30b),_0x30344a(0x1e6),_0x30344a(0x331),_0x30344a(0x50e),_0x30344a(0x55b),_0x30344a(0x282),_0x30344a(0x219)],_0x11551a=[_0x30344a(0x407),_0x30344a(0x1f3),_0x30344a(0x314),'再见','再見','Sbohem',_0x30344a(0x197),_0x30344a(0x541),_0x30344a(0x30a),_0x30344a(0x3af),_0x30344a(0x20b),_0x30344a(0x1c1),_0x30344a(0x1f0),_0x30344a(0x1d1),_0x30344a(0x35f),_0x30344a(0x34d),_0x30344a(0x2f8),_0x30344a(0x46e),_0x30344a(0x4aa),_0x30344a(0x360),_0x30344a(0x56c),_0x30344a(0x269),'До\x20свидания',_0x30344a(0x2cf),_0x30344a(0x487),_0x30344a(0x366),_0x30344a(0x368),'ลาก่อน','Hoşça\x20kal'],_0x25b183=[_0x30344a(0x453),_0x30344a(0x453),_0x30344a(0x44c),'哇','哇','Ó',_0x30344a(0x453),_0x30344a(0x51d),'Vau',_0x30344a(0x202),_0x30344a(0x453),_0x30344a(0x237),_0x30344a(0x3e1),_0x30344a(0x474),'Wah',_0x30344a(0x453),'ワオ','와우','Oi','O','Uau',_0x30344a(0x230),_0x30344a(0x320),'Ó',_0x30344a(0x40a),'Oj',_0x30344a(0x1fa),_0x30344a(0x1a0),_0x30344a(0x408)],_0x1ff4af=[_0x2172ec,_0x3b1de7,_0x11551a,_0x25b183],_0x290548=VisuMZ[_0x30344a(0x46b)][_0x30344a(0x36f)]??_0x30344a(0x38a),_0x277c2d=_0x290548===_0x30344a(0x394)?';':'\x09',_0x9a9ee2=_0x1ff4af[_0x30344a(0x3a4)](_0xa05561=>_0xa05561[_0x30344a(0x502)](_0x277c2d))[_0x30344a(0x502)]('\x0a'),_0x2b8235=VisuMZ[_0x30344a(0x46b)][_0x30344a(0x1ed)][_0x30344a(0x232)];let _0xed5ca2='';if(_0x290548===_0x30344a(0x394))_0xed5ca2=_0x2b8235[_0x30344a(0x1b6)]||_0x30344a(0x37e);if(_0x290548===_0x30344a(0x38a))_0xed5ca2=_0x2b8235[_0x30344a(0x34a)]||'Languages.tsv';const _0x2811bd=require(_0x30344a(0x353)),_0x1c4b2b=_0x2811bd['dirname'](process[_0x30344a(0x50a)]['filename']),_0x2ba5cb=_0x2811bd[_0x30344a(0x502)](_0x1c4b2b,'data/'),_0x74ba4d=_0x2ba5cb+_0xed5ca2,_0x300644=require('fs');return _0x300644[_0x30344a(0x478)](_0x74ba4d,_0x9a9ee2),_0x74ba4d;},DataManager[_0x3fecc6(0x26b)]=function(){const _0x42f156=_0x3fecc6,{exec:_0x248001}=require(_0x42f156(0x1e2));_0x248001('start\x20.\x5cdata'),_0x248001(_0x42f156(0x216));},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x39e)]=ImageManager[_0x3fecc6(0x274)],ImageManager['loadBitmap']=function(_0x56990a,_0x4d8983){const _0x432b7b=_0x3fecc6;if(ConfigManager[_0x432b7b(0x27d)]!==undefined){const _0x49a876=VisuMZ[_0x432b7b(0x46b)][_0x432b7b(0x1ed)]['Localization']||{},_0x3e6c0c=_0x49a876[_0x432b7b(0x29d)]||_0x432b7b(0x3ae),_0x3c42c1=VisuMZ['MessageCore']['Settings']['LanguageImages']||{},_0x150a1c=ConfigManager[_0x432b7b(0x27d)]||_0x3e6c0c;if(_0x150a1c===_0x3e6c0c&&!_0x3c42c1[_0x432b7b(0x250)]){}else{const _0x3004cf=_0x3c42c1[_0x150a1c]||_0x432b7b(0x276);_0x56990a&&_0x56990a[_0x432b7b(0x498)](/\[XX\]/g)&&console[_0x432b7b(0x31d)](_0x56990a,_0x4d8983),_0x4d8983&&_0x4d8983[_0x432b7b(0x498)](/\[XX\]/g)&&(_0x4d8983=_0x4d8983[_0x432b7b(0x496)](/\[XX\]/g,_0x3004cf));}}return VisuMZ['MessageCore']['ImageManager_loadBitmap'][_0x432b7b(0x358)](this,_0x56990a,_0x4d8983);},SceneManager[_0x3fecc6(0x43b)]=function(){const _0x109e0f=_0x3fecc6;return this[_0x109e0f(0x20c)]&&this[_0x109e0f(0x20c)][_0x109e0f(0x2f3)]===Scene_Battle;},SceneManager[_0x3fecc6(0x3a3)]=function(){const _0x4de9ba=_0x3fecc6;return this[_0x4de9ba(0x20c)]&&this[_0x4de9ba(0x20c)][_0x4de9ba(0x2f3)]===Scene_Map;},ConfigManager[_0x3fecc6(0x27d)]=VisuMZ['MessageCore'][_0x3fecc6(0x1ed)]['Localization'][_0x3fecc6(0x29d)]||_0x3fecc6(0x3ae),ConfigManager[_0x3fecc6(0x482)]=VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x1ed)][_0x3fecc6(0x4fa)][_0x3fecc6(0x33e)],VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x500)]=ConfigManager['makeData'],ConfigManager[_0x3fecc6(0x38e)]=function(){const _0x6340b9=_0x3fecc6,_0x34cb45=VisuMZ[_0x6340b9(0x46b)]['ConfigManager_makeData'][_0x6340b9(0x358)](this);return TextManager['isVisuMzLocalizationEnabled']()&&(_0x34cb45[_0x6340b9(0x27d)]=this[_0x6340b9(0x27d)]),_0x34cb45[_0x6340b9(0x482)]=this['textSpeed'],_0x34cb45;},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x2c4)]=ConfigManager['applyData'],ConfigManager[_0x3fecc6(0x2af)]=function(_0x5bc150){const _0x17f745=_0x3fecc6;VisuMZ[_0x17f745(0x46b)][_0x17f745(0x2c4)][_0x17f745(0x358)](this,_0x5bc150),TextManager[_0x17f745(0x2ab)]()&&(_0x17f745(0x27d)in _0x5bc150?this[_0x17f745(0x27d)]=String(_0x5bc150[_0x17f745(0x27d)]):this['textLocale']=VisuMZ['MessageCore'][_0x17f745(0x1ed)][_0x17f745(0x232)][_0x17f745(0x29d)]||_0x17f745(0x3ae)),_0x17f745(0x482)in _0x5bc150?this[_0x17f745(0x482)]=Number(_0x5bc150[_0x17f745(0x482)])[_0x17f745(0x1e0)](0x1,0xb):this['textSpeed']=VisuMZ[_0x17f745(0x46b)][_0x17f745(0x1ed)][_0x17f745(0x4fa)][_0x17f745(0x33e)];},TextManager[_0x3fecc6(0x2de)]=VisuMZ['MessageCore']['Settings']['Localization'][_0x3fecc6(0x1cb)],TextManager[_0x3fecc6(0x1fc)]=VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x1ed)][_0x3fecc6(0x4fa)][_0x3fecc6(0x1cb)],TextManager['instantTextSpeed']=VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x1ed)][_0x3fecc6(0x4fa)]['Instant'],VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x30e)]=TextManager['message'],TextManager[_0x3fecc6(0x1a7)]=function(_0xa4e5c0){const _0x1d6f89=_0x3fecc6,_0x268e1b=[_0x1d6f89(0x1e5),_0x1d6f89(0x2b8),_0x1d6f89(0x1cf),_0x1d6f89(0x576),_0x1d6f89(0x3bc),'defeat','escapeStart','obtainExp',_0x1d6f89(0x1d2),_0x1d6f89(0x21c)];let _0x4d2dd6=VisuMZ[_0x1d6f89(0x46b)][_0x1d6f89(0x30e)][_0x1d6f89(0x358)](this,_0xa4e5c0);return _0x268e1b[_0x1d6f89(0x3c6)](_0xa4e5c0)&&(_0x4d2dd6=_0x1d6f89(0x3d4)+_0x4d2dd6),_0x4d2dd6;},TextManager[_0x3fecc6(0x2ab)]=function(){const _0x1d1614=_0x3fecc6;return VisuMZ[_0x1d1614(0x46b)][_0x1d1614(0x1ed)][_0x1d1614(0x232)][_0x1d1614(0x2d5)];},TextManager[_0x3fecc6(0x395)]=function(_0x4ee586){const _0x393b21=_0x3fecc6;if(!this['isVisuMzLocalizationEnabled']())return _0x4ee586;return _0x4ee586=String(_0x4ee586)[_0x393b21(0x496)](/\$(?:\[|\<|\{)(.*?)(?:\]|\>|\})/gi,(_0x5989f1,_0x207f1d)=>this['getLocalizedText'](String(_0x207f1d))),_0x4ee586=String(_0x4ee586)[_0x393b21(0x496)](/\\(?:KEY|TL|TRANSLATE|LOC|LOCALIZE|LOCALE)(?:\[|\<|\{)(.*?)(?:\]|\>|\})/gi,(_0x47c476,_0x73ab08)=>this[_0x393b21(0x450)](String(_0x73ab08))),_0x4ee586=String(_0x4ee586)[_0x393b21(0x496)](/\x1b(?:KEY|TL|TRANSLATE|LOC|LOCALIZE|LOCALE)(?:\[|\<|\{)(.*?)(?:\]|\>|\})/gi,(_0x34a035,_0x358956)=>this['getLocalizedText'](String(_0x358956))),_0x4ee586;},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x305)]=Bitmap[_0x3fecc6(0x1d6)][_0x3fecc6(0x579)],Bitmap[_0x3fecc6(0x1d6)][_0x3fecc6(0x579)]=function(_0x46a76d){const _0x296c83=_0x3fecc6;return _0x46a76d=TextManager[_0x296c83(0x395)](_0x46a76d),VisuMZ[_0x296c83(0x46b)][_0x296c83(0x305)][_0x296c83(0x358)](this,_0x46a76d);},TextManager[_0x3fecc6(0x450)]=function(_0x2e72c1){const _0x27a8ca=_0x3fecc6;if(!$dataLocalization)return'';const _0x4fb82a=$dataLocalization[_0x2e72c1[_0x27a8ca(0x435)]()[_0x27a8ca(0x467)]()];if(!_0x4fb82a)return;const _0x32ad1f=ConfigManager[_0x27a8ca(0x27d)]||_0x27a8ca(0x3ae);let _0x3d0ff8=_0x4fb82a[_0x32ad1f]||'UNDEFINED!';return _0x3d0ff8=_0x3d0ff8[_0x27a8ca(0x496)](/\\/g,'\x1b'),_0x3d0ff8=_0x3d0ff8[_0x27a8ca(0x496)](/<SEMI(?:|-COLON|COLON)>/gi,';'),_0x3d0ff8;},TextManager[_0x3fecc6(0x23b)]=function(_0x50c3f2){const _0x5e8ecf=_0x3fecc6;return VisuMZ[_0x5e8ecf(0x46b)][_0x5e8ecf(0x1ed)][_0x5e8ecf(0x232)][_0x50c3f2]||'';},TextManager[_0x3fecc6(0x560)]=function(){const _0x12b381=_0x3fecc6,_0xbfeec0=ConfigManager['textLocale']||_0x12b381(0x3ae);return this[_0x12b381(0x23b)](_0xbfeec0);},TextManager['getLanguageAt']=function(_0x83831b){const _0x287bff=_0x3fecc6,_0x5058fc=VisuMZ[_0x287bff(0x46b)][_0x287bff(0x1ed)]['Localization'][_0x287bff(0x4ca)]||[];let _0x464721=_0x5058fc[_0x287bff(0x365)](ConfigManager[_0x287bff(0x27d)]||_0x287bff(0x3ae));_0x464721+=_0x83831b;const _0x4c889a=_0x5058fc[_0x464721]||'';return this[_0x287bff(0x23b)](_0x4c889a);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x37d)]=Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x1a6)],Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x1a6)]=function(){const _0x5c83fe=_0x3fecc6;let _0x3f85ba=VisuMZ[_0x5c83fe(0x46b)][_0x5c83fe(0x37d)]['call'](this);if(ConfigManager&&ConfigManager[_0x5c83fe(0x201)]!==undefined&&ConfigManager[_0x5c83fe(0x201)]>0x0)return _0x3f85ba;else{const _0xa4e39f=ConfigManager['textLocale']||_0x5c83fe(0x3ae),_0x4f0db2=VisuMZ['MessageCore']['Settings'][_0x5c83fe(0x191)];return _0x4f0db2[_0xa4e39f]!==undefined&&(_0x3f85ba=_0x4f0db2[_0xa4e39f]+',\x20'+$dataSystem[_0x5c83fe(0x56e)][_0x5c83fe(0x505)]),_0x3f85ba;}},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x337)]=Window_Command[_0x3fecc6(0x1d6)][_0x3fecc6(0x34f)],Window_Command[_0x3fecc6(0x1d6)][_0x3fecc6(0x34f)]=function(_0x27c070,_0x30ae25,_0x1a65c2,_0x492e1d){const _0x3ab1e7=_0x3fecc6;if(TextManager[_0x3ab1e7(0x395)]&&TextManager[_0x3ab1e7(0x2ab)]()){const _0x11f255=String(_0x27c070)[_0x3ab1e7(0x435)]()[_0x3ab1e7(0x467)]();if($dataLocalization[_0x11f255]&&_0x11f255[_0x3ab1e7(0x43e)]>0x0){const _0x1784b3=ConfigManager[_0x3ab1e7(0x27d)]||_0x3ab1e7(0x3ae);_0x27c070=$dataLocalization[_0x11f255][_0x1784b3]||'UNDEFINED!';}}VisuMZ['MessageCore'][_0x3ab1e7(0x337)][_0x3ab1e7(0x358)](this,_0x27c070,_0x30ae25,_0x1a65c2,_0x492e1d);},Window_StatusBase[_0x3fecc6(0x1d6)][_0x3fecc6(0x22e)]=function(_0x25fd92,_0x19e6bc){const _0x33550b=_0x3fecc6,_0x4e824a=_0x25fd92[_0x33550b(0x481)]();let _0x3eeab1=$dataSystem[_0x33550b(0x4ee)][_0x4e824a[_0x19e6bc]];if(TextManager[_0x33550b(0x395)]){const _0xd647fc=String(_0x3eeab1)[_0x33550b(0x435)]()[_0x33550b(0x467)]();if(TextManager[_0x33550b(0x2ab)]()&&$dataLocalization[_0xd647fc]){const _0x16e9bd=ConfigManager[_0x33550b(0x27d)]||_0x33550b(0x3ae);_0x3eeab1=$dataLocalization[_0xd647fc][_0x16e9bd]||_0x33550b(0x302);}}return _0x3eeab1;},Game_Temp[_0x3fecc6(0x1d6)][_0x3fecc6(0x47b)]=function(_0x3e7578){const _0x2d47b7=_0x3fecc6;this[_0x2d47b7(0x41c)]=_0x3e7578;},Game_Temp[_0x3fecc6(0x1d6)]['getLastPluginCommandInterpreter']=function(){return this['_lastPluginCommandInterpreter'];},VisuMZ[_0x3fecc6(0x46b)]['Game_Interpreter_PluginCommand']=Game_Interpreter[_0x3fecc6(0x1d6)][_0x3fecc6(0x287)],Game_Interpreter[_0x3fecc6(0x1d6)][_0x3fecc6(0x287)]=function(_0x219953){const _0xfb12bd=_0x3fecc6;return $gameTemp[_0xfb12bd(0x47b)](this),VisuMZ[_0xfb12bd(0x46b)][_0xfb12bd(0x47a)]['call'](this,_0x219953);},VisuMZ['MessageCore'][_0x3fecc6(0x45b)]=Game_System[_0x3fecc6(0x1d6)]['initialize'],Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x3b5)]=function(){const _0x285c7e=_0x3fecc6;VisuMZ[_0x285c7e(0x46b)][_0x285c7e(0x45b)]['call'](this),this[_0x285c7e(0x295)]();},Game_System['prototype'][_0x3fecc6(0x295)]=function(){const _0x167886=_0x3fecc6,_0x1c93da=VisuMZ[_0x167886(0x46b)][_0x167886(0x1ed)][_0x167886(0x40d)],_0x40c55b=VisuMZ[_0x167886(0x46b)][_0x167886(0x1ed)]['WordWrap'];this[_0x167886(0x352)]={'messageRows':_0x1c93da[_0x167886(0x405)],'messageWidth':_0x1c93da[_0x167886(0x4c0)],'messageWordWrap':_0x40c55b[_0x167886(0x2dd)],'helpWordWrap':_0x40c55b['HelpWindow'],'choiceLineHeight':_0x1c93da[_0x167886(0x3ea)],'choiceMinWidth':_0x1c93da[_0x167886(0x2b7)]??0x60,'choiceRows':_0x1c93da[_0x167886(0x45d)],'choiceCols':_0x1c93da['ChoiceWindowMaxCols'],'choiceTextAlign':_0x1c93da[_0x167886(0x238)],'choiceDistance':0x0},this[_0x167886(0x229)]===undefined&&(this[_0x167886(0x229)]=_0x1c93da[_0x167886(0x1fd)],this[_0x167886(0x4d3)]=_0x1c93da[_0x167886(0x3e3)]);},Game_System['prototype'][_0x3fecc6(0x326)]=function(){const _0x56156f=_0x3fecc6;if(this['_MessageCoreSettings']===undefined)this['initMessageCore']();if(this[_0x56156f(0x352)][_0x56156f(0x300)]===undefined)this[_0x56156f(0x295)]();return this['_MessageCoreSettings']['messageRows'];},Game_System[_0x3fecc6(0x1d6)]['setMessageWindowRows']=function(_0x35059b){const _0x2b6895=_0x3fecc6;if(this['_MessageCoreSettings']===undefined)this[_0x2b6895(0x295)]();if(this[_0x2b6895(0x352)][_0x2b6895(0x300)]===undefined)this['initMessageCore']();this[_0x2b6895(0x352)][_0x2b6895(0x300)]=_0x35059b||0x1;},Game_System[_0x3fecc6(0x1d6)]['getMessageWindowWidth']=function(){const _0x1ee88b=_0x3fecc6;if(this[_0x1ee88b(0x352)]===undefined)this[_0x1ee88b(0x295)]();if(this['_MessageCoreSettings'][_0x1ee88b(0x321)]===undefined)this[_0x1ee88b(0x295)]();return this[_0x1ee88b(0x352)][_0x1ee88b(0x321)];},Game_System[_0x3fecc6(0x1d6)]['setMessageWindowWidth']=function(_0x2da275){const _0x42d0bf=_0x3fecc6;if(this['_MessageCoreSettings']===undefined)this[_0x42d0bf(0x295)]();if(this[_0x42d0bf(0x352)][_0x42d0bf(0x321)]===undefined)this[_0x42d0bf(0x295)]();_0x2da275=Math['ceil'](_0x2da275);if(_0x2da275%0x2!==0x0)_0x2da275+=0x1;this[_0x42d0bf(0x352)]['messageWidth']=_0x2da275||0x2;},Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x258)]=function(){const _0xfe6d8f=_0x3fecc6;if(this['_MessageCoreSettings']===undefined)this['initMessageCore']();if(this[_0xfe6d8f(0x352)]['messageWordWrap']===undefined)this[_0xfe6d8f(0x295)]();return this[_0xfe6d8f(0x352)][_0xfe6d8f(0x310)];},Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x568)]=function(_0x4ee4b2){const _0x49c8fd=_0x3fecc6;if(this['_MessageCoreSettings']===undefined)this['initMessageCore']();if(this[_0x49c8fd(0x352)][_0x49c8fd(0x310)]===undefined)this[_0x49c8fd(0x295)]();this['_MessageCoreSettings']['messageWordWrap']=_0x4ee4b2;},Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x4a4)]=function(){const _0x245e63=_0x3fecc6;if(this[_0x245e63(0x229)]===undefined){const _0x504781=VisuMZ[_0x245e63(0x46b)][_0x245e63(0x1ed)][_0x245e63(0x40d)];this[_0x245e63(0x229)]=_0x504781[_0x245e63(0x1fd)],this['_messageOffsetY']=_0x504781[_0x245e63(0x3e3)];}return{'x':this[_0x245e63(0x229)]||0x0,'y':this[_0x245e63(0x4d3)]||0x0};},Game_System['prototype'][_0x3fecc6(0x4c4)]=function(_0x2831b5,_0x15d8f9){const _0x25e907=_0x3fecc6;if(this[_0x25e907(0x352)]===undefined)this[_0x25e907(0x295)]();this[_0x25e907(0x229)]=_0x2831b5,this['_messageOffsetY']=_0x15d8f9;},Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x325)]=function(){const _0x4ae4db=_0x3fecc6;if(this['_MessageCoreSettings']===undefined)this[_0x4ae4db(0x295)]();if(this[_0x4ae4db(0x352)]['helpWordWrap']===undefined)this['initMessageCore']();return this[_0x4ae4db(0x352)]['helpWordWrap'];},Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x2b6)]=function(_0xc2de7b){const _0x50375c=_0x3fecc6;if(this['_MessageCoreSettings']===undefined)this[_0x50375c(0x295)]();if(this['_MessageCoreSettings']['helpWordWrap']===undefined)this['initMessageCore']();this[_0x50375c(0x352)][_0x50375c(0x423)]=_0xc2de7b;},Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x234)]=function(){const _0x2e6178=_0x3fecc6;if(this[_0x2e6178(0x352)]===undefined)this[_0x2e6178(0x295)]();if(this[_0x2e6178(0x352)]['choiceLineHeight']===undefined)this[_0x2e6178(0x295)]();return this[_0x2e6178(0x352)][_0x2e6178(0x28f)];},Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x308)]=function(_0x4885a3){const _0x40bd87=_0x3fecc6;if(this[_0x40bd87(0x352)]===undefined)this['initMessageCore']();if(this[_0x40bd87(0x352)][_0x40bd87(0x28f)]===undefined)this[_0x40bd87(0x295)]();this[_0x40bd87(0x352)]['choiceLineHeight']=_0x4885a3||0x1;},Game_System[_0x3fecc6(0x1d6)]['getChoiceListMinChoiceWidth']=function(){const _0x4d040e=_0x3fecc6;if(this[_0x4d040e(0x352)]===undefined)this[_0x4d040e(0x295)]();return this[_0x4d040e(0x352)]['choiceMinWidth']??0x60;},Game_System[_0x3fecc6(0x1d6)]['setChoiceListMinChoiceWidth']=function(_0x55893d){const _0x167512=_0x3fecc6;if(this[_0x167512(0x352)]===undefined)this[_0x167512(0x295)]();this['_MessageCoreSettings'][_0x167512(0x28d)]=_0x55893d||0x0;},Game_System[_0x3fecc6(0x1d6)]['getChoiceListMaxRows']=function(){const _0x55152f=_0x3fecc6;if(this[_0x55152f(0x352)]===undefined)this[_0x55152f(0x295)]();if(this[_0x55152f(0x352)][_0x55152f(0x346)]===undefined)this['initMessageCore']();return this[_0x55152f(0x352)][_0x55152f(0x346)];},Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x217)]=function(_0x222e17){const _0x430ac4=_0x3fecc6;if(this['_MessageCoreSettings']===undefined)this['initMessageCore']();if(this[_0x430ac4(0x352)][_0x430ac4(0x346)]===undefined)this[_0x430ac4(0x295)]();this[_0x430ac4(0x352)][_0x430ac4(0x346)]=_0x222e17||0x1;},Game_System['prototype'][_0x3fecc6(0x45a)]=function(){const _0x321cbc=_0x3fecc6;if(this[_0x321cbc(0x352)]===undefined)this[_0x321cbc(0x295)]();if(this[_0x321cbc(0x352)][_0x321cbc(0x3bb)]===undefined)this[_0x321cbc(0x295)]();return this[_0x321cbc(0x352)]['choiceCols'];},Game_System['prototype']['setChoiceListMaxColumns']=function(_0x5ab379){const _0x5c6633=_0x3fecc6;if(this[_0x5c6633(0x352)]===undefined)this[_0x5c6633(0x295)]();if(this[_0x5c6633(0x352)]['choiceCols']===undefined)this['initMessageCore']();this[_0x5c6633(0x352)][_0x5c6633(0x3bb)]=_0x5ab379||0x1;},Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x1de)]=function(){const _0x49df56=_0x3fecc6;if(this[_0x49df56(0x352)]===undefined)this[_0x49df56(0x295)]();if(this[_0x49df56(0x352)][_0x49df56(0x536)]===undefined)this[_0x49df56(0x295)]();return this[_0x49df56(0x352)]['choiceTextAlign'];},Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x497)]=function(_0x3d18b2){const _0x2ae9dc=_0x3fecc6;if(this['_MessageCoreSettings']===undefined)this[_0x2ae9dc(0x295)]();if(this[_0x2ae9dc(0x352)][_0x2ae9dc(0x536)]===undefined)this[_0x2ae9dc(0x295)]();this['_MessageCoreSettings'][_0x2ae9dc(0x536)]=_0x3d18b2[_0x2ae9dc(0x435)]();},Game_System[_0x3fecc6(0x1d6)][_0x3fecc6(0x359)]=function(){const _0x9b4e11=_0x3fecc6;if(this[_0x9b4e11(0x352)]===undefined)this[_0x9b4e11(0x295)]();return this[_0x9b4e11(0x352)][_0x9b4e11(0x480)]||0x0;},Game_System['prototype']['setChoiceMessageDistance']=function(_0x1965e3){const _0x3c243b=_0x3fecc6;if(this['_MessageCoreSettings']===undefined)this['initMessageCore']();this['_MessageCoreSettings'][_0x3c243b(0x480)]=_0x1965e3||0x0;},Game_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x44f)]=function(_0x292bbd,_0x51f61e){const _0x297d1f=_0x3fecc6;this[_0x297d1f(0x26e)]=_0x292bbd,this[_0x297d1f(0x2c3)]=_0x297d1f(0x240),this['_itemChoiceWtypeId']=_0x51f61e,this[_0x297d1f(0x577)]=0x0;},Game_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x32b)]=function(){const _0x18d607=_0x3fecc6;return this[_0x18d607(0x50d)]||0x0;},Game_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x3cf)]=function(_0x4c8459,_0xcb5d97,_0x5eef61){const _0x50cfac=_0x3fecc6;this[_0x50cfac(0x26e)]=_0x4c8459,this[_0x50cfac(0x2c3)]=_0x50cfac(0x531),this[_0x50cfac(0x1f9)]=_0xcb5d97,this[_0x50cfac(0x577)]=_0x5eef61;},Game_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x501)]=function(){return this['_itemChoiceAtypeId']||0x0;},Game_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x475)]=function(){const _0x4c2d9f=_0x3fecc6;return this[_0x4c2d9f(0x577)]||0x0;},Game_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x333)]=function(_0x56c640,_0x4a3a31,_0x57fb62){const _0xa8b393=_0x3fecc6;this[_0xa8b393(0x26e)]=_0x56c640,this[_0xa8b393(0x2c3)]=_0xa8b393(0x1e4),this[_0xa8b393(0x25e)]=_0x4a3a31,this[_0xa8b393(0x3cc)]=_0x57fb62;},Game_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x56f)]=function(){return this['_itemChoiceActorId']||0x0;},Game_Message['prototype']['itemChoiceActor']=function(){const _0x14856e=_0x3fecc6;return $gameActors[_0x14856e(0x341)](this[_0x14856e(0x56f)]())||$gameParty[_0x14856e(0x2cc)]()||null;},Game_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x4dd)]=function(){const _0x2f66f9=_0x3fecc6;return this[_0x2f66f9(0x3cc)]||0x0;},VisuMZ['MessageCore']['Game_Message_setChoices']=Game_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x526)],Game_Message['prototype'][_0x3fecc6(0x526)]=function(_0x5e0f22,_0x3596ee,_0x134ef6){const _0x35da38=_0x3fecc6;this[_0x35da38(0x233)]=!![],VisuMZ[_0x35da38(0x46b)]['Game_Message_setChoices'][_0x35da38(0x358)](this,_0x5e0f22,_0x3596ee,_0x134ef6);},Game_Message[_0x3fecc6(0x1d6)]['setupShuffleChoices']=function(){const _0x4deb4e=_0x3fecc6;this['_scriptCall']=![],this['_choiceIndexArray']=[];const _0xf104bc=this[_0x4deb4e(0x489)]['length'];this[_0x4deb4e(0x443)]=_0xf104bc;let _0x575478=![];for(let _0x4975a5=0x0;_0x4975a5<_0xf104bc;_0x4975a5++){let _0x18ebe6=this[_0x4deb4e(0x489)][_0x4975a5];_0x18ebe6[_0x4deb4e(0x498)](/<SHUFFLE>/gi)&&(_0x575478=!![],_0x18ebe6=_0x18ebe6['replace'](/<SHUFFLE>/gi,'')),_0x18ebe6[_0x4deb4e(0x498)](/<SHUFFLE:[ ](\d+)>/gi)&&(_0x575478=!![],this[_0x4deb4e(0x443)]=Math['min'](Number(RegExp['$1']),this[_0x4deb4e(0x443)]),_0x18ebe6=_0x18ebe6['replace'](/<SHUFFLE:[ ](\d+)>/gi,'')),_0x18ebe6[_0x4deb4e(0x498)](/<SHUFFLE: VAR[ ](\d+)>/gi)&&(_0x575478=!![],this['_maxShuffleChoices']=Math['min']($gameVariables['value'](Number(RegExp['$1']))||0x1,this[_0x4deb4e(0x443)]),_0x18ebe6=_0x18ebe6[_0x4deb4e(0x496)](/<SHUFFLE:[ ]VAR (\d+)>/gi,'')),this[_0x4deb4e(0x483)][_0x4deb4e(0x48a)](_0x4975a5),this[_0x4deb4e(0x489)][_0x4975a5]=_0x18ebe6;}if(_0x575478){this[_0x4deb4e(0x483)]=VisuMZ[_0x4deb4e(0x46b)][_0x4deb4e(0x281)](this[_0x4deb4e(0x483)]);if(this[_0x4deb4e(0x4f1)]()!==-0x2)this[_0x4deb4e(0x2a8)]=-0x1;}},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x281)]=function(_0x258c40){const _0xed48d2=_0x3fecc6;var _0x3ad264,_0xd667a3,_0x26cb0c;for(_0x26cb0c=_0x258c40[_0xed48d2(0x43e)]-0x1;_0x26cb0c>0x0;_0x26cb0c--){_0x3ad264=Math['floor'](Math[_0xed48d2(0x192)]()*(_0x26cb0c+0x1)),_0xd667a3=_0x258c40[_0x26cb0c],_0x258c40[_0x26cb0c]=_0x258c40[_0x3ad264],_0x258c40[_0x3ad264]=_0xd667a3;}return _0x258c40;},Game_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x351)]=function(){const _0x232f60=_0x3fecc6;if(!this[_0x232f60(0x483)])this['setupShuffleChoices']();return this[_0x232f60(0x483)];},Game_Message[_0x3fecc6(0x1d6)]['maxShuffleChoices']=function(){const _0x50768d=_0x3fecc6;if(this['_maxShuffleChoices']===undefined)this[_0x50768d(0x449)]();return this['_maxShuffleChoices'];},VisuMZ[_0x3fecc6(0x46b)]['Game_Screen_clearPictures']=Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x4a1)],Game_Screen['prototype'][_0x3fecc6(0x4a1)]=function(){const _0x5a572f=_0x3fecc6;VisuMZ[_0x5a572f(0x46b)]['Game_Screen_clearPictures'][_0x5a572f(0x358)](this),this['clearAllPictureTexts']();},Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x29a)]=function(){const _0x52ec8c=_0x3fecc6;this[_0x52ec8c(0x334)]=[],this[_0x52ec8c(0x3ed)]=[],this[_0x52ec8c(0x1f1)]=[];},Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x24a)]=function(_0x2038b3){const _0x457799=_0x3fecc6;if(this[_0x457799(0x334)]===undefined)this['clearAllPictureTexts']();const _0x48577a=this[_0x457799(0x418)](_0x2038b3);return this[_0x457799(0x334)][_0x48577a]=this[_0x457799(0x334)][_0x48577a]||{},this[_0x457799(0x334)][_0x48577a];},Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x31f)]=function(_0x366ef7,_0x2804b9){const _0x356810=_0x3fecc6;return _0x2804b9=_0x2804b9[_0x356810(0x435)]()[_0x356810(0x467)](),this[_0x356810(0x24a)](_0x366ef7)[_0x2804b9]||'';},Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x32c)]=function(_0x2d4e67,_0x162ce7,_0x12de29){const _0x57b6a7=_0x3fecc6;_0x12de29=_0x12de29[_0x57b6a7(0x435)]()[_0x57b6a7(0x467)](),this['getPictureTextData'](_0x2d4e67)[_0x12de29]=_0x162ce7||'',this[_0x57b6a7(0x495)](_0x2d4e67,!![]);},Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x383)]=function(_0x4d37db){const _0x545aa5=_0x3fecc6;if(this['_pictureText']===undefined)this[_0x545aa5(0x29a)]();const _0x5c6147=this[_0x545aa5(0x418)](_0x4d37db);this[_0x545aa5(0x334)][_0x5c6147]=null,this[_0x545aa5(0x495)](_0x4d37db,!![]);},Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x434)]=function(_0xfc31fb){const _0x2a7248=_0x3fecc6;if(this['_pictureText']===undefined)this[_0x2a7248(0x29a)]();const _0xf9ac9=this['realPictureId'](_0xfc31fb);return this[_0x2a7248(0x3ed)][_0xf9ac9]||0x0;},Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x542)]=function(_0x3593a4,_0x5ecb21){const _0x3967d8=_0x3fecc6;if(this['_pictureText']===undefined)this[_0x3967d8(0x29a)]();const _0x35d6d2=this[_0x3967d8(0x418)](_0x3593a4);this[_0x3967d8(0x3ed)][_0x35d6d2]=Math[_0x3967d8(0x362)](0x0,_0x5ecb21);},Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x484)]=function(_0x16fdc0){const _0x325150=_0x3fecc6;if(this[_0x325150(0x334)]===undefined)this[_0x325150(0x29a)]();const _0x34eeb2=this[_0x325150(0x418)](_0x16fdc0);this['_pictureTextBuffer'][_0x34eeb2]=undefined;},VisuMZ['MessageCore']['Game_Screen_erasePicture']=Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x29e)],Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x29e)]=function(_0x290ad1){const _0x4cc66b=_0x3fecc6;VisuMZ[_0x4cc66b(0x46b)][_0x4cc66b(0x1d3)][_0x4cc66b(0x358)](this,_0x290ad1),this[_0x4cc66b(0x383)](_0x290ad1),this[_0x4cc66b(0x484)](_0x290ad1),this[_0x4cc66b(0x495)](_0x290ad1,!![]);},Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x23e)]=function(){const _0x58ba2e=_0x3fecc6;for(const _0x36fecf of this[_0x58ba2e(0x3d6)]){if(_0x36fecf){let _0x10eebc=this[_0x58ba2e(0x3d6)][_0x58ba2e(0x365)](_0x36fecf);this['requestPictureTextRefresh'](_0x10eebc);}}},Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x495)]=function(_0x410052,_0x1f3ccc){const _0x246d27=_0x3fecc6;this[_0x246d27(0x1f1)]=this[_0x246d27(0x1f1)]||[],(this[_0x246d27(0x18d)](_0x410052)||_0x1f3ccc)&&this['_pictureTextRefresh'][_0x246d27(0x48a)](_0x410052);},Game_Screen['prototype']['needsPictureTextRefresh']=function(_0x37855b){const _0x5e6be8=_0x3fecc6;return this[_0x5e6be8(0x1f1)]=this['_pictureTextRefresh']||[],this[_0x5e6be8(0x1f1)][_0x5e6be8(0x3c6)](_0x37855b);},Game_Screen[_0x3fecc6(0x1d6)][_0x3fecc6(0x49a)]=function(_0x213a34){const _0x2af18a=_0x3fecc6;this['_pictureTextRefresh']=this['_pictureTextRefresh']||[],this[_0x2af18a(0x1f1)][_0x2af18a(0x427)](_0x213a34);},Game_Screen['prototype'][_0x3fecc6(0x18d)]=function(_0x2ad136){const _0x2b9250=_0x3fecc6,_0x7ab23c=[_0x2b9250(0x564),'up','upperright',_0x2b9250(0x437),'center',_0x2b9250(0x49e),_0x2b9250(0x4ae),_0x2b9250(0x3f8),_0x2b9250(0x275)];return _0x7ab23c[_0x2b9250(0x1dd)](_0x5abc57=>this[_0x2b9250(0x31f)](_0x2ad136,_0x5abc57)!=='');},VisuMZ['MessageCore'][_0x3fecc6(0x21d)]=Game_Party[_0x3fecc6(0x1d6)][_0x3fecc6(0x3b5)],Game_Party[_0x3fecc6(0x1d6)]['initialize']=function(){const _0x21d88c=_0x3fecc6;VisuMZ[_0x21d88c(0x46b)][_0x21d88c(0x21d)][_0x21d88c(0x358)](this),this[_0x21d88c(0x295)]();},Game_Party['prototype'][_0x3fecc6(0x295)]=function(){const _0x2a2221=_0x3fecc6;this[_0x2a2221(0x28a)]={'type':0x0,'id':0x0,'quantity':0x0};},Game_Party[_0x3fecc6(0x1d6)][_0x3fecc6(0x552)]=function(){const _0x2cad40=_0x3fecc6;if(this[_0x2cad40(0x28a)]===undefined)this[_0x2cad40(0x295)]();return this[_0x2cad40(0x28a)];},Game_Party['prototype']['setLastGainedItemData']=function(_0x4df550,_0x369b5b){const _0x4893db=_0x3fecc6;if(this['_lastGainedItemData']===undefined)this['initMessageCore']();if(!_0x4df550)return;if(DataManager['isItem'](_0x4df550))this[_0x4893db(0x28a)][_0x4893db(0x228)]=0x0;else{if(DataManager[_0x4893db(0x47f)](_0x4df550))this['_lastGainedItemData'][_0x4893db(0x228)]=0x1;else DataManager[_0x4893db(0x22a)](_0x4df550)&&(this[_0x4893db(0x28a)][_0x4893db(0x228)]=0x2);}this[_0x4893db(0x28a)]['id']=_0x4df550['id'],this[_0x4893db(0x28a)][_0x4893db(0x279)]=_0x369b5b;},VisuMZ['MessageCore']['Game_Party_gainItem']=Game_Party[_0x3fecc6(0x1d6)][_0x3fecc6(0x235)],Game_Party['prototype'][_0x3fecc6(0x235)]=function(_0x13ed88,_0x24720c,_0xb576d0){const _0x50c8b8=_0x3fecc6;VisuMZ[_0x50c8b8(0x46b)][_0x50c8b8(0x441)][_0x50c8b8(0x358)](this,_0x13ed88,_0x24720c,_0xb576d0),_0x24720c>0x0&&this[_0x50c8b8(0x2d2)](_0x13ed88,_0x24720c);},VisuMZ['MessageCore'][_0x3fecc6(0x2f2)]=Game_Map[_0x3fecc6(0x1d6)][_0x3fecc6(0x3b5)],Game_Map[_0x3fecc6(0x1d6)][_0x3fecc6(0x3b5)]=function(){const _0x5b1449=_0x3fecc6;VisuMZ[_0x5b1449(0x46b)][_0x5b1449(0x2f2)][_0x5b1449(0x358)](this),this[_0x5b1449(0x280)]=[];},VisuMZ[_0x3fecc6(0x46b)]['Game_Map_setupEvents']=Game_Map[_0x3fecc6(0x1d6)][_0x3fecc6(0x400)],Game_Map[_0x3fecc6(0x1d6)][_0x3fecc6(0x400)]=function(){const _0xef405e=_0x3fecc6;VisuMZ[_0xef405e(0x46b)][_0xef405e(0x345)][_0xef405e(0x358)](this),this['_messageCommonEvents']=[];},VisuMZ['MessageCore'][_0x3fecc6(0x44d)]=Game_Map[_0x3fecc6(0x1d6)][_0x3fecc6(0x420)],Game_Map[_0x3fecc6(0x1d6)][_0x3fecc6(0x420)]=function(){const _0x442536=_0x3fecc6;VisuMZ[_0x442536(0x46b)][_0x442536(0x44d)][_0x442536(0x358)](this),this[_0x442536(0x3ba)]();},Game_Map[_0x3fecc6(0x1d6)][_0x3fecc6(0x539)]=function(_0x45a822){const _0x1600f8=_0x3fecc6;if(!$dataCommonEvents[_0x45a822])return;this[_0x1600f8(0x280)]=this[_0x1600f8(0x280)]||[];const _0x1cf82f=this[_0x1600f8(0x204)][_0x1600f8(0x524)],_0x28def6=new Game_MessageCommonEvent(_0x45a822,_0x1cf82f);this[_0x1600f8(0x280)][_0x1600f8(0x48a)](_0x28def6);},Game_Map['prototype'][_0x3fecc6(0x3ba)]=function(){const _0x3d9f16=_0x3fecc6;this[_0x3d9f16(0x280)]=this[_0x3d9f16(0x280)]||[];for(const _0x41538f of this[_0x3d9f16(0x280)]){!_0x41538f[_0x3d9f16(0x204)]?this[_0x3d9f16(0x280)][_0x3d9f16(0x427)](_0x41538f):_0x41538f[_0x3d9f16(0x236)]();}},VisuMZ[_0x3fecc6(0x46b)]['Game_Map_refresh']=Game_Map[_0x3fecc6(0x1d6)][_0x3fecc6(0x2a1)],Game_Map[_0x3fecc6(0x1d6)][_0x3fecc6(0x2a1)]=function(){const _0x13c2d3=_0x3fecc6;VisuMZ['MessageCore'][_0x13c2d3(0x1cc)][_0x13c2d3(0x358)](this),$gameScreen[_0x13c2d3(0x23e)]();},Game_Interpreter[_0x3fecc6(0x1d4)]=pluginData['name'],Game_Interpreter[_0x3fecc6(0x1d6)]['command101']=function(_0x4b1551){const _0x5546a6=_0x3fecc6;if($gameMessage[_0x5546a6(0x289)]())return![];return this['prepareShowTextCommand'](_0x4b1551),this[_0x5546a6(0x3b3)](_0x4b1551),this[_0x5546a6(0x3e4)](_0x4b1551),this[_0x5546a6(0x50f)](_0x5546a6(0x1a7)),!![];},Game_Interpreter[_0x3fecc6(0x1d6)][_0x3fecc6(0x2ec)]=function(_0x4f9e2a){const _0x2b70aa=_0x3fecc6;$gameMessage[_0x2b70aa(0x56d)](_0x4f9e2a[0x0],_0x4f9e2a[0x1]),$gameMessage[_0x2b70aa(0x47c)](_0x4f9e2a[0x2]),$gameMessage[_0x2b70aa(0x193)](_0x4f9e2a[0x3]),$gameMessage['setSpeakerName'](_0x4f9e2a[0x4]);},Game_Interpreter[_0x3fecc6(0x1d6)]['addContinuousShowTextCommands']=function(_0x234ccb){const _0x2ea60f=_0x3fecc6;while(this[_0x2ea60f(0x37c)]()){this[_0x2ea60f(0x2a9)]++;if(this[_0x2ea60f(0x4e5)]()[_0x2ea60f(0x45c)]===0x191){let _0x47df7c=this['currentCommand']()['parameters'][0x0];_0x47df7c=VisuMZ[_0x2ea60f(0x46b)][_0x2ea60f(0x3ca)](_0x47df7c),$gameMessage['add'](_0x47df7c);}if(this[_0x2ea60f(0x221)]())break;}},Game_Interpreter[_0x3fecc6(0x1d6)][_0x3fecc6(0x37c)]=function(){const _0x346506=_0x3fecc6;return this[_0x346506(0x35b)]()===0x65&&$gameSystem['getMessageWindowRows']()>0x4?!![]:this['nextEventCode']()===0x191;},VisuMZ['MessageCore']['ParseAddedText']=function(_0x115a34){const _0xfa7265=_0x3fecc6,_0x59cef4=VisuMZ[_0xfa7265(0x46b)]['Settings'][_0xfa7265(0x40d)];return _0x115a34=(_0x59cef4[_0xfa7265(0x20d)]||'')+_0x115a34+(_0x59cef4[_0xfa7265(0x520)]||''),_0x115a34=_0x115a34[_0xfa7265(0x496)](/<(?:NEXT PAGE|NEXTPAGE)>/gi,''),_0x115a34=_0x115a34[_0xfa7265(0x496)](/<(?:RNG|RAND|RANDOM)>(.*?)<\/(?:RNG|RAND|RANDOM)>/gi,(_0x110def,_0xd896b6)=>this['getRandomTextFromPool'](_0xd896b6)),_0x115a34;},VisuMZ['MessageCore'][_0x3fecc6(0x551)]=function(_0x166586){const _0x127afb=_0x3fecc6,_0x47e423=_0x166586['split']('|')['map'](_0x4f78f0=>_0x4f78f0['trim']())[_0x127afb(0x427)]('')[_0x127afb(0x427)](null);return _0x47e423[Math[_0x127afb(0x3b7)](_0x47e423['length'])];},Game_Interpreter[_0x3fecc6(0x1d6)]['isBreakShowTextCommands']=function(){const _0x202adc=_0x3fecc6;if(this[_0x202adc(0x4e5)]()&&this[_0x202adc(0x4e5)]()[_0x202adc(0x4ac)][0x0][_0x202adc(0x498)](/<(?:NEXT PAGE|NEXTPAGE)>/gi))return!![];return $gameMessage[_0x202adc(0x47d)][_0x202adc(0x43e)]>=$gameSystem[_0x202adc(0x326)]()&&this[_0x202adc(0x35b)]()!==0x191;},Game_Interpreter[_0x3fecc6(0x1d6)]['prepareShowTextFollowups']=function(_0x4b1fbd){const _0x1ad632=_0x3fecc6;switch(this['nextEventCode']()){case 0x66:this['_index']++,this[_0x1ad632(0x49f)](this['currentCommand']()[_0x1ad632(0x4ac)]);break;case 0x67:this[_0x1ad632(0x2a9)]++,this[_0x1ad632(0x4ba)](this['currentCommand']()[_0x1ad632(0x4ac)]);break;case 0x68:this[_0x1ad632(0x2a9)]++,this[_0x1ad632(0x3c7)](this[_0x1ad632(0x4e5)]()[_0x1ad632(0x4ac)]);break;case 0x165:const _0x246a30=this['_list'][this[_0x1ad632(0x2a9)]+0x1],_0x240bc2=_0x246a30['parameters'];_0x240bc2[0x0]===Game_Interpreter[_0x1ad632(0x1d4)]&&this[_0x1ad632(0x1f4)](_0x240bc2);break;}},VisuMZ['MessageCore']['Game_Interpreter_setupChoices']=Game_Interpreter[_0x3fecc6(0x1d6)][_0x3fecc6(0x49f)],Game_Interpreter['prototype'][_0x3fecc6(0x49f)]=function(_0xeb7684){const _0x335fed=_0x3fecc6;_0xeb7684=this[_0x335fed(0x3f3)](),VisuMZ[_0x335fed(0x46b)]['Game_Interpreter_setupChoices'][_0x335fed(0x358)](this,_0xeb7684),$gameMessage[_0x335fed(0x449)]();},Game_Interpreter['prototype']['addContinuousShowChoices']=function(){const _0xfb8906=_0x3fecc6,_0x3fdc47=this[_0xfb8906(0x2a9)],_0x4a6787=[];let _0x1c2271=0x0;this[_0xfb8906(0x2a9)]++;while(this[_0xfb8906(0x2a9)]<this[_0xfb8906(0x339)][_0xfb8906(0x43e)]){if(this['currentCommand']()[_0xfb8906(0x3ab)]===this[_0xfb8906(0x50c)]){if(this['currentCommand']()[_0xfb8906(0x45c)]===0x194&&this[_0xfb8906(0x35b)]()!==0x66)break;else{if(this['currentCommand']()[_0xfb8906(0x45c)]===0x66)this[_0xfb8906(0x4c9)](_0x1c2271,this['currentCommand'](),_0x3fdc47),this[_0xfb8906(0x2a9)]-=0x2;else this[_0xfb8906(0x4e5)]()[_0xfb8906(0x45c)]===0x192&&(this[_0xfb8906(0x4e5)]()[_0xfb8906(0x4ac)][0x0]=_0x1c2271,_0x1c2271++);}}this[_0xfb8906(0x2a9)]++;}return this['_index']=_0x3fdc47,this[_0xfb8906(0x4e5)]()[_0xfb8906(0x4ac)];},Game_Interpreter[_0x3fecc6(0x1d6)][_0x3fecc6(0x4c9)]=function(_0x134bcb,_0x57e0b3,_0x4740dd){const _0x5f31ae=_0x3fecc6;this['adjustShowChoiceDefault'](_0x134bcb,_0x57e0b3,_0x4740dd),this[_0x5f31ae(0x4f8)](_0x134bcb,_0x57e0b3,_0x4740dd),this[_0x5f31ae(0x1b1)](_0x57e0b3,_0x4740dd);},Game_Interpreter[_0x3fecc6(0x1d6)][_0x3fecc6(0x25f)]=function(_0x13f539,_0x54dd77,_0x52a084){const _0x1beb0c=_0x3fecc6;if(_0x54dd77[_0x1beb0c(0x4ac)][0x2]<0x0)return;const _0x3211a4=_0x54dd77[_0x1beb0c(0x4ac)][0x2]+_0x13f539;this[_0x1beb0c(0x339)][_0x52a084][_0x1beb0c(0x4ac)][0x2]=_0x3211a4;},Game_Interpreter['prototype']['adjustShowChoiceCancel']=function(_0x3d4e54,_0xf2d551,_0x5ba586){const _0x5d35f8=_0x3fecc6;if(_0xf2d551[_0x5d35f8(0x4ac)][0x1]>=0x0){var _0x555c23=_0xf2d551[_0x5d35f8(0x4ac)][0x1]+_0x3d4e54;this[_0x5d35f8(0x339)][_0x5ba586]['parameters'][0x1]=_0x555c23;}else _0xf2d551[_0x5d35f8(0x4ac)][0x1]===-0x2&&(this[_0x5d35f8(0x339)][_0x5ba586]['parameters'][0x1]=_0xf2d551[_0x5d35f8(0x4ac)][0x1]);},Game_Interpreter[_0x3fecc6(0x1d6)][_0x3fecc6(0x1b1)]=function(_0x4687b4,_0x71e39a){const _0x402dd9=_0x3fecc6;for(const _0x2e6e84 of _0x4687b4[_0x402dd9(0x4ac)][0x0]){this[_0x402dd9(0x339)][_0x71e39a][_0x402dd9(0x4ac)][0x0][_0x402dd9(0x48a)](_0x2e6e84);}this['_list'][_0x402dd9(0x227)](this[_0x402dd9(0x2a9)]-0x1,0x2);},Game_Interpreter[_0x3fecc6(0x1d6)][_0x3fecc6(0x1f4)]=function(_0x2e54c0){const _0x31c901=_0x3fecc6,_0x54c304=_0x2e54c0[0x1];if(_0x54c304===_0x31c901(0x53b))this[_0x31c901(0x2a9)]++,this[_0x31c901(0x44f)](_0x2e54c0);else{if(_0x54c304===_0x31c901(0x388))this['_index']++,this['setArmorChoice'](_0x2e54c0);else _0x54c304===_0x31c901(0x4fb)&&Imported[_0x31c901(0x4a5)]&&(this['_index']++,this[_0x31c901(0x333)](_0x2e54c0));}},Game_Interpreter[_0x3fecc6(0x1d6)][_0x3fecc6(0x44f)]=function(_0x4ffd87){const _0x2674d0=_0x3fecc6,_0x49bab6=JSON['parse'](JSON['stringify'](_0x4ffd87[0x3]));VisuMZ[_0x2674d0(0x39f)](_0x49bab6,_0x49bab6),$gameMessage[_0x2674d0(0x44f)](_0x49bab6[_0x2674d0(0x2e9)]||0x0,_0x49bab6[_0x2674d0(0x4f6)]||0x0);},Game_Interpreter[_0x3fecc6(0x1d6)][_0x3fecc6(0x3cf)]=function(_0x560364){const _0x145b1c=_0x3fecc6,_0x2b8cd9=JSON[_0x145b1c(0x431)](JSON['stringify'](_0x560364[0x3]));VisuMZ['ConvertParams'](_0x2b8cd9,_0x2b8cd9),$gameMessage[_0x145b1c(0x3cf)](_0x2b8cd9['VariableID']||0x0,_0x2b8cd9[_0x145b1c(0x226)]||0x0,_0x2b8cd9[_0x145b1c(0x3c0)]||0x0);},Game_Interpreter[_0x3fecc6(0x1d6)][_0x3fecc6(0x333)]=function(_0x1e8d50){const _0x5c90a0=_0x3fecc6,_0x255511=JSON[_0x5c90a0(0x431)](JSON[_0x5c90a0(0x32f)](_0x1e8d50[0x3]));VisuMZ[_0x5c90a0(0x39f)](_0x255511,_0x255511),$gameMessage['setSkillChoice'](_0x255511[_0x5c90a0(0x2e9)]||0x0,_0x255511[_0x5c90a0(0x350)]||0x0,_0x255511[_0x5c90a0(0x464)]||0x0);};function Game_MessageCommonEvent(){const _0x1569de=_0x3fecc6;this[_0x1569de(0x3b5)](...arguments);}Game_MessageCommonEvent[_0x3fecc6(0x1d6)][_0x3fecc6(0x3b5)]=function(_0xf95a6c,_0x15543f){const _0x1efc65=_0x3fecc6;this[_0x1efc65(0x3d2)]=_0xf95a6c,this[_0x1efc65(0x524)]=_0x15543f||0x0,this['refresh']();},Game_MessageCommonEvent[_0x3fecc6(0x1d6)][_0x3fecc6(0x1f8)]=function(){const _0x5ce0d8=_0x3fecc6;return $dataCommonEvents[this[_0x5ce0d8(0x3d2)]];},Game_MessageCommonEvent[_0x3fecc6(0x1d6)]['list']=function(){const _0x93b6b=_0x3fecc6;return this[_0x93b6b(0x1f8)]()[_0x93b6b(0x335)];},Game_MessageCommonEvent['prototype'][_0x3fecc6(0x2a1)]=function(){const _0xa50f63=_0x3fecc6;this[_0xa50f63(0x204)]=new Game_Interpreter(),this['_interpreter'][_0xa50f63(0x4d7)](this[_0xa50f63(0x335)](),this[_0xa50f63(0x524)]);},Game_MessageCommonEvent['prototype'][_0x3fecc6(0x236)]=function(){const _0x494c5f=_0x3fecc6;this[_0x494c5f(0x204)]&&(this[_0x494c5f(0x204)][_0x494c5f(0x4a7)]()?this[_0x494c5f(0x204)][_0x494c5f(0x236)]():this['clear']());},Game_MessageCommonEvent[_0x3fecc6(0x1d6)][_0x3fecc6(0x472)]=function(){const _0x1cc8aa=_0x3fecc6;this[_0x1cc8aa(0x204)]=null;},Scene_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x376)]=function(){const _0x3dbbbb=_0x3fecc6,_0x2f3c9a=Math[_0x3dbbbb(0x28c)](Graphics['width'],$gameSystem[_0x3dbbbb(0x463)]()),_0x520d16=$gameSystem[_0x3dbbbb(0x326)](),_0x4c6904=this[_0x3dbbbb(0x47e)](_0x520d16,![]),_0x5b42e5=(Graphics['boxWidth']-_0x2f3c9a)/0x2,_0x1daf3b=0x0;return new Rectangle(_0x5b42e5,_0x1daf3b,_0x2f3c9a,_0x4c6904);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x54d)]=Scene_Message['prototype'][_0x3fecc6(0x35d)],Scene_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x35d)]=function(){const _0x3362b9=_0x3fecc6;VisuMZ[_0x3362b9(0x46b)][_0x3362b9(0x54d)]['call'](this),this['createChoiceListHelpWindow']();},Scene_Message[_0x3fecc6(0x1d6)]['createChoiceListHelpWindow']=function(){const _0x2e24a4=_0x3fecc6,_0x11da6e=this[_0x2e24a4(0x469)](),_0x480bf7=new Window_Help(_0x11da6e);_0x480bf7['hide'](),this[_0x2e24a4(0x424)][_0x2e24a4(0x1a1)](_0x480bf7),this['_messageWindow'][_0x2e24a4(0x2ae)](_0x480bf7),this[_0x2e24a4(0x1bb)](_0x480bf7),this['_choiceListHelpWindow']=_0x480bf7;},Scene_Message[_0x3fecc6(0x1d6)]['choiceListHelpWindowRect']=function(){const _0x36da74=_0x3fecc6,_0x28d08c=0x0,_0x4313bd=0x0,_0x5dd998=Graphics['boxWidth'],_0x16affd=this[_0x36da74(0x47e)](0x2,![]);return new Rectangle(_0x28d08c,_0x4313bd,_0x5dd998,_0x16affd);},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x2ae)]=function(_0x5e2664){this['_choiceListHelpWindow']=_0x5e2664;},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x18a)]=function(){const _0x7ae11d=_0x3fecc6;if(!this['_choiceListHelpWindow'])return;const _0x214fa7=this[_0x7ae11d(0x1ff)];_0x214fa7&&(_0x214fa7['y']=this['y']>0x0?0x0:Graphics['boxHeight']-_0x214fa7['height']);},VisuMZ['MessageCore'][_0x3fecc6(0x534)]=Scene_Options[_0x3fecc6(0x1d6)][_0x3fecc6(0x4a9)],Scene_Options[_0x3fecc6(0x1d6)][_0x3fecc6(0x4a9)]=function(){const _0x34982c=_0x3fecc6;let _0x200136=VisuMZ[_0x34982c(0x46b)][_0x34982c(0x534)]['call'](this);const _0x19f132=VisuMZ[_0x34982c(0x46b)][_0x34982c(0x1ed)];if(_0x19f132[_0x34982c(0x4fa)][_0x34982c(0x4b3)]){_0x19f132['Localization'][_0x34982c(0x4e1)]&&TextManager[_0x34982c(0x2ab)]()&&_0x200136++;if(_0x19f132['TextSpeed'][_0x34982c(0x4e1)])_0x200136++;}return _0x200136;},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x348)]=Sprite_Picture[_0x3fecc6(0x1d6)][_0x3fecc6(0x460)],Sprite_Picture[_0x3fecc6(0x1d6)][_0x3fecc6(0x460)]=function(){const _0x52b409=_0x3fecc6;VisuMZ['MessageCore']['Sprite_Picture_updateBitmap'][_0x52b409(0x358)](this),this[_0x52b409(0x554)]();},VisuMZ[_0x3fecc6(0x46b)]['Sprite_Picture_update']=Sprite_Picture[_0x3fecc6(0x1d6)][_0x3fecc6(0x236)],Sprite_Picture[_0x3fecc6(0x1d6)][_0x3fecc6(0x236)]=function(){const _0x470293=_0x3fecc6;VisuMZ[_0x470293(0x46b)][_0x470293(0x2d3)][_0x470293(0x358)](this),this[_0x470293(0x532)]();},Sprite_Picture['prototype'][_0x3fecc6(0x532)]=function(){const _0x3e87cf=_0x3fecc6;if(!this[_0x3e87cf(0x35a)])return;this[_0x3e87cf(0x528)](),this[_0x3e87cf(0x503)](),this[_0x3e87cf(0x4d4)](),this[_0x3e87cf(0x540)]();},Sprite_Picture['prototype'][_0x3fecc6(0x554)]=function(){const _0x171c21=_0x3fecc6;if(this[_0x171c21(0x477)])return;if(this['_pictureTextSprite'])return;const _0xc3ff20=new Rectangle(0x0,0x0,0x0,0x0);this[_0x171c21(0x477)]=new Window_Base(_0xc3ff20),this[_0x171c21(0x477)][_0x171c21(0x1ac)]=0x0,this['_pictureTextSprite']=new Sprite(),this['addChildAt'](this[_0x171c21(0x38b)],0x0),this[_0x171c21(0x342)]=0x0,this[_0x171c21(0x29b)]=0x0,this['_pictureTextCache']={};},Sprite_Picture['prototype'][_0x3fecc6(0x528)]=function(){const _0x42087d=_0x3fecc6;if(!this[_0x42087d(0x477)])return;if(this['_pictureTextWidth']===this[_0x42087d(0x3ee)]&&this[_0x42087d(0x29b)]===this[_0x42087d(0x436)])return;this[_0x42087d(0x342)]=this[_0x42087d(0x3ee)],this['_pictureTextHeight']=this[_0x42087d(0x436)],this['_pictureTextCache']={},this['_pictureTextWindow']['move'](0x0,0x0,this[_0x42087d(0x3ee)],this[_0x42087d(0x436)]);},Sprite_Picture[_0x3fecc6(0x1d6)]['anchorPictureText']=function(){const _0x33c2a8=_0x3fecc6;if(!this[_0x33c2a8(0x38b)])return;this[_0x33c2a8(0x38b)]['anchor']['x']=this[_0x33c2a8(0x213)]['x'],this[_0x33c2a8(0x38b)][_0x33c2a8(0x213)]['y']=this[_0x33c2a8(0x213)]['y'];},Sprite_Picture[_0x3fecc6(0x1d6)][_0x3fecc6(0x4d4)]=function(){const _0x9a272e=_0x3fecc6;if(!this[_0x9a272e(0x477)])return;if(!this[_0x9a272e(0x51b)]())return;const _0xcba484=['upperleft','up','upperright',_0x9a272e(0x437),_0x9a272e(0x442),_0x9a272e(0x49e),_0x9a272e(0x4ae),_0x9a272e(0x3f8),_0x9a272e(0x275)];this['_pictureTextWindow'][_0x9a272e(0x2ce)]();for(const _0x529677 of _0xcba484){this[_0x9a272e(0x4bf)](_0x529677);}},Sprite_Picture[_0x3fecc6(0x1d6)][_0x3fecc6(0x51b)]=function(){const _0x234f73=_0x3fecc6;if($gameScreen['needsPictureTextRefresh'](this[_0x234f73(0x3b2)]))return!![];const _0x432def=[_0x234f73(0x564),'up',_0x234f73(0x1b8),_0x234f73(0x437),'center',_0x234f73(0x49e),_0x234f73(0x4ae),_0x234f73(0x3f8),'lowerright'];for(const _0x4285e5 of _0x432def){const _0x1c9fd4=$gameScreen[_0x234f73(0x31f)](this[_0x234f73(0x3b2)],_0x4285e5);if(this[_0x234f73(0x32e)][_0x4285e5]===_0x1c9fd4)continue;return!![];}return![];},Sprite_Picture[_0x3fecc6(0x1d6)]['drawPictureTextZone']=function(_0x4fa0ad){const _0x5d646c=_0x3fecc6;$gameScreen['clearPictureTextRefresh'](this[_0x5d646c(0x3b2)]);const _0xafdb29=$gameScreen[_0x5d646c(0x31f)](this[_0x5d646c(0x3b2)],_0x4fa0ad);this[_0x5d646c(0x32e)][_0x4fa0ad]=_0xafdb29;const _0x5803b1=this[_0x5d646c(0x477)][_0x5d646c(0x25d)](_0xafdb29);let _0x2388fc=$gameScreen['getPictureTextBuffer'](this[_0x5d646c(0x3b2)]),_0x447112=_0x2388fc,_0x3e9dc3=_0x2388fc;if(['up',_0x5d646c(0x442),_0x5d646c(0x3f8)][_0x5d646c(0x3c6)](_0x4fa0ad))_0x447112=Math[_0x5d646c(0x22d)]((this[_0x5d646c(0x3ee)]-_0x5803b1['width'])/0x2);else[_0x5d646c(0x1b8),_0x5d646c(0x49e),_0x5d646c(0x275)][_0x5d646c(0x3c6)](_0x4fa0ad)&&(_0x447112=Math[_0x5d646c(0x22d)](this['width']-_0x5803b1[_0x5d646c(0x3ee)]-_0x2388fc));if([_0x5d646c(0x437),_0x5d646c(0x442),_0x5d646c(0x49e)][_0x5d646c(0x3c6)](_0x4fa0ad))_0x3e9dc3=Math[_0x5d646c(0x22d)]((this[_0x5d646c(0x436)]-_0x5803b1[_0x5d646c(0x436)])/0x2);else[_0x5d646c(0x4ae),'down',_0x5d646c(0x275)][_0x5d646c(0x3c6)](_0x4fa0ad)&&(_0x3e9dc3=Math['floor'](this['height']-_0x5803b1[_0x5d646c(0x436)]-_0x2388fc));this[_0x5d646c(0x477)][_0x5d646c(0x3de)](_0xafdb29,_0x447112,_0x3e9dc3);},Sprite_Picture[_0x3fecc6(0x1d6)][_0x3fecc6(0x540)]=function(){const _0x3d1f57=_0x3fecc6;if(!this[_0x3d1f57(0x477)])return;if(!this['_pictureTextSprite'])return;this[_0x3d1f57(0x38b)][_0x3d1f57(0x52a)]=this['_pictureTextWindow'][_0x3d1f57(0x2e2)];},VisuMZ['MessageCore']['Window_Base_initialize']=Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x3b5)],Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x3b5)]=function(_0x490e3c){const _0x4de8fc=_0x3fecc6;this['initMessageCore'](_0x490e3c),VisuMZ[_0x4de8fc(0x46b)][_0x4de8fc(0x44a)]['call'](this,_0x490e3c);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x295)]=function(_0xf217c3){const _0x136b9d=_0x3fecc6;this[_0x136b9d(0x4fd)](),this[_0x136b9d(0x298)](),this[_0x136b9d(0x1c6)](_0xf217c3);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x4fd)]=function(){const _0x2542c0=_0x3fecc6;this[_0x2542c0(0x34e)](_0x2542c0(0x3bd));},Window_Base[_0x3fecc6(0x1d6)]['setTextAlignment']=function(_0x41aa11){this['_textAlignment']=_0x41aa11;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x510)]=function(){const _0x3c0d7b=_0x3fecc6;return this[_0x3c0d7b(0x55a)];},VisuMZ['MessageCore'][_0x3fecc6(0x412)]=Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x25d)],Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x25d)]=function(_0x9e4181){const _0x170813=_0x3fecc6;return this['resetWordWrap'](),VisuMZ[_0x170813(0x46b)][_0x170813(0x412)]['call'](this,_0x9e4181);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x508)]=function(_0x2f7502){const _0x335071=_0x3fecc6;return VisuMZ[_0x335071(0x46b)][_0x335071(0x412)][_0x335071(0x358)](this,_0x2f7502);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x312)]=Window_Base['prototype'][_0x3fecc6(0x2c5)],Window_Base['prototype'][_0x3fecc6(0x2c5)]=function(_0x52fc0d){const _0x4fb62c=_0x3fecc6;VisuMZ[_0x4fb62c(0x46b)]['Window_Base_processAllText'][_0x4fb62c(0x358)](this,_0x52fc0d);if(_0x52fc0d[_0x4fb62c(0x2bf)])this['setTextAlignment']('default');},Window_Base['prototype']['resetWordWrap']=function(){const _0x2362ec=_0x3fecc6;this[_0x2362ec(0x52f)](![]);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x2d0)]=function(){const _0x14960d=_0x3fecc6;return this[_0x14960d(0x2f4)];},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x52f)]=function(_0x34a23e){const _0x3122db=_0x3fecc6;return this[_0x3122db(0x2f4)]=_0x34a23e,'';},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x1c6)]=function(_0x1a068f){const _0x43d90b=_0x3fecc6;this['_resetRect']=JsonEx[_0x43d90b(0x1f5)](_0x1a068f);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x51e)]=function(){const _0x39693b=_0x3fecc6;this[_0x39693b(0x2e2)]['fontFace']=$gameSystem[_0x39693b(0x1a6)](),this['contents'][_0x39693b(0x416)]=$gameSystem[_0x39693b(0x3cb)](),this[_0x39693b(0x2e2)][_0x39693b(0x4c3)]=![],this[_0x39693b(0x2e2)][_0x39693b(0x42a)]=![],this['_textCasing']=0x0,this[_0x39693b(0x4e4)]=!![],this[_0x39693b(0x2fa)]();},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x2fa)]=function(){const _0x16bf00=_0x3fecc6;this[_0x16bf00(0x248)](ColorManager[_0x16bf00(0x37b)]()),this[_0x16bf00(0x51a)](ColorManager[_0x16bf00(0x41b)]());const _0x1bf2f9=VisuMZ[_0x16bf00(0x46b)]['Settings']['General'];_0x1bf2f9[_0x16bf00(0x1d0)]===undefined&&(_0x1bf2f9[_0x16bf00(0x1d0)]=0x3),this[_0x16bf00(0x2e2)]['outlineWidth']=_0x1bf2f9[_0x16bf00(0x1d0)],this[_0x16bf00(0x268)](![]);},Window_Base['prototype'][_0x3fecc6(0x268)]=function(_0x354725){const _0x16b279=_0x3fecc6;this[_0x16b279(0x31b)]=_0x354725;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x507)]=function(){const _0x193444=_0x3fecc6;return this[_0x193444(0x31b)];},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x24f)]=function(){return![];},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x1c2)]=function(){const _0xd83ee5=_0x3fecc6,_0x260b98=[_0xd83ee5(0x4b1),_0xd83ee5(0x416),_0xd83ee5(0x4c3),_0xd83ee5(0x42a),_0xd83ee5(0x3dd),'outLineColor','outlineWidth',_0xd83ee5(0x46d)];let _0x287e9c={};for(const _0x4435d7 of _0x260b98){_0x287e9c[_0x4435d7]=this['contents'][_0x4435d7];}return _0x287e9c;},Window_Base[_0x3fecc6(0x1d6)]['returnPreservedFontSettings']=function(_0x407b22){const _0x4232f1=_0x3fecc6;for(const _0x2a8c2d in _0x407b22){this[_0x4232f1(0x2e2)][_0x2a8c2d]=_0x407b22[_0x2a8c2d];}},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x3d8)]=Window_Base['prototype']['update'],Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x236)]=function(){const _0x107481=_0x3fecc6;VisuMZ[_0x107481(0x46b)]['Window_Base_update'][_0x107481(0x358)](this),this['updateMove']();},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x27a)]=function(){return![];},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x3a5)]=function(){const _0x63be6c=_0x3fecc6;this['_moveDuration']>0x0&&(this[_0x63be6c(0x27a)]()&&(this['x']=this['applyMoveEasing'](this['x'],this['_moveTargetX']),this['y']=this[_0x63be6c(0x494)](this['y'],this[_0x63be6c(0x372)]),this[_0x63be6c(0x3ee)]=this[_0x63be6c(0x494)](this[_0x63be6c(0x3ee)],this['_moveTargetWidth']),this[_0x63be6c(0x436)]=this[_0x63be6c(0x494)](this[_0x63be6c(0x436)],this[_0x63be6c(0x1a9)]),this[_0x63be6c(0x2a6)]()),this['_moveDuration']--);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x2a6)]=function(_0x20311d,_0x743a7f){const _0x3c5e60=_0x3fecc6;!_0x20311d&&(this[_0x3c5e60(0x3ee)]=Math[_0x3c5e60(0x28c)](this[_0x3c5e60(0x3ee)],Graphics[_0x3c5e60(0x3ee)]),this[_0x3c5e60(0x436)]=Math[_0x3c5e60(0x28c)](this[_0x3c5e60(0x436)],Graphics[_0x3c5e60(0x436)]));if(!_0x743a7f){const _0x42da0d=-(Math[_0x3c5e60(0x22d)](Graphics['width']-Graphics[_0x3c5e60(0x3a0)])/0x2),_0x48a29f=_0x42da0d+Graphics['width']-this[_0x3c5e60(0x3ee)],_0x26a22c=-(Math[_0x3c5e60(0x22d)](Graphics[_0x3c5e60(0x436)]-Graphics[_0x3c5e60(0x380)])/0x2),_0x5cad9d=_0x26a22c+Graphics[_0x3c5e60(0x436)]-this[_0x3c5e60(0x436)];this['x']=this['x']['clamp'](_0x42da0d,_0x48a29f),this['y']=this['y'][_0x3c5e60(0x1e0)](_0x26a22c,_0x5cad9d);}},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x494)]=function(_0xd726f6,_0x3e0d6e){const _0x3aae6c=_0x3fecc6,_0x29444d=this[_0x3aae6c(0x4b9)],_0x681852=this[_0x3aae6c(0x27f)],_0x89099a=this['calcMoveEasing']((_0x681852-_0x29444d)/_0x681852),_0x7a8b6e=this[_0x3aae6c(0x270)]((_0x681852-_0x29444d+0x1)/_0x681852),_0x78be58=(_0xd726f6-_0x3e0d6e*_0x89099a)/(0x1-_0x89099a);return _0x78be58+(_0x3e0d6e-_0x78be58)*_0x7a8b6e;},Window_Base[_0x3fecc6(0x1d6)]['calcMoveEasing']=function(_0x3da18f){const _0x3f373d=_0x3fecc6,_0x5ba22e=0x2;switch(this[_0x3f373d(0x261)]){case 0x0:return _0x3da18f;case 0x1:return this[_0x3f373d(0x377)](_0x3da18f,_0x5ba22e);case 0x2:return this['easeOut'](_0x3da18f,_0x5ba22e);case 0x3:return this['easeInOut'](_0x3da18f,_0x5ba22e);default:return Imported[_0x3f373d(0x2fd)]?VisuMZ['applyMoveEasing'](_0x3da18f,this['_moveEasingType']):_0x3da18f;}},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x3f6)]=function(_0x471789,_0x7be898,_0x5c17bc,_0x15eb4a,_0x3cdd2c,_0x51f8e9){const _0x186e28=_0x3fecc6;this[_0x186e28(0x1ea)]=_0x471789,this[_0x186e28(0x372)]=_0x7be898,this[_0x186e28(0x43a)]=_0x5c17bc||this['width'],this[_0x186e28(0x1a9)]=_0x15eb4a||this['height'],this[_0x186e28(0x4b9)]=_0x3cdd2c||0x1;if(this[_0x186e28(0x4b9)]<=0x0)this[_0x186e28(0x4b9)]=0x1;this[_0x186e28(0x27f)]=this[_0x186e28(0x4b9)],this['_moveEasingType']=_0x51f8e9||0x0;if(_0x3cdd2c<=0x0)this[_0x186e28(0x3a5)]();},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x409)]=function(_0x5211dd,_0x7b127,_0x2a1764,_0x429b1d,_0x35ade4,_0x3bf7d2){const _0x235da0=_0x3fecc6;this['_moveTargetX']=this['x']+_0x5211dd,this[_0x235da0(0x372)]=this['y']+_0x7b127,this[_0x235da0(0x43a)]=this[_0x235da0(0x3ee)]+(_0x2a1764||0x0),this[_0x235da0(0x1a9)]=this['height']+(_0x429b1d||0x0),this[_0x235da0(0x4b9)]=_0x35ade4||0x1;if(this[_0x235da0(0x4b9)]<=0x0)this['_moveDuration']=0x1;this[_0x235da0(0x27f)]=this['_moveDuration'],this[_0x235da0(0x261)]=_0x3bf7d2||0x0;if(_0x35ade4<=0x0)this[_0x235da0(0x3a5)]();},Window_Base['prototype'][_0x3fecc6(0x465)]=function(_0x4c5f60,_0x3a91b7){const _0xe8f9c7=_0x3fecc6;this['moveTo'](this[_0xe8f9c7(0x3a2)]['x'],this[_0xe8f9c7(0x3a2)]['y'],this[_0xe8f9c7(0x3a2)][_0xe8f9c7(0x3ee)],this[_0xe8f9c7(0x3a2)][_0xe8f9c7(0x436)],_0x4c5f60,_0x3a91b7);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x438)]=Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x248)],Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x248)]=function(_0x3bf0cb){const _0x32382a=_0x3fecc6;if(this[_0x32382a(0x507)]())return;_0x3bf0cb=_0x3bf0cb[_0x32382a(0x496)](/\,/g,''),this[_0x32382a(0x4a6)]=this[_0x32382a(0x4a6)]||[],this['_textColorStack'][_0x32382a(0x262)](this[_0x32382a(0x2e2)][_0x32382a(0x3dd)]),VisuMZ[_0x32382a(0x46b)][_0x32382a(0x438)][_0x32382a(0x358)](this,_0x3bf0cb);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x26f)]=function(_0x3cd6d9){const _0x5e3724=_0x3fecc6;this[_0x5e3724(0x4b0)](_0x3cd6d9);if(this['isColorLocked']())return;_0x3cd6d9[_0x5e3724(0x2bf)]&&(this[_0x5e3724(0x4a6)]=this['_textColorStack']||[],this[_0x5e3724(0x2e2)][_0x5e3724(0x3dd)]=this[_0x5e3724(0x4a6)][_0x5e3724(0x516)]()||ColorManager[_0x5e3724(0x37b)]());},Window_Base['prototype']['convertEscapeCharacters']=function(_0x261929){const _0x27f265=_0x3fecc6;return _0x261929=this[_0x27f265(0x1a8)](_0x261929),_0x261929=this[_0x27f265(0x36c)](_0x261929),_0x261929=this[_0x27f265(0x3a1)](_0x261929),_0x261929=this[_0x27f265(0x448)](_0x261929),_0x261929=this[_0x27f265(0x1ba)](_0x261929),_0x261929=this[_0x27f265(0x509)](_0x261929),_0x261929=this[_0x27f265(0x311)](_0x261929),_0x261929=this[_0x27f265(0x38f)](_0x261929),_0x261929=this[_0x27f265(0x4e0)](_0x261929),_0x261929=this[_0x27f265(0x19d)](_0x261929),_0x261929=this[_0x27f265(0x546)](_0x261929),_0x261929=this[_0x27f265(0x18e)](_0x261929),_0x261929=this['convertMessageCoreEscapeActions'](_0x261929),_0x261929=this[_0x27f265(0x4f7)](_0x261929),_0x261929=this[_0x27f265(0x575)](_0x261929),_0x261929=this[_0x27f265(0x3a1)](_0x261929),_0x261929=this[_0x27f265(0x2ee)](_0x261929),_0x261929=this[_0x27f265(0x2cd)](_0x261929),_0x261929;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x1a8)]=function(_0x51003e){const _0x14414f=_0x3fecc6;this[_0x14414f(0x4d5)]=![];for(const _0xf5595f of VisuMZ[_0x14414f(0x46b)][_0x14414f(0x1ed)][_0x14414f(0x349)]){_0x51003e&&_0x51003e[_0x14414f(0x498)](_0xf5595f[_0x14414f(0x198)])&&(this[_0x14414f(0x4d5)]=!![],_0x51003e=_0x51003e['replace'](_0xf5595f[_0x14414f(0x198)],_0xf5595f['textCodeResult']['bind'](this)));}return _0x51003e||'';},Window_Base[_0x3fecc6(0x1d6)]['convertBackslashCharacters']=function(_0x3419e8){const _0x5edf29=_0x3fecc6;return _0x3419e8=_0x3419e8[_0x5edf29(0x496)](/\\/g,'\x1b'),_0x3419e8=_0x3419e8[_0x5edf29(0x496)](/\x1b\x1b/g,'\x5c'),_0x3419e8;},Window_Base[_0x3fecc6(0x1d6)]['convertVariableEscapeCharacters']=function(_0x45b632){const _0x52afc5=_0x3fecc6;for(;;){if(_0x45b632[_0x52afc5(0x498)](/\\V\[(\d+)\]/gi))_0x45b632=_0x45b632[_0x52afc5(0x496)](/\\V\[(\d+)\]/gi,(_0x1a8d7a,_0x16e320)=>this[_0x52afc5(0x36c)](String($gameVariables[_0x52afc5(0x239)](parseInt(_0x16e320)))));else{if(_0x45b632['match'](/\x1bV\[(\d+)\]/gi))_0x45b632=_0x45b632['replace'](/\x1bV\[(\d+)\]/gi,(_0x20a3d2,_0x1576fd)=>this[_0x52afc5(0x36c)](String($gameVariables[_0x52afc5(0x239)](parseInt(_0x1576fd)))));else break;}}return _0x45b632;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x448)]=function(_0x2be29){const _0x1d1942=_0x3fecc6;return Imported[_0x1d1942(0x2fd)]&&(_0x2be29=_0x2be29[_0x1d1942(0x496)](/<Up (?:KEY|BUTTON)>/gi,this[_0x1d1942(0x537)]('up')),_0x2be29=_0x2be29[_0x1d1942(0x496)](/<Left (?:KEY|BUTTON)>/gi,this[_0x1d1942(0x537)](_0x1d1942(0x437))),_0x2be29=_0x2be29[_0x1d1942(0x496)](/<Right (?:KEY|BUTTON)>/gi,this[_0x1d1942(0x537)](_0x1d1942(0x49e))),_0x2be29=_0x2be29[_0x1d1942(0x496)](/<Down (?:KEY|BUTTON)>/gi,this[_0x1d1942(0x537)]('down')),_0x2be29=_0x2be29[_0x1d1942(0x496)](/<Ok (?:KEY|BUTTON)>/gi,this[_0x1d1942(0x537)]('ok')),_0x2be29=_0x2be29['replace'](/<Cancel (?:KEY|BUTTON)>/gi,this[_0x1d1942(0x537)]('cancel')),_0x2be29=_0x2be29[_0x1d1942(0x496)](/<Menu (?:KEY|BUTTON)>/gi,this[_0x1d1942(0x537)](_0x1d1942(0x1bf))),_0x2be29=_0x2be29['replace'](/<Shift (?:KEY|BUTTON)>/gi,this['convertButtonAssistText'](_0x1d1942(0x516))),_0x2be29=_0x2be29[_0x1d1942(0x496)](/<(?:PAGEUP|PAGE UP) (?:KEY|BUTTON)>/gi,this['convertButtonAssistText'](_0x1d1942(0x55c))),_0x2be29=_0x2be29['replace'](/<(?:PAGEDOWN|PAGEDN|PAGE DOWN) (?:KEY|BUTTON)>/gi,this[_0x1d1942(0x537)](_0x1d1942(0x3f4)))),_0x2be29;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x537)]=function(_0x15cb8e){const _0x51a3e9=_0x3fecc6;let _0x9cbeaa=TextManager[_0x51a3e9(0x1cd)](_0x15cb8e)||'';return _0x9cbeaa=this[_0x51a3e9(0x36c)](_0x9cbeaa),_0x9cbeaa=this[_0x51a3e9(0x3a1)](_0x9cbeaa),_0x9cbeaa[_0x51a3e9(0x467)]();},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x1ba)]=function(_0x5a4d67){const _0x5c9d2a=_0x3fecc6;return _0x5a4d67=this[_0x5c9d2a(0x363)](_0x5a4d67),this[_0x5c9d2a(0x336)](),_0x5a4d67;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x363)]=function(_0x393333){const _0x1435e0=_0x3fecc6;return _0x393333=TextManager[_0x1435e0(0x395)](_0x393333),_0x393333;},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x1c8)]=String[_0x3fecc6(0x1d6)][_0x3fecc6(0x190)],String[_0x3fecc6(0x1d6)]['format']=function(){const _0x201345=_0x3fecc6;let _0x35c601=this;return _0x35c601=TextManager[_0x201345(0x395)](_0x35c601),VisuMZ[_0x201345(0x46b)][_0x201345(0x1c8)][_0x201345(0x399)](_0x35c601,arguments);},VisuMZ['MessageCore'][_0x3fecc6(0x53a)]=Bitmap[_0x3fecc6(0x1d6)][_0x3fecc6(0x402)],Bitmap[_0x3fecc6(0x1d6)][_0x3fecc6(0x402)]=function(_0xdecfef,_0x2fc2c8,_0x2d9741,_0x296bc1,_0x5f4ca6,_0x6d89e9){const _0x4d31e6=_0x3fecc6;_0xdecfef=TextManager['parseLocalizedText'](_0xdecfef),VisuMZ[_0x4d31e6(0x46b)][_0x4d31e6(0x53a)][_0x4d31e6(0x358)](this,_0xdecfef,_0x2fc2c8,_0x2d9741,_0x296bc1,_0x5f4ca6,_0x6d89e9);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x459)]=Bitmap[_0x3fecc6(0x1d6)][_0x3fecc6(0x452)],Bitmap[_0x3fecc6(0x1d6)][_0x3fecc6(0x452)]=function(_0x491a22,_0x17eb06,_0x1cc60e,_0x92290b,_0x134c90,_0xd7f685){const _0x5f1458=_0x3fecc6;_0x491a22=TextManager[_0x5f1458(0x395)](_0x491a22),VisuMZ[_0x5f1458(0x46b)]['Bitmap_drawTextTopAligned'][_0x5f1458(0x358)](this,_0x491a22,_0x17eb06,_0x1cc60e,_0x92290b,_0x134c90,_0xd7f685);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x575)]=function(_0x38c692){return _0x38c692;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x509)]=function(_0x2a0cbc){const _0x5f0ddd=_0x3fecc6;return this[_0x5f0ddd(0x567)]()&&(_0x2a0cbc=_0x2a0cbc[_0x5f0ddd(0x496)](/<(?:SHOW|HIDE|DISABLE|ENABLE)>/gi,''),_0x2a0cbc=_0x2a0cbc[_0x5f0ddd(0x496)](/<(?:SHOW|HIDE|DISABLE|ENABLE)[ ](?:SWITCH|SWITCHES):[ ](.*?)>/gi,''),_0x2a0cbc=_0x2a0cbc['replace'](/<(?:SHOW|HIDE|DISABLE|ENABLE)[ ](?:ALL|ANY)[ ](?:SWITCH|SWITCHES):[ ](.*?)>/gi,''),_0x2a0cbc=_0x2a0cbc[_0x5f0ddd(0x496)](/<CHOICE WIDTH:[ ](\d+)>/gi,''),_0x2a0cbc=_0x2a0cbc[_0x5f0ddd(0x496)](/<CHOICE INDENT:[ ](\d+)>/gi,''),_0x2a0cbc=_0x2a0cbc[_0x5f0ddd(0x496)](/<(?:BGCOLOR|BG COLOR):[ ](.*?)>/gi,''),_0x2a0cbc=_0x2a0cbc[_0x5f0ddd(0x496)](/<(?:FG|BG)(?:| )(?:IMG|IMAGE|PIC|PICTURE):[ ](.*?)>/gi,''),_0x2a0cbc=_0x2a0cbc[_0x5f0ddd(0x496)](/<(?:FG|BG)(?:IMG|IMAGE|PIC|PICTURE)[ ]*(.*?):[ ](.*?)>/gi,'')),_0x2a0cbc;},Window_Base[_0x3fecc6(0x1d6)]['isChoiceWindow']=function(){const _0x2581ee=_0x3fecc6,_0x148e7d=[_0x2581ee(0x3a9),'Window_MessageLog'];return _0x148e7d[_0x2581ee(0x3c6)](this[_0x2581ee(0x2f3)]['name']);},Window_Base[_0x3fecc6(0x1d6)]['convertFontSettingsEscapeCharacters']=function(_0x2cd842){const _0xb9abeb=_0x3fecc6;return _0x2cd842=_0x2cd842[_0xb9abeb(0x496)](/<B>/gi,'\x1bBOLD[1]'),_0x2cd842=_0x2cd842[_0xb9abeb(0x496)](/<\/B>/gi,'\x1bBOLD[0]'),_0x2cd842=_0x2cd842[_0xb9abeb(0x496)](/<I>/gi,_0xb9abeb(0x42e)),_0x2cd842=_0x2cd842[_0xb9abeb(0x496)](/<\/I>/gi,'\x1bITALIC[0]'),_0x2cd842;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x38f)]=function(_0x2f1aa3){const _0x53c35f=_0x3fecc6;return _0x2f1aa3=_0x2f1aa3['replace'](/<LEFT>/gi,_0x53c35f(0x2e6)),_0x2f1aa3=_0x2f1aa3[_0x53c35f(0x496)](/<\/LEFT>/gi,'\x1bTEXTALIGNMENT[0]'),_0x2f1aa3=_0x2f1aa3[_0x53c35f(0x496)](/<CENTER>/gi,_0x53c35f(0x3cd)),_0x2f1aa3=_0x2f1aa3[_0x53c35f(0x496)](/<\/CENTER>/gi,_0x53c35f(0x51c)),_0x2f1aa3=_0x2f1aa3[_0x53c35f(0x496)](/<RIGHT>/gi,_0x53c35f(0x36d)),_0x2f1aa3=_0x2f1aa3[_0x53c35f(0x496)](/<\/RIGHT>/gi,_0x53c35f(0x51c)),_0x2f1aa3;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x4e0)]=function(_0x4c0c34){const _0x3b602d=_0x3fecc6;return _0x4c0c34=_0x4c0c34['replace'](/<COLORLOCK>/gi,_0x3b602d(0x565)),_0x4c0c34=_0x4c0c34[_0x3b602d(0x496)](/<\/COLORLOCK>/gi,_0x3b602d(0x3dc)),_0x4c0c34=_0x4c0c34[_0x3b602d(0x496)](/\(\(\(/gi,'\x1bCOLORLOCK[1]'),_0x4c0c34=_0x4c0c34[_0x3b602d(0x496)](/\)\)\)/gi,_0x3b602d(0x3dc)),_0x4c0c34;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x19d)]=function(_0x5aa68e){const _0x4cd62a=_0x3fecc6;return _0x5aa68e=_0x5aa68e[_0x4cd62a(0x496)](/<(?:LC|LOWERCASE|LOWER CASE|LOWER)>/gi,'\x1bCASING[1]'),_0x5aa68e=_0x5aa68e[_0x4cd62a(0x496)](/<\/(?:LC|LOWERCASE|LOWER CASE|LOWER)>/gi,_0x4cd62a(0x488)),_0x5aa68e=_0x5aa68e[_0x4cd62a(0x496)](/<(?:UC|UPPERCASE|UPPER CASE|UPPER)>/gi,'\x1bCASING[2]'),_0x5aa68e=_0x5aa68e['replace'](/<\/(?:UC|UPPERCASE|UPPER CASE|UPPER)>/gi,_0x4cd62a(0x488)),_0x5aa68e=_0x5aa68e[_0x4cd62a(0x496)](/<(?:CAPS|CAPSLOCK|CAPS LOCK|CAP)>/gi,_0x4cd62a(0x2c9)),_0x5aa68e=_0x5aa68e[_0x4cd62a(0x496)](/<\/(?:CAPS|CAPSLOCK|CAPS LOCK|CAP)>/gi,_0x4cd62a(0x488)),_0x5aa68e=_0x5aa68e[_0x4cd62a(0x496)](/<(?:ALT|ALTERNATE|ALT CASE)>/gi,'\x1bCASING[4]'),_0x5aa68e=_0x5aa68e['replace'](/<\/(?:ALT|ALTERNATE|ALT CASE)>/gi,_0x4cd62a(0x488)),_0x5aa68e=_0x5aa68e[_0x4cd62a(0x496)](/<(?:CHAOS|CHAOSCASE|CHAOS CASE)>/gi,_0x4cd62a(0x31a)),_0x5aa68e=_0x5aa68e[_0x4cd62a(0x496)](/<\/(?:CHAOS|CHAOSCASE|CHAOS CASE)>/gi,_0x4cd62a(0x488)),_0x5aa68e;},Window_Base['prototype'][_0x3fecc6(0x546)]=function(_0x5c04aa){const _0x3cef90=_0x3fecc6;return _0x5c04aa=_0x5c04aa['replace'](/\x1bN\[(\d+)\]/gi,(_0x30a148,_0x50d7bd)=>this[_0x3cef90(0x29c)](parseInt(_0x50d7bd))),_0x5c04aa=_0x5c04aa[_0x3cef90(0x496)](/\x1bP\[(\d+)\]/gi,(_0x4a05be,_0x59fe34)=>this[_0x3cef90(0x41a)](parseInt(_0x59fe34))),_0x5c04aa=_0x5c04aa[_0x3cef90(0x496)](/\x1bG/gi,TextManager[_0x3cef90(0x1a2)]),_0x5c04aa;},Window_Base[_0x3fecc6(0x1d6)]['convertHardcodedEscapeReplacements']=function(_0x48af2c){const _0x55b3ef=_0x3fecc6;return _0x48af2c=_0x48af2c[_0x55b3ef(0x496)](/\<(?:BATTLE|CURRENT BATTLE) TARGET\>/gi,this[_0x55b3ef(0x456)]()),_0x48af2c=_0x48af2c[_0x55b3ef(0x496)](/\<(?:BATTLE|CURRENT BATTLE) (?:USER|SUBJECT)\>/gi,this[_0x55b3ef(0x25b)]()),_0x48af2c=_0x48af2c[_0x55b3ef(0x496)](/\<(?:BATTLE|CURRENT BATTLE) (?:ITEM|SKILL|ACTION)\>/gi,this[_0x55b3ef(0x3f2)](!![])),_0x48af2c=_0x48af2c[_0x55b3ef(0x496)](/\<(?:BATTLE|CURRENT BATTLE) (?:ITEM|SKILL|ACTION) NAME\>/gi,this[_0x55b3ef(0x3f2)](![])),_0x48af2c;},Window_Base[_0x3fecc6(0x1d6)]['battleTargetName']=function(){const _0x2e4908=_0x3fecc6;if(!SceneManager[_0x2e4908(0x43b)]())return'';if(BattleManager[_0x2e4908(0x1c7)])return BattleManager[_0x2e4908(0x1c7)][_0x2e4908(0x2a3)]();if(BattleManager['_targets'][0x0])return BattleManager['_targets'][0x0][_0x2e4908(0x2a3)]();return'';},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x25b)]=function(){const _0x2b2a68=_0x3fecc6;if(!SceneManager[_0x2b2a68(0x43b)]())return'';let _0x25bddc=null;return _0x25bddc=BattleManager['_subject'],!_0x25bddc&&BattleManager[_0x2b2a68(0x406)]()&&(_0x25bddc=BattleManager[_0x2b2a68(0x341)]()),_0x25bddc?_0x25bddc[_0x2b2a68(0x2a3)]():'';},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x3f2)]=function(_0x59d4dd){const _0x4521b2=_0x3fecc6;if(!SceneManager[_0x4521b2(0x43b)]())return'';let _0x41aa7a=BattleManager[_0x4521b2(0x19f)]||null;!_0x41aa7a&&BattleManager['isInputting']()&&(_0x41aa7a=BattleManager['inputtingAction']());if(_0x41aa7a&&_0x41aa7a[_0x4521b2(0x28e)]()){let _0x2d2484='';if(_0x59d4dd)_0x2d2484+='\x1bI[%1]'['format'](_0x41aa7a['item']()[_0x4521b2(0x2c1)]);return _0x2d2484+=_0x41aa7a['item']()[_0x4521b2(0x2a3)],_0x2d2484;}return'';},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x2c2)]=function(_0x2a433a){const _0x33efa1=_0x3fecc6;for(const _0x2d2ff1 of VisuMZ[_0x33efa1(0x46b)][_0x33efa1(0x1ed)][_0x33efa1(0x36e)]){_0x2a433a[_0x33efa1(0x498)](_0x2d2ff1[_0x33efa1(0x198)])&&(_0x2a433a=_0x2a433a[_0x33efa1(0x496)](_0x2d2ff1[_0x33efa1(0x198)],_0x2d2ff1['textCodeResult']),_0x2a433a=this[_0x33efa1(0x3a1)](_0x2a433a));}return _0x2a433a;},Window_Base['prototype'][_0x3fecc6(0x4f7)]=function(_0x252b4e){const _0xa352cc=_0x3fecc6;for(const _0x33738e of VisuMZ[_0xa352cc(0x46b)]['Settings'][_0xa352cc(0x347)]){_0x252b4e[_0xa352cc(0x498)](_0x33738e['textCodeCheck'])&&(_0x252b4e=_0x252b4e[_0xa352cc(0x496)](_0x33738e['textCodeCheck'],_0x33738e['textCodeResult']['bind'](this)),_0x252b4e=this[_0xa352cc(0x3a1)](_0x252b4e));}return _0x252b4e;},Window_Base['prototype'][_0x3fecc6(0x29c)]=function(_0xaf42a7){const _0x43db1d=_0x3fecc6,_0x56c884=_0xaf42a7>=0x1?$gameActors[_0x43db1d(0x341)](_0xaf42a7):null,_0x234b1a=_0x56c884?_0x56c884['name']():'',_0x2c36ad=Number(VisuMZ[_0x43db1d(0x46b)][_0x43db1d(0x1ed)][_0x43db1d(0x20f)][_0x43db1d(0x2dc)]);return this['isAutoColorAffected']()&&_0x2c36ad!==0x0?'\x1bC[%1]%2\x1bPREVCOLOR[0]'['format'](_0x2c36ad,_0x234b1a):_0x234b1a;},Window_Base['prototype']['partyMemberName']=function(_0x1f0cc4){const _0x2d5624=_0x3fecc6,_0x238792=_0x1f0cc4>=0x1?$gameParty[_0x2d5624(0x476)]()[_0x1f0cc4-0x1]:null,_0x3d6520=_0x238792?_0x238792['name']():'',_0x17768b=Number(VisuMZ[_0x2d5624(0x46b)][_0x2d5624(0x1ed)][_0x2d5624(0x20f)][_0x2d5624(0x2dc)]);return this['isAutoColorAffected']()&&_0x17768b!==0x0?_0x2d5624(0x1b5)[_0x2d5624(0x190)](_0x17768b,_0x3d6520):_0x3d6520;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x2ee)]=function(_0x3f324f){const _0x259b91=_0x3fecc6;return this[_0x259b91(0x24f)]()&&(_0x3f324f=this['processStoredAutoColorChanges'](_0x3f324f),_0x3f324f=this[_0x259b91(0x208)](_0x3f324f)),_0x3f324f;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x578)]=function(_0x4246b0){const _0x390378=_0x3fecc6;for(autoColor of VisuMZ[_0x390378(0x46b)][_0x390378(0x513)]){_0x4246b0=_0x4246b0[_0x390378(0x496)](autoColor[0x0],autoColor[0x1]);}return _0x4246b0;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x387)]=function(){const _0x229fef=_0x3fecc6;this[_0x229fef(0x34c)]=[];},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x336)]=function(){const _0x3d66b8=_0x3fecc6;this[_0x3d66b8(0x387)]();const _0x5a06b3=VisuMZ['MessageCore'][_0x3d66b8(0x1ed)][_0x3d66b8(0x20f)],_0x30be99=_0x5a06b3[_0x3d66b8(0x2dc)];if(_0x30be99<=0x0)return;for(const _0x149c86 of $gameActors['_data']){if(!_0x149c86)continue;const _0x3a2016=_0x149c86[_0x3d66b8(0x2a3)]();if(_0x3a2016['trim']()[_0x3d66b8(0x43e)]<=0x0)continue;if(/^\d+$/[_0x3d66b8(0x2ad)](_0x3a2016))continue;if(_0x3a2016[_0x3d66b8(0x498)](/-----/i))continue;let _0x434cd1=VisuMZ[_0x3d66b8(0x46b)][_0x3d66b8(0x39b)](_0x3a2016);const _0x159b12=new RegExp('\x5cb'+_0x434cd1+'\x5cb','g'),_0x5129a5=_0x3d66b8(0x1b5)[_0x3d66b8(0x190)](_0x30be99,_0x3a2016);this[_0x3d66b8(0x34c)][_0x3d66b8(0x48a)]([_0x159b12,_0x5129a5]);}},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x208)]=function(_0x2b3914){const _0x114985=_0x3fecc6;this['_autoColorActorNames']===undefined&&this[_0x114985(0x336)]();for(autoColor of this[_0x114985(0x34c)]){_0x2b3914=_0x2b3914[_0x114985(0x496)](autoColor[0x0],autoColor[0x1]);}return _0x2b3914;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x415)]=function(_0x1b0522,_0x4b1f8c,_0x409b32){const _0x53e838=_0x3fecc6;if(!_0x1b0522)return'';const _0x4ba770=_0x1b0522[_0x4b1f8c];let _0x5f0a83='';if(_0x4ba770&&_0x409b32&&_0x4ba770['iconIndex']){const _0x19c3e0=_0x53e838(0x3da);_0x5f0a83=_0x19c3e0[_0x53e838(0x190)](_0x4ba770[_0x53e838(0x2c1)],_0x4ba770[_0x53e838(0x2a3)]);}else _0x4ba770?_0x5f0a83=_0x4ba770[_0x53e838(0x2a3)]:_0x5f0a83='';return _0x5f0a83=TextManager[_0x53e838(0x395)](_0x5f0a83),this['isAutoColorAffected']()&&(_0x5f0a83=this[_0x53e838(0x32a)](_0x5f0a83,_0x1b0522)),_0x5f0a83;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x4c1)]=function(){const _0x19ff35=_0x3fecc6,_0x159643=$gameParty[_0x19ff35(0x552)]();if(_0x159643['id']<0x0)return'';let _0x4ed253=null;if(_0x159643['type']===0x0)_0x4ed253=$dataItems[_0x159643['id']];if(_0x159643[_0x19ff35(0x228)]===0x1)_0x4ed253=$dataWeapons[_0x159643['id']];if(_0x159643[_0x19ff35(0x228)]===0x2)_0x4ed253=$dataArmors[_0x159643['id']];if(!_0x4ed253)return'';return _0x19ff35(0x38d)[_0x19ff35(0x190)](_0x4ed253['iconIndex']);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x1c4)]=function(_0xe0bab8){const _0x68d8ef=_0x3fecc6,_0x6b4852=$gameParty[_0x68d8ef(0x552)]();if(_0x6b4852['id']<0x0)return'';let _0x5b1b3a=null;if(_0x6b4852[_0x68d8ef(0x228)]===0x0)_0x5b1b3a=$dataItems[_0x6b4852['id']];if(_0x6b4852['type']===0x1)_0x5b1b3a=$dataWeapons[_0x6b4852['id']];if(_0x6b4852[_0x68d8ef(0x228)]===0x2)_0x5b1b3a=$dataArmors[_0x6b4852['id']];if(!_0x5b1b3a)return'';let _0x43cc86=_0x5b1b3a[_0x68d8ef(0x2a3)]||'';return TextManager['isVisuMzLocalizationEnabled']()&&(_0x43cc86=TextManager[_0x68d8ef(0x395)](_0x43cc86)),_0xe0bab8?_0x68d8ef(0x3da)[_0x68d8ef(0x190)](_0x5b1b3a[_0x68d8ef(0x2c1)],_0x43cc86):_0x43cc86;},Window_Base['prototype'][_0x3fecc6(0x37f)]=function(){const _0x3a5720=_0x3fecc6,_0x6907c=$gameParty[_0x3a5720(0x552)]();if(_0x6907c['id']<=0x0)return'';return _0x6907c[_0x3a5720(0x279)];},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x32a)]=function(_0x538c2e,_0x3b4791){const _0x26d410=_0x3fecc6,_0x5aefae=VisuMZ['MessageCore'][_0x26d410(0x1ed)][_0x26d410(0x20f)];let _0x19e9cd=0x0;if(_0x3b4791===$dataActors)_0x19e9cd=_0x5aefae[_0x26d410(0x2dc)];if(_0x3b4791===$dataClasses)_0x19e9cd=_0x5aefae[_0x26d410(0x39d)];if(_0x3b4791===$dataSkills)_0x19e9cd=_0x5aefae['Skills'];if(_0x3b4791===$dataItems)_0x19e9cd=_0x5aefae[_0x26d410(0x1a4)];if(_0x3b4791===$dataWeapons)_0x19e9cd=_0x5aefae[_0x26d410(0x212)];if(_0x3b4791===$dataArmors)_0x19e9cd=_0x5aefae[_0x26d410(0x4df)];if(_0x3b4791===$dataEnemies)_0x19e9cd=_0x5aefae[_0x26d410(0x30d)];if(_0x3b4791===$dataStates)_0x19e9cd=_0x5aefae['States'];return _0x19e9cd>0x0&&(_0x538c2e=_0x26d410(0x1b5)[_0x26d410(0x190)](_0x19e9cd,_0x538c2e)),_0x538c2e;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x2cd)]=function(_0x648213){const _0x4fd3ea=_0x3fecc6;if(_0x648213[_0x4fd3ea(0x3c6)]('\x1bTEXTALIGNMENT'))return this[_0x4fd3ea(0x52f)](![]),_0x648213=_0x648213[_0x4fd3ea(0x496)](/<(?:BR|LINEBREAK)>/gi,'\x20\x0a'),_0x648213=_0x648213[_0x4fd3ea(0x496)](/<(?:WORDWRAP|WORD WRAP)>/gi,''),_0x648213=_0x648213[_0x4fd3ea(0x496)](/<(?:NOWORDWRAP|NO WORD WRAP)>/gi,''),_0x648213=_0x648213['replace'](/<\/(?:NOWORDWRAP|NO WORD WRAP)>/gi,''),_0x648213;_0x648213=_0x648213[_0x4fd3ea(0x496)](/<(?:WORDWRAP|WORD WRAP)>/gi,(_0x3764c0,_0x18f074)=>this['setWordWrap'](!![])),_0x648213=_0x648213[_0x4fd3ea(0x496)](/<(?:NOWORDWRAP|NO WORD WRAP)>/gi,(_0x2d52d8,_0x9f5b5b)=>this[_0x4fd3ea(0x52f)](![])),_0x648213=_0x648213['replace'](/<\/(?:WORDWRAP|WORD WRAP)>/gi,(_0x3e8943,_0x4f6685)=>this[_0x4fd3ea(0x52f)](![]));if(_0x648213[_0x4fd3ea(0x498)](Window_Message[_0x4fd3ea(0x451)]))this[_0x4fd3ea(0x52f)](![]);else _0x648213[_0x4fd3ea(0x498)](Window_Message['_autoPosRegExp'])&&this['setWordWrap'](![]);if(!this['isWordWrapEnabled']())return _0x648213=_0x648213[_0x4fd3ea(0x496)](/<(?:BR|LINEBREAK)>/gi,'\x20\x0a'),_0x648213;if(_0x648213[_0x4fd3ea(0x43e)]<=0x0)return _0x648213;return _0x648213[_0x4fd3ea(0x498)](/[\u3040-\u30FF\u4E00-\u9FFF]/g)&&(_0x648213=VisuMZ[_0x4fd3ea(0x46b)][_0x4fd3ea(0x396)](_0x648213)['join']('')),VisuMZ[_0x4fd3ea(0x46b)][_0x4fd3ea(0x1ed)][_0x4fd3ea(0x523)][_0x4fd3ea(0x558)]?(_0x648213=_0x648213['replace'](/[\n\r]+/g,'\x20'),_0x648213=_0x648213['replace'](/<(?:BR|LINEBREAK)>/gi,'\x20\x0a')):(_0x648213=_0x648213[_0x4fd3ea(0x496)](/[\n\r]+/g,''),_0x648213=_0x648213[_0x4fd3ea(0x496)](/<(?:BR|LINEBREAK)>/gi,'\x0a')),_0x648213=this[_0x4fd3ea(0x514)](_0x648213),_0x648213=_0x648213['split']('\x20')['join']('\x1bWrapBreak[0]'),_0x648213=_0x648213[_0x4fd3ea(0x496)](/<(?:BR|LINEBREAK)>/gi,'\x0a'),_0x648213=_0x648213[_0x4fd3ea(0x496)](/<LINE\x1bWrapBreak[0]BREAK>/gi,'\x0a'),_0x648213;},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x396)]=function(_0x419d1d){const _0x27109f=_0x3fecc6;let _0x5ee851=[],_0x555e8f='';while(_0x419d1d['length']>0x0){const _0x2d7214=_0x419d1d[_0x27109f(0x572)](0x0);_0x419d1d=_0x419d1d[_0x27109f(0x4f4)](0x1),_0x2d7214[_0x27109f(0x498)](/[\u3040-\u30FF\u4E00-\u9FFF]/g)?(_0x555e8f['length']>0x0&&(_0x5ee851[_0x27109f(0x48a)](_0x555e8f),_0x555e8f=''),_0x5ee851[_0x27109f(0x48a)](_0x2d7214+'\x1bWrapJpBreak[0]')):_0x555e8f+=_0x2d7214;}return _0x555e8f['length']>0x0&&(_0x5ee851['push'](_0x555e8f),_0x555e8f=''),_0x5ee851;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x514)]=function(_0x4ef9b7){return _0x4ef9b7;},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x2d7)]=Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x2a5)],Window_Base[_0x3fecc6(0x1d6)]['processNewLine']=function(_0x4bf4d0){const _0x16330f=_0x3fecc6;VisuMZ[_0x16330f(0x46b)][_0x16330f(0x2d7)][_0x16330f(0x358)](this,_0x4bf4d0),this[_0x16330f(0x49d)](_0x4bf4d0);},Window_Base['prototype'][_0x3fecc6(0x491)]=function(_0x5cf8fa){const _0x56f781=_0x3fecc6;let _0x2670b8=_0x5cf8fa[_0x56f781(0x2e1)][_0x5cf8fa[_0x56f781(0x471)]++];if(_0x2670b8['charCodeAt'](0x0)<0x20)this['flushTextState'](_0x5cf8fa),this[_0x56f781(0x3e0)](_0x5cf8fa,_0x2670b8);else{if(this[_0x56f781(0x490)]===0x1)_0x2670b8=_0x2670b8[_0x56f781(0x435)]();if(this['_textCasing']===0x2){if(this[_0x56f781(0x4e4)])_0x2670b8=_0x2670b8[_0x56f781(0x328)]();this[_0x56f781(0x4e4)]=/\s/[_0x56f781(0x2ad)](_0x2670b8);}if(this['_textCasing']===0x3)_0x2670b8=_0x2670b8[_0x56f781(0x328)]();this[_0x56f781(0x490)]===0x4&&(_0x2670b8=this['_lastAltCase']?_0x2670b8[_0x56f781(0x328)]():_0x2670b8['toLowerCase'](),this[_0x56f781(0x46f)]=!this[_0x56f781(0x46f)]),this[_0x56f781(0x490)]===0x5&&(_0x2670b8=Math[_0x56f781(0x192)]()<0.5?_0x2670b8[_0x56f781(0x328)]():_0x2670b8[_0x56f781(0x435)]()),_0x5cf8fa[_0x56f781(0x2e5)]+=_0x2670b8;}},VisuMZ['MessageCore']['Window_Base_processControlCharacter']=Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x3e0)],Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x3e0)]=function(_0x3c2439,_0xd97e11){const _0x2b33d5=_0x3fecc6;VisuMZ[_0x2b33d5(0x46b)][_0x2b33d5(0x1f7)][_0x2b33d5(0x358)](this,_0x3c2439,_0xd97e11);if(_0xd97e11===_0x2b33d5(0x3fc))this[_0x2b33d5(0x28b)](_0x3c2439);else _0xd97e11===_0x2b33d5(0x3df)&&this['processWrapBreak'](_0x3c2439,!![]);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x433)]=function(_0x4e3013){const _0x4a9c70=_0x3fecc6;var _0x7a8c81=/^\<(.*?)\>/[_0x4a9c70(0x199)](_0x4e3013['text'][_0x4a9c70(0x4f4)](_0x4e3013['index']));return _0x7a8c81?(_0x4e3013[_0x4a9c70(0x471)]+=_0x7a8c81[0x0][_0x4a9c70(0x43e)],String(_0x7a8c81[0x0][_0x4a9c70(0x4f4)](0x1,_0x7a8c81[0x0]['length']-0x1))):'';},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x356)]=Window_Base['prototype'][_0x3fecc6(0x21e)],Window_Base[_0x3fecc6(0x1d6)]['processEscapeCharacter']=function(_0xbc8d14,_0x34e2f6){const _0x430b78=_0x3fecc6;switch(_0xbc8d14){case'C':_0x34e2f6[_0x430b78(0x2bf)]?VisuMZ['MessageCore'][_0x430b78(0x356)][_0x430b78(0x358)](this,_0xbc8d14,_0x34e2f6):this[_0x430b78(0x4b0)](_0x34e2f6);break;case'I':case'{':case'}':VisuMZ['MessageCore'][_0x430b78(0x356)]['call'](this,_0xbc8d14,_0x34e2f6);break;case'FS':this[_0x430b78(0x1e8)](_0x34e2f6);break;case'PX':this[_0x430b78(0x2b9)](_0x34e2f6);break;case'PY':this[_0x430b78(0x378)](_0x34e2f6);break;case _0x430b78(0x1ab):this[_0x430b78(0x2e8)](this['obtainEscapeParam'](_0x34e2f6));break;case'CASING':this['processTextCasing'](_0x34e2f6);break;case'CENTERPICTURE':this[_0x430b78(0x1ad)](_0x34e2f6);break;case _0x430b78(0x432):this[_0x430b78(0x2f7)](_0x34e2f6);break;case'COMMONEVENT':this['processCommonEvent'](_0x34e2f6);break;case _0x430b78(0x271):this['processFontChangeItalic'](this[_0x430b78(0x4b0)](_0x34e2f6));break;case _0x430b78(0x253):this[_0x430b78(0x1f2)](_0x34e2f6);break;case _0x430b78(0x18f):this[_0x430b78(0x26f)](_0x34e2f6);break;case _0x430b78(0x3b9):this['processTextAlignmentChange'](_0x34e2f6);break;case'WAIT':this[_0x430b78(0x4b6)](_0x34e2f6);break;case _0x430b78(0x293):this[_0x430b78(0x28b)](_0x34e2f6);break;case'WRAPJPBREAK':this[_0x430b78(0x28b)](_0x34e2f6,!![]);break;default:this[_0x430b78(0x313)](_0xbc8d14,_0x34e2f6);}},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x313)]=function(_0x3573b4,_0x4d180d){const _0xae2f48=_0x3fecc6;for(const _0xdf3b0c of VisuMZ[_0xae2f48(0x46b)]['Settings'][_0xae2f48(0x36e)]){if(_0xdf3b0c[_0xae2f48(0x533)]===_0x3573b4){if(_0xdf3b0c['Type']==='')this[_0xae2f48(0x4b0)](_0x4d180d);_0xdf3b0c['ActionJS'][_0xae2f48(0x358)](this,_0x4d180d);if(this[_0xae2f48(0x2f3)]===Window_Message){const _0x147fb6=_0xdf3b0c[_0xae2f48(0x40b)]||0x0;if(_0x147fb6>0x0)this[_0xae2f48(0x2f1)](_0x147fb6);}}}},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x18c)]=function(){const _0x29901b=_0x3fecc6;this[_0x29901b(0x2e2)]['fontSize']+=VisuMZ['MessageCore'][_0x29901b(0x1ed)]['General']['FontChangeValue'],this['contents'][_0x29901b(0x416)]=Math[_0x29901b(0x28c)](this[_0x29901b(0x2e2)][_0x29901b(0x416)],VisuMZ[_0x29901b(0x46b)][_0x29901b(0x1ed)][_0x29901b(0x40d)][_0x29901b(0x264)]);},Window_Base['prototype'][_0x3fecc6(0x2db)]=function(){const _0x452c0e=_0x3fecc6;this[_0x452c0e(0x2e2)][_0x452c0e(0x416)]-=VisuMZ[_0x452c0e(0x46b)][_0x452c0e(0x1ed)][_0x452c0e(0x40d)]['FontChangeValue'],this['contents']['fontSize']=Math['max'](this[_0x452c0e(0x2e2)][_0x452c0e(0x416)],VisuMZ[_0x452c0e(0x46b)][_0x452c0e(0x1ed)][_0x452c0e(0x40d)]['FontSmallerCap']);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x1e8)]=function(_0x5bf7a8){const _0x27bbf7=_0x3fecc6,_0x1d3a94=this[_0x27bbf7(0x4b0)](_0x5bf7a8);this[_0x27bbf7(0x2e2)]['fontSize']=_0x1d3a94['clamp'](VisuMZ['MessageCore']['Settings'][_0x27bbf7(0x40d)][_0x27bbf7(0x1c5)],VisuMZ[_0x27bbf7(0x46b)][_0x27bbf7(0x1ed)][_0x27bbf7(0x40d)]['FontBiggerCap']);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x4b4)]=function(_0x3db72d){const _0x1598d4=_0x3fecc6;let _0x40a025=this[_0x1598d4(0x2e2)]['fontSize'];const _0x432743=/\x1b({|}|FS)(\[(\d+)])?/gi;for(;;){const _0xa6b969=_0x432743[_0x1598d4(0x199)](_0x3db72d);if(!_0xa6b969)break;const _0x52000b=String(_0xa6b969[0x1])['toUpperCase']();if(_0x52000b==='{')this[_0x1598d4(0x18c)]();else{if(_0x52000b==='}')this['makeFontSmaller']();else _0x52000b==='FS'&&(this[_0x1598d4(0x2e2)][_0x1598d4(0x416)]=parseInt(_0xa6b969[0x3])['clamp'](VisuMZ[_0x1598d4(0x46b)][_0x1598d4(0x1ed)][_0x1598d4(0x40d)][_0x1598d4(0x1c5)],VisuMZ[_0x1598d4(0x46b)][_0x1598d4(0x1ed)][_0x1598d4(0x40d)][_0x1598d4(0x264)]));}this[_0x1598d4(0x2e2)][_0x1598d4(0x416)]>_0x40a025&&(_0x40a025=this[_0x1598d4(0x2e2)][_0x1598d4(0x416)]);}return _0x40a025;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x2b9)]=function(_0xf3bf1a){const _0x480341=_0x3fecc6;_0xf3bf1a['x']=this[_0x480341(0x4b0)](_0xf3bf1a),VisuMZ['MessageCore']['Settings'][_0x480341(0x40d)][_0x480341(0x2c8)]&&(_0xf3bf1a['x']+=_0xf3bf1a[_0x480341(0x493)]);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x378)]=function(_0x4ea7c6){const _0x1b32e2=_0x3fecc6;_0x4ea7c6['y']=this[_0x1b32e2(0x4b0)](_0x4ea7c6),VisuMZ['MessageCore']['Settings'][_0x1b32e2(0x40d)]['RelativePXPY']&&(_0x4ea7c6['y']+=_0x4ea7c6[_0x1b32e2(0x330)]);},Window_Base['prototype'][_0x3fecc6(0x2e8)]=function(_0x25b936){const _0x164ac6=_0x3fecc6;this[_0x164ac6(0x2e2)][_0x164ac6(0x4c3)]=!!_0x25b936;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x1b0)]=function(_0x37fbf9){const _0x46ca30=_0x3fecc6;this['contents'][_0x46ca30(0x42a)]=!!_0x37fbf9;},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x430)]=function(_0x3cbe2d){const _0xe983db=_0x3fecc6,_0x14a72d=this[_0xe983db(0x4b0)](_0x3cbe2d);if(!_0x3cbe2d['drawing'])return;switch(_0x14a72d){case 0x0:this['setTextAlignment'](_0xe983db(0x3bd));return;case 0x1:this['setTextAlignment'](_0xe983db(0x437));break;case 0x2:this[_0xe983db(0x34e)](_0xe983db(0x442));break;case 0x3:this[_0xe983db(0x34e)]('right');break;}this[_0xe983db(0x49d)](_0x3cbe2d);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x49d)]=function(_0x1f827f){const _0x39379e=_0x3fecc6;if(!_0x1f827f[_0x39379e(0x2bf)])return;if(_0x1f827f[_0x39379e(0x195)])return;if(this[_0x39379e(0x510)]()==='default')return;let _0x91d12e=_0x1f827f[_0x39379e(0x2e1)]['indexOf'](_0x39379e(0x3e9),_0x1f827f[_0x39379e(0x471)]+0x1),_0x5b3a76=_0x1f827f['text'][_0x39379e(0x365)]('\x0a',_0x1f827f[_0x39379e(0x471)]+0x1);if(_0x91d12e<0x0)_0x91d12e=_0x1f827f[_0x39379e(0x2e1)]['length']+0x1;if(_0x5b3a76>0x0)_0x91d12e=Math[_0x39379e(0x28c)](_0x91d12e,_0x5b3a76);const _0x391d6c=_0x1f827f[_0x39379e(0x2e1)][_0x39379e(0x309)](_0x1f827f[_0x39379e(0x471)],_0x91d12e),_0xcbf1d6=this['textSizeExTextAlignment'](_0x391d6c)['width'],_0x493b88=_0x1f827f[_0x39379e(0x3ee)]||this[_0x39379e(0x340)]-0x8,_0xdaa4d2=this[_0x39379e(0x2f3)]===Window_Message&&$gameMessage[_0x39379e(0x32d)]()!=='';switch(this[_0x39379e(0x510)]()){case _0x39379e(0x437):_0x1f827f['x']=_0x1f827f[_0x39379e(0x493)];break;case _0x39379e(0x442):_0x1f827f['x']=_0x1f827f[_0x39379e(0x493)],_0x1f827f['x']+=Math['floor']((_0x493b88-_0xcbf1d6)/0x2);_0xdaa4d2&&(_0x1f827f['x']-=_0x1f827f['startX']/0x2);break;case'right':_0x1f827f['x']=_0x493b88-_0xcbf1d6+_0x1f827f[_0x39379e(0x493)];_0xdaa4d2&&(_0x1f827f['x']-=_0x1f827f[_0x39379e(0x493)]);break;}},Window_Base['prototype'][_0x3fecc6(0x530)]=function(_0x5f2a9d){const _0x1dec7a=_0x3fecc6;_0x5f2a9d=_0x5f2a9d[_0x1dec7a(0x496)](/\x1b!/g,''),_0x5f2a9d=_0x5f2a9d[_0x1dec7a(0x496)](/\x1b\|/g,''),_0x5f2a9d=_0x5f2a9d['replace'](/\x1b\./g,'');const _0xf4dc68=this[_0x1dec7a(0x2ac)](_0x5f2a9d,0x0,0x0,0x0),_0x392c70=this[_0x1dec7a(0x1c2)]();return _0xf4dc68[_0x1dec7a(0x2bf)]=![],this[_0x1dec7a(0x2c5)](_0xf4dc68),this[_0x1dec7a(0x249)](_0x392c70),{'width':_0xf4dc68[_0x1dec7a(0x1fb)],'height':_0xf4dc68[_0x1dec7a(0x563)]};},Window_Base[_0x3fecc6(0x4ef)]=VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x1ed)]['WordWrap'][_0x3fecc6(0x413)]||0x0,Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x28b)]=function(_0x362622,_0x5d2d8f){const _0x1e34a1=_0x3fecc6,_0x5aa37e=(_0x362622['rtl']?-0x1:0x1)*this[_0x1e34a1(0x4ad)]('\x20');if(!_0x5d2d8f)_0x362622['x']+=_0x5aa37e;if(this['obtainEscapeParam'](_0x362622)>0x0&&!_0x5d2d8f)_0x362622['x']+=_0x5aa37e;if(_0x362622[_0x1e34a1(0x195)])return;let _0x531ddd;_0x5d2d8f?_0x531ddd=_0x362622[_0x1e34a1(0x2e1)][_0x1e34a1(0x365)](_0x1e34a1(0x3df),_0x362622[_0x1e34a1(0x471)]+0x1):_0x531ddd=_0x362622[_0x1e34a1(0x2e1)][_0x1e34a1(0x365)](_0x1e34a1(0x3fc),_0x362622[_0x1e34a1(0x471)]+0x1);let _0xfc0fd8=_0x362622[_0x1e34a1(0x2e1)][_0x1e34a1(0x365)]('\x0a',_0x362622[_0x1e34a1(0x471)]+0x1);if(_0x531ddd<0x0)_0x531ddd=_0x362622['text'][_0x1e34a1(0x43e)]+0x1;if(_0xfc0fd8>0x0)_0x531ddd=Math[_0x1e34a1(0x28c)](_0x531ddd,_0xfc0fd8);const _0x616cdb=_0x362622['text'][_0x1e34a1(0x309)](_0x362622[_0x1e34a1(0x471)],_0x531ddd),_0x4eb17d=this[_0x1e34a1(0x1c9)](_0x616cdb)[_0x1e34a1(0x3ee)];let _0xb7d6f5=_0x362622[_0x1e34a1(0x3ee)]||this[_0x1e34a1(0x340)];_0xb7d6f5-=Window_Base[_0x1e34a1(0x4ef)];if(this[_0x1e34a1(0x2f3)]===Window_Message){const _0x526c47=$gameMessage[_0x1e34a1(0x32d)]()===''?0x0:ImageManager[_0x1e34a1(0x3fe)]+0x14;_0xb7d6f5-=_0x526c47,VisuMZ[_0x1e34a1(0x46b)]['Settings'][_0x1e34a1(0x523)][_0x1e34a1(0x3c3)]&&(_0xb7d6f5-=_0x526c47);}let _0x447ee9=![];_0x362622['x']+_0x4eb17d>_0x362622[_0x1e34a1(0x493)]+_0xb7d6f5&&(_0x447ee9=!![]),_0x4eb17d===0x0&&(_0x447ee9=![]),_0x447ee9&&(_0x362622[_0x1e34a1(0x2e1)]=_0x362622['text'][_0x1e34a1(0x4f4)](0x0,_0x362622[_0x1e34a1(0x471)])+'\x0a'+_0x362622[_0x1e34a1(0x2e1)][_0x1e34a1(0x367)](_0x362622[_0x1e34a1(0x471)]));},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x1c9)]=function(_0xd5314a){const _0x506a3d=_0x3fecc6,_0x403563=this['createTextState'](_0xd5314a,0x0,0x0,0x0),_0x3e8a95=this[_0x506a3d(0x1c2)]();return _0x403563[_0x506a3d(0x2bf)]=![],this[_0x506a3d(0x52f)](![]),this['processAllText'](_0x403563),this[_0x506a3d(0x52f)](!![]),this['returnPreservedFontSettings'](_0x3e8a95),{'width':_0x403563['outputWidth'],'height':_0x403563[_0x506a3d(0x563)]};},Window_Base[_0x3fecc6(0x1d6)]['processCommonEvent']=function(_0xc5c3c6){const _0x2e42e1=_0x3fecc6;return this[_0x2e42e1(0x4b0)](_0xc5c3c6);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x1f2)]=function(_0x6559ab){const _0x43ad36=_0x3fecc6,_0x14c751=this[_0x43ad36(0x433)](_0x6559ab)[_0x43ad36(0x3f0)](',');if(!_0x6559ab[_0x43ad36(0x2bf)])return;const _0x1f2937=_0x14c751[0x0][_0x43ad36(0x467)](),_0x5b7088=_0x14c751[0x1]||0x0,_0x4509b7=_0x14c751[0x2]||0x0,_0xa518cd=ImageManager[_0x43ad36(0x18b)](_0x1f2937),_0x8965f1=this['contents'][_0x43ad36(0x46d)];_0xa518cd['addLoadListener'](this[_0x43ad36(0x2e4)][_0x43ad36(0x42f)](this,_0xa518cd,_0x6559ab['x'],_0x6559ab['y'],_0x5b7088,_0x4509b7,_0x8965f1));},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x2e4)]=function(_0x464c6c,_0x2af365,_0xbc23ad,_0x5c095b,_0x2c0ccb,_0x46cc50){const _0x238a01=_0x3fecc6;_0x5c095b=_0x5c095b||_0x464c6c[_0x238a01(0x3ee)],_0x2c0ccb=_0x2c0ccb||_0x464c6c[_0x238a01(0x436)],this[_0x238a01(0x385)][_0x238a01(0x46d)]=_0x46cc50,this['contentsBack'][_0x238a01(0x1ce)](_0x464c6c,0x0,0x0,_0x464c6c[_0x238a01(0x3ee)],_0x464c6c[_0x238a01(0x436)],_0x2af365,_0xbc23ad,_0x5c095b,_0x2c0ccb),this[_0x238a01(0x385)][_0x238a01(0x46d)]=0xff;},Window_Base[_0x3fecc6(0x1d6)]['processDrawCenteredPicture']=function(_0x152f7d){const _0x39bcb1=_0x3fecc6,_0x1ff05f=this['obtainEscapeString'](_0x152f7d)['split'](',');if(!_0x152f7d['drawing'])return;const _0x5c92ce=_0x1ff05f[0x0][_0x39bcb1(0x467)](),_0x4f4b2a=ImageManager[_0x39bcb1(0x18b)](_0x5c92ce),_0x33b480=JsonEx[_0x39bcb1(0x1f5)](_0x152f7d),_0x3f1809=this['contents'][_0x39bcb1(0x46d)];_0x4f4b2a['addLoadListener'](this[_0x39bcb1(0x562)][_0x39bcb1(0x42f)](this,_0x4f4b2a,_0x33b480,_0x3f1809));},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x562)]=function(_0x368bee,_0x27fa0e,_0x4eb7c){const _0x5b1521=_0x3fecc6,_0x40f739=_0x27fa0e[_0x5b1521(0x3ee)]||this['innerWidth'],_0x29f594=this['_index']!==undefined?this[_0x5b1521(0x301)]():this[_0x5b1521(0x291)],_0x5152d8=_0x40f739/_0x368bee[_0x5b1521(0x3ee)],_0x12a06e=_0x29f594/_0x368bee[_0x5b1521(0x436)],_0x38975e=Math[_0x5b1521(0x28c)](_0x5152d8,_0x12a06e,0x1),_0x1bd9d7=this[_0x5b1521(0x2a9)]!==undefined?(this[_0x5b1521(0x411)](0x0)[_0x5b1521(0x436)]-this['lineHeight']())/0x2:0x0,_0x1c9766=_0x368bee['width']*_0x38975e,_0x17820c=_0x368bee[_0x5b1521(0x436)]*_0x38975e,_0x496738=Math['floor']((_0x40f739-_0x1c9766)/0x2)+_0x27fa0e['startX'],_0x58d26b=Math[_0x5b1521(0x22d)]((_0x29f594-_0x17820c)/0x2)+_0x27fa0e[_0x5b1521(0x330)]-_0x1bd9d7*0x2;this[_0x5b1521(0x385)][_0x5b1521(0x46d)]=_0x4eb7c,this[_0x5b1521(0x385)][_0x5b1521(0x1ce)](_0x368bee,0x0,0x0,_0x368bee[_0x5b1521(0x3ee)],_0x368bee['height'],_0x496738,_0x58d26b,_0x1c9766,_0x17820c),this[_0x5b1521(0x385)][_0x5b1521(0x46d)]=0xff;},Window_Base['prototype'][_0x3fecc6(0x2f7)]=function(_0xa7051a){const _0xfccbd2=_0x3fecc6,_0x489845=this[_0xfccbd2(0x4b0)](_0xa7051a);if(_0xa7051a[_0xfccbd2(0x2bf)])this['setColorLock'](_0x489845>0x0);},Window_Base[_0x3fecc6(0x1d6)]['processCustomWait']=function(_0x1cc2b3){const _0x12ea06=_0x3fecc6,_0x20b359=this[_0x12ea06(0x4b0)](_0x1cc2b3);this[_0x12ea06(0x2f3)]===Window_Message&&_0x1cc2b3[_0x12ea06(0x2bf)]&&this[_0x12ea06(0x571)](_0x20b359);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x1a3)]=function(_0x1d3e87){const _0x1ab61a=_0x3fecc6;this[_0x1ab61a(0x490)]=this[_0x1ab61a(0x4b0)](_0x1d3e87),this[_0x1ab61a(0x4e4)]=!![],this[_0x1ab61a(0x46f)]=!![];},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x2f9)]=function(_0x3a1b89){const _0x2b0cc3=_0x3fecc6;if($gameTemp[_0x2b0cc3(0x2be)]()){let _0xe86302='%1,\x20does\x20not\x20support\x20attempted\x20text\x20code\x20usage.'[_0x2b0cc3(0x190)](_0x3a1b89[_0x2b0cc3(0x2f3)][_0x2b0cc3(0x2a3)]);alert(_0xe86302),SceneManager[_0x2b0cc3(0x355)]();}},Window_Base['prototype'][_0x3fecc6(0x4ab)]=function(){const _0x18136a=_0x3fecc6;VisuMZ['MessageCore'][_0x18136a(0x2f9)](this);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x283)]=function(){const _0x31ff66=_0x3fecc6;VisuMZ[_0x31ff66(0x46b)][_0x31ff66(0x2f9)](this);},Window_Base[_0x3fecc6(0x1d6)][_0x3fecc6(0x317)]=function(){const _0x4fc40a=_0x3fecc6;VisuMZ['MessageCore'][_0x4fc40a(0x2f9)](this);},Window_Help[_0x3fecc6(0x1d6)][_0x3fecc6(0x298)]=function(){const _0x264a39=_0x3fecc6;this[_0x264a39(0x52f)]($gameSystem['isHelpWindowWordWrap']());},Window_Help['prototype'][_0x3fecc6(0x24f)]=function(){return!![];},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x4e9)]=Window_Help[_0x3fecc6(0x1d6)]['refresh'],Window_Help['prototype'][_0x3fecc6(0x2a1)]=function(){const _0x316dc9=_0x3fecc6;this['clearActorNameAutoColor']();if(this[_0x316dc9(0x385)])this[_0x316dc9(0x385)][_0x316dc9(0x472)]();VisuMZ[_0x316dc9(0x46b)][_0x316dc9(0x4e9)]['call'](this),this[_0x316dc9(0x298)]();},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x1d5)]=Window_Options['prototype']['addGeneralOptions'],Window_Options[_0x3fecc6(0x1d6)]['addGeneralOptions']=function(){const _0x1a6b50=_0x3fecc6;VisuMZ[_0x1a6b50(0x46b)][_0x1a6b50(0x1d5)][_0x1a6b50(0x358)](this),this[_0x1a6b50(0x3be)]();},Window_Options[_0x3fecc6(0x1d6)]['addMessageCoreCommands']=function(){const _0x55bc14=_0x3fecc6;VisuMZ[_0x55bc14(0x46b)][_0x55bc14(0x1ed)][_0x55bc14(0x232)]['AddOption']&&TextManager['isVisuMzLocalizationEnabled']()&&this[_0x55bc14(0x2eb)](),VisuMZ['MessageCore'][_0x55bc14(0x1ed)]['TextSpeed'][_0x55bc14(0x4e1)]&&this[_0x55bc14(0x4d2)]();},Window_Options['prototype'][_0x3fecc6(0x2eb)]=function(){const _0x5794b2=_0x3fecc6,_0x432583=TextManager[_0x5794b2(0x2de)],_0x2750a9=_0x5794b2(0x27d);this['addCommand'](_0x432583,_0x2750a9);},Window_Options[_0x3fecc6(0x1d6)][_0x3fecc6(0x4d2)]=function(){const _0x431db3=_0x3fecc6,_0x75c927=TextManager[_0x431db3(0x1fc)],_0x2f531f=_0x431db3(0x482);this['addCommand'](_0x75c927,_0x2f531f);},VisuMZ[_0x3fecc6(0x46b)]['Window_Options_statusText']=Window_Options[_0x3fecc6(0x1d6)][_0x3fecc6(0x4a0)],Window_Options[_0x3fecc6(0x1d6)][_0x3fecc6(0x4a0)]=function(_0x302119){const _0xab20b7=_0x3fecc6,_0x3df570=this[_0xab20b7(0x555)](_0x302119);if(_0x3df570===_0xab20b7(0x27d))return this['visuMzTextLocaleStatusText']();if(_0x3df570==='textSpeed')return this['textSpeedStatusText']();return VisuMZ[_0xab20b7(0x46b)]['Window_Options_statusText'][_0xab20b7(0x358)](this,_0x302119);},Window_Options[_0x3fecc6(0x1d6)][_0x3fecc6(0x2ef)]=function(){const _0x18cca7=_0x3fecc6,_0x47ba5b=ConfigManager[_0x18cca7(0x27d)];return TextManager[_0x18cca7(0x23b)](_0x47ba5b);},Window_Options[_0x3fecc6(0x1d6)][_0x3fecc6(0x4c2)]=function(){const _0x330c9a=_0x3fecc6,_0x59471b=this[_0x330c9a(0x252)](_0x330c9a(0x482));return _0x59471b>0xa?TextManager[_0x330c9a(0x194)]:_0x59471b;},VisuMZ['MessageCore'][_0x3fecc6(0x421)]=Window_Options[_0x3fecc6(0x1d6)][_0x3fecc6(0x473)],Window_Options['prototype']['isVolumeSymbol']=function(_0x3cae87){const _0x252147=_0x3fecc6;if(_0x3cae87===_0x252147(0x27d))return!![];if(_0x3cae87==='textSpeed')return!![];return VisuMZ[_0x252147(0x46b)][_0x252147(0x421)][_0x252147(0x358)](this,_0x3cae87);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x48d)]=Window_Options[_0x3fecc6(0x1d6)][_0x3fecc6(0x22b)],Window_Options[_0x3fecc6(0x1d6)][_0x3fecc6(0x22b)]=function(_0x14d3a2,_0x5a9726,_0x207e5e){const _0x874346=_0x3fecc6;if(_0x14d3a2===_0x874346(0x27d))return this[_0x874346(0x3eb)](_0x5a9726,_0x207e5e);if(_0x14d3a2===_0x874346(0x482))return this[_0x874346(0x458)](_0x14d3a2,_0x5a9726,_0x207e5e);VisuMZ[_0x874346(0x46b)][_0x874346(0x48d)][_0x874346(0x358)](this,_0x14d3a2,_0x5a9726,_0x207e5e);},Window_Options[_0x3fecc6(0x1d6)][_0x3fecc6(0x3eb)]=function(_0x48eecf,_0x14556e){const _0x40d230=_0x3fecc6,_0x36093a=VisuMZ['MessageCore'][_0x40d230(0x1ed)]['Localization']['Languages']||[],_0x524476=ConfigManager[_0x40d230(0x27d)];let _0x19ed9d=_0x36093a[_0x40d230(0x365)](_0x524476);_0x19ed9d+=_0x48eecf?0x1:-0x1;if(_0x19ed9d>=_0x36093a[_0x40d230(0x43e)])_0x19ed9d=_0x14556e?0x0:_0x36093a[_0x40d230(0x43e)]-0x1;if(_0x19ed9d<0x0)_0x19ed9d=_0x14556e?_0x36093a['length']-0x1:0x0;this[_0x40d230(0x391)](_0x40d230(0x27d),_0x36093a[_0x19ed9d]);},Window_Options[_0x3fecc6(0x1d6)][_0x3fecc6(0x458)]=function(_0xd9fc3b,_0x18b5af,_0x5906e7){const _0x4c7e86=_0x3fecc6,_0x40b7b2=this[_0x4c7e86(0x252)](_0xd9fc3b),_0x393791=0x1,_0x59ecb0=_0x40b7b2+(_0x18b5af?_0x393791:-_0x393791);_0x59ecb0>0xb&&_0x5906e7?this[_0x4c7e86(0x391)](_0xd9fc3b,0x1):this[_0x4c7e86(0x391)](_0xd9fc3b,_0x59ecb0['clamp'](0x1,0xb));},Window_Message[_0x3fecc6(0x1d6)]['contentsHeight']=function(){const _0x5434fb=_0x3fecc6;let _0x2cbe23=Window_Base[_0x5434fb(0x1d6)][_0x5434fb(0x1c3)]['call'](this);return _0x2cbe23-=this['addedHeight'](),_0x2cbe23;},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x3ad)]=function(){const _0x18637b=_0x3fecc6;Window_Base[_0x18637b(0x1d6)][_0x18637b(0x3ad)]['call'](this),VisuMZ['MessageCore'][_0x18637b(0x1ed)][_0x18637b(0x40d)][_0x18637b(0x296)]&&this[_0x18637b(0x3c8)]();},Window_Message[_0x3fecc6(0x1d6)]['stretchDimmerSprite']=function(){const _0x1d046c=_0x3fecc6;this[_0x1d046c(0x1be)]['x']=Math[_0x1d046c(0x278)](this[_0x1d046c(0x3ee)]/0x2),this[_0x1d046c(0x1be)][_0x1d046c(0x213)]['x']=0.5,this[_0x1d046c(0x1be)][_0x1d046c(0x455)]['x']=Graphics[_0x1d046c(0x3ee)];},VisuMZ[_0x3fecc6(0x46b)]['Window_Message_clearFlags']=Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x42d)],Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x42d)]=function(){const _0x24fed3=_0x3fecc6;VisuMZ[_0x24fed3(0x46b)]['Window_Message_clearFlags'][_0x24fed3(0x358)](this),this[_0x24fed3(0x387)](),this['resetWordWrap'](),this[_0x24fed3(0x268)](![]),this['setTextAlignment'](_0x24fed3(0x3bd)),this[_0x24fed3(0x317)](VisuMZ[_0x24fed3(0x46b)][_0x24fed3(0x1ed)][_0x24fed3(0x40d)][_0x24fed3(0x4b5)]);},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x298)]=function(){const _0x31a5d0=_0x3fecc6;this[_0x31a5d0(0x52f)]($gameSystem[_0x31a5d0(0x258)]());},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x24f)]=function(){return!![];},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x317)]=function(_0x34463a){const _0xeb1906=_0x3fecc6,_0x581a3b=0xb-ConfigManager[_0xeb1906(0x482)];_0x34463a=Math['round'](_0x34463a*_0x581a3b),this[_0xeb1906(0x3e2)]=_0x34463a,this[_0xeb1906(0x2d8)]=_0x34463a;},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x4c7)]=Window_Message[_0x3fecc6(0x1d6)]['isTriggered'],Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x4f9)]=function(){const _0x44d455=_0x3fecc6;return VisuMZ['MessageCore'][_0x44d455(0x4c7)]['call'](this)||Input[_0x44d455(0x428)](VisuMZ[_0x44d455(0x46b)]['Settings'][_0x44d455(0x40d)][_0x44d455(0x1af)]);},VisuMZ['MessageCore'][_0x3fecc6(0x42c)]=Window_Message['prototype'][_0x3fecc6(0x4fe)],Window_Message[_0x3fecc6(0x1d6)]['updatePlacement']=function(){const _0x195db0=_0x3fecc6;let _0x13f9a1=this['y'];this['x']=Math[_0x195db0(0x278)]((Graphics[_0x195db0(0x3a0)]-this[_0x195db0(0x3ee)])/0x2),VisuMZ[_0x195db0(0x46b)][_0x195db0(0x42c)][_0x195db0(0x358)](this);if(this[_0x195db0(0x290)])this['y']=_0x13f9a1;this[_0x195db0(0x2c7)](),this[_0x195db0(0x21b)](),this[_0x195db0(0x2a6)](),this['updateChoiceListHelpWindowPlacement']();},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x210)]=Window_Message['prototype'][_0x3fecc6(0x4c6)],Window_Message['prototype'][_0x3fecc6(0x4c6)]=function(_0x2ca636){const _0x55f3a6=_0x3fecc6;this[_0x55f3a6(0x470)](_0x2ca636),this[_0x55f3a6(0x33f)](_0x2ca636),VisuMZ[_0x55f3a6(0x46b)][_0x55f3a6(0x210)]['call'](this,_0x2ca636),this[_0x55f3a6(0x2ce)]();},Window_Message[_0x3fecc6(0x1d6)]['convertNewPageTextStateMacros']=function(_0x2fe56c){const _0x4325be=_0x3fecc6;if(!_0x2fe56c)return;this[_0x4325be(0x381)]=![],_0x2fe56c['text']=this[_0x4325be(0x1a8)](_0x2fe56c['text']),this[_0x4325be(0x4d5)]&&(_0x2fe56c[_0x4325be(0x2e1)]=this[_0x4325be(0x2cd)](_0x2fe56c[_0x4325be(0x2e1)]),this[_0x4325be(0x381)]=!![]);},Window_Message[_0x3fecc6(0x1d6)]['prepareWordWrapEscapeCharacters']=function(_0x332b63){const _0x35f6bb=_0x3fecc6;if(this['_macroBypassWordWrap'])return _0x332b63;return Window_Base[_0x35f6bb(0x1d6)][_0x35f6bb(0x2cd)]['call'](this,_0x332b63);},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x33f)]=function(_0x1f9791){const _0x47a549=_0x3fecc6;this[_0x47a549(0x299)](_0x1f9791),this[_0x47a549(0x24e)](_0x1f9791),this['updateDimensions']();},VisuMZ['MessageCore'][_0x3fecc6(0x24c)]=Window_Message['prototype'][_0x3fecc6(0x1ca)],Window_Message[_0x3fecc6(0x1d6)]['terminateMessage']=function(){const _0xc30c36=_0x3fecc6;VisuMZ[_0xc30c36(0x46b)][_0xc30c36(0x24c)]['call'](this),this[_0xc30c36(0x42d)]();if(this[_0xc30c36(0x1d7)])this['messagePositionReset']();},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x4b7)]=function(){const _0x3c1a03=_0x3fecc6;this['width']=$gameSystem[_0x3c1a03(0x463)]()+this[_0x3c1a03(0x33d)]();;this[_0x3c1a03(0x3ee)]=Math[_0x3c1a03(0x28c)](Graphics[_0x3c1a03(0x3ee)],this[_0x3c1a03(0x3ee)]);const _0x199fee=$gameSystem[_0x3c1a03(0x326)]();this[_0x3c1a03(0x436)]=SceneManager[_0x3c1a03(0x20c)][_0x3c1a03(0x47e)](_0x199fee,![])+this[_0x3c1a03(0x4dc)](),this[_0x3c1a03(0x436)]=Math['min'](Graphics[_0x3c1a03(0x436)],this[_0x3c1a03(0x436)]);if($gameTemp[_0x3c1a03(0x4b2)])this['resetPositionX']();},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x33d)]=function(){return 0x0;},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x4dc)]=function(){return 0x0;},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x1e1)]=function(){const _0x3078ff=_0x3fecc6;this['x']=(Graphics[_0x3078ff(0x3a0)]-this['width'])/0x2,$gameTemp[_0x3078ff(0x4b2)]=undefined,this[_0x3078ff(0x2a6)]();},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x3a5)]=function(){const _0x2a2132=_0x3fecc6,_0x535ee7={'x':this['x'],'y':this['y']};Window_Base[_0x2a2132(0x1d6)]['updateMove'][_0x2a2132(0x358)](this),this[_0x2a2132(0x53f)](_0x535ee7);},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x27a)]=function(){return!![];},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x53f)]=function(_0x283709){const _0x8091a5=_0x3fecc6;this[_0x8091a5(0x384)]&&(this[_0x8091a5(0x384)]['x']+=this['x']-_0x283709['x'],this['_nameBoxWindow']['y']+=this['y']-_0x283709['y']);},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x465)]=function(_0x3fc29c,_0x48cca5){const _0x194c26=_0x3fecc6;this[_0x194c26(0x3f6)](this[_0x194c26(0x3a2)]['x'],this['_positionType']*(Graphics['boxHeight']-this['height'])/0x2,this[_0x194c26(0x3a2)][_0x194c26(0x3ee)],this[_0x194c26(0x3a2)][_0x194c26(0x436)],_0x3fc29c,_0x48cca5);},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x3d1)]=function(_0x786666){const _0x83c537=_0x3fecc6,_0x90c4cb=Window_Base[_0x83c537(0x1d6)][_0x83c537(0x3d1)][_0x83c537(0x358)](this,_0x786666);_0x786666['drawing']&&this['launchMessageCommonEvent'](_0x90c4cb);},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x2f1)]=function(_0x20691b){const _0x16d8ab=_0x3fecc6;if($gameParty[_0x16d8ab(0x544)]()){}else $gameMap[_0x16d8ab(0x539)](_0x20691b);},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x491)]=function(_0x5c9220){const _0x40ca0c=_0x3fecc6;this['_textDelayCount']--,this[_0x40ca0c(0x3e2)]<=0x0&&(this[_0x40ca0c(0x4d9)](_0x5c9220),Window_Base[_0x40ca0c(0x1d6)][_0x40ca0c(0x491)][_0x40ca0c(0x358)](this,_0x5c9220));},Window_Message[_0x3fecc6(0x1d6)]['onProcessCharacter']=function(_0x204524){const _0x3e0850=_0x3fecc6;this['_textDelayCount']=this['_textDelay'];if(this[_0x3e0850(0x2d8)]<=0x0)this['_showFast']=!![];},VisuMZ['MessageCore']['Window_Message_processEscapeCharacter']=Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x21e)],Window_Message['prototype'][_0x3fecc6(0x21e)]=function(_0x552942,_0x95e9ee){const _0x9d6314=_0x3fecc6;!_0x95e9ee['drawing']?Window_Base[_0x9d6314(0x1d6)][_0x9d6314(0x21e)][_0x9d6314(0x358)](this,_0x552942,_0x95e9ee):VisuMZ[_0x9d6314(0x46b)][_0x9d6314(0x444)][_0x9d6314(0x358)](this,_0x552942,_0x95e9ee);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x2a2)]=Window_Message['prototype']['needsNewPage'],Window_Message[_0x3fecc6(0x1d6)]['needsNewPage']=function(_0x4454cb){const _0x1d9686=_0x3fecc6;if(this[_0x1d9686(0x4d8)])return![];return VisuMZ[_0x1d9686(0x46b)][_0x1d9686(0x2a2)][_0x1d9686(0x358)](this,_0x4454cb);},Window_Message['prototype'][_0x3fecc6(0x299)]=function(_0x599496){const _0x543b2a=_0x3fecc6;let _0x352068=_0x599496[_0x543b2a(0x2e1)];this[_0x543b2a(0x48f)]={};if(this[_0x543b2a(0x2d0)]())return _0x352068;_0x352068=_0x352068['replace'](/<POSITION:[ ]*(.*?)>/gi,(_0x1b2b6b,_0x3e0bdc)=>{const _0x5cab1a=_0x543b2a,_0xa84d03=_0x3e0bdc[_0x5cab1a(0x3f0)](',')[_0x5cab1a(0x3a4)](_0x266111=>Number(_0x266111)||0x0);if(_0xa84d03[0x0]!==undefined)this[_0x5cab1a(0x48f)]['x']=Number(_0xa84d03[0x0]);if(_0xa84d03[0x1]!==undefined)this[_0x5cab1a(0x48f)]['y']=Number(_0xa84d03[0x1]);if(_0xa84d03[0x2]!==undefined)this[_0x5cab1a(0x48f)][_0x5cab1a(0x3ee)]=Number(_0xa84d03[0x2]);if(_0xa84d03[0x3]!==undefined)this[_0x5cab1a(0x48f)]['height']=Number(_0xa84d03[0x3]);return'';}),_0x352068=_0x352068[_0x543b2a(0x496)](/<COORDINATES:[ ]*(.*?)>/gi,(_0x57d998,_0x1a6248)=>{const _0x388a63=_0x543b2a,_0x43cb05=_0x1a6248[_0x388a63(0x3f0)](',')[_0x388a63(0x3a4)](_0x4b7b6a=>Number(_0x4b7b6a)||0x0);if(_0x43cb05[0x0]!==undefined)this[_0x388a63(0x48f)]['x']=Number(_0x43cb05[0x0]);if(_0x43cb05[0x1]!==undefined)this[_0x388a63(0x48f)]['y']=Number(_0x43cb05[0x1]);return'';}),_0x352068=_0x352068[_0x543b2a(0x496)](/<DIMENSIONS:[ ]*(.*?)>/gi,(_0x3a4431,_0x375aaa)=>{const _0x4b7211=_0x543b2a,_0x1a3e03=_0x375aaa[_0x4b7211(0x3f0)](',')[_0x4b7211(0x3a4)](_0x168001=>Number(_0x168001)||0x0);if(_0x1a3e03[0x0]!==undefined)this[_0x4b7211(0x48f)][_0x4b7211(0x3ee)]=Number(_0x1a3e03[0x2]);if(_0x1a3e03[0x1]!==undefined)this[_0x4b7211(0x48f)]['height']=Number(_0x1a3e03[0x3]);return'';}),_0x352068=_0x352068[_0x543b2a(0x496)](/<OFFSET:[ ]*(.*?)>/gi,(_0x2b3597,_0x3b6a30)=>{const _0x160e8c=_0x543b2a,_0x114673=_0x3b6a30[_0x160e8c(0x3f0)](',')[_0x160e8c(0x3a4)](_0x3980af=>Number(_0x3980af)||0x0);let _0xd59403=_0x114673[0x0]||0x0,_0x50c3d2=_0x114673[0x1]||0x0;return $gameSystem[_0x160e8c(0x4c4)](_0xd59403,_0x50c3d2),'';}),_0x599496['text']=_0x352068;},Window_Message[_0x3fecc6(0x1d6)]['updateXyOffsets']=function(){const _0x1078d2=$gameSystem['getMessageWindowXyOffsets']();this['x']+=_0x1078d2['x'],this['y']+=_0x1078d2['y'];},Window_Message[_0x3fecc6(0x1d6)]['updateForcedPlacement']=function(){const _0x38a8c1=_0x3fecc6;this[_0x38a8c1(0x48f)]=this[_0x38a8c1(0x48f)]||{};const _0x56655c=['x','y',_0x38a8c1(0x3ee),_0x38a8c1(0x436)];for(const _0x477fc8 of _0x56655c){this[_0x38a8c1(0x48f)][_0x477fc8]!==undefined&&(this[_0x477fc8]=Number(this[_0x38a8c1(0x48f)][_0x477fc8]));}},Window_Message[_0x3fecc6(0x1d6)]['prepareAutoSizeEscapeCharacters']=function(_0x1a83ca){const _0x59205a=_0x3fecc6;this[_0x59205a(0x4d8)]=![];let _0xbd9153=_0x1a83ca['text'];_0xbd9153=_0xbd9153[_0x59205a(0x496)](/<(?:AUTO|AUTOSIZE|AUTO SIZE)>/gi,()=>{const _0xc2edc8=_0x59205a;return this[_0xc2edc8(0x397)](_0xbd9153,!![],!![]),this[_0xc2edc8(0x244)](_0xc2edc8(0x1c0)),'';}),_0xbd9153=_0xbd9153[_0x59205a(0x496)](/<(?:AUTOWIDTH|AUTO WIDTH)>/gi,()=>{const _0x13b3a9=_0x59205a;return this['processAutoSize'](_0xbd9153,!![],![]),this[_0x13b3a9(0x244)](_0x13b3a9(0x1c0)),'';}),_0xbd9153=_0xbd9153[_0x59205a(0x496)](/<(?:AUTOHEIGHT|AUTO HEIGHT)>/gi,()=>{const _0x49a833=_0x59205a;return this[_0x49a833(0x397)](_0xbd9153,![],!![]),this[_0x49a833(0x244)](_0x49a833(0x1c0)),'';});if(SceneManager[_0x59205a(0x43b)]())_0xbd9153=_0xbd9153[_0x59205a(0x496)](/<(?:AUTOACTOR|AUTO ACTOR):[ ](.*?)>/gi,(_0x53c414,_0x111d0a)=>{const _0x481756=_0x59205a;return this['processAutoSize'](_0xbd9153,!![],!![]),this[_0x481756(0x244)](_0x481756(0x410),Number(_0x111d0a)||0x1),'';}),_0xbd9153=_0xbd9153[_0x59205a(0x496)](/<(?:AUTOPARTY|AUTO PARTY):[ ](.*?)>/gi,(_0x334f38,_0x431610)=>{const _0x14e155=_0x59205a;return this[_0x14e155(0x397)](_0xbd9153,!![],!![]),this[_0x14e155(0x244)](_0x14e155(0x24b),Number(_0x431610)||0x0),'';}),_0xbd9153=_0xbd9153[_0x59205a(0x496)](/<(?:AUTOENEMY|AUTO ENEMY):[ ](.*?)>/gi,(_0x4ea1ea,_0x2a27c9)=>{const _0xed2539=_0x59205a;return this[_0xed2539(0x397)](_0xbd9153,!![],!![]),this[_0xed2539(0x244)](_0xed2539(0x3c4),Number(_0x2a27c9)||0x0),'';});else SceneManager[_0x59205a(0x3a3)]()&&(_0xbd9153=_0xbd9153[_0x59205a(0x496)](/<(?:AUTOPLAYER|AUTO PLAYER)>/gi,(_0x384752,_0x184e64)=>{const _0x3a5838=_0x59205a;return this['processAutoSize'](_0xbd9153,!![],!![]),this[_0x3a5838(0x244)](_0x3a5838(0x19b),0x0),'';}),_0xbd9153=_0xbd9153['replace'](/<(?:AUTOACTOR|AUTO ACTOR):[ ](.*?)>/gi,(_0x27936b,_0x46dea5)=>{const _0x2088bf=_0x59205a;return this[_0x2088bf(0x397)](_0xbd9153,!![],!![]),this[_0x2088bf(0x244)](_0x2088bf(0x52b),Number(_0x46dea5)||0x1),'';}),_0xbd9153=_0xbd9153['replace'](/<(?:AUTOPARTY|AUTO PARTY):[ ](.*?)>/gi,(_0x4684f9,_0x1422bc)=>{const _0x38f6e2=_0x59205a;return this[_0x38f6e2(0x397)](_0xbd9153,!![],!![]),this[_0x38f6e2(0x244)]('map\x20party',Number(_0x1422bc)||0x0),'';}),_0xbd9153=_0xbd9153['replace'](/<(?:AUTOEVENT|AUTO EVENT):[ ](.*?)>/gi,(_0x2e79ca,_0x2232f5)=>{const _0x3d608d=_0x59205a;return this['processAutoSize'](_0xbd9153,!![],!![]),this[_0x3d608d(0x244)](_0x3d608d(0x389),Number(_0x2232f5)||0x0),'';}));_0x1a83ca[_0x59205a(0x2e1)]=_0xbd9153;},Window_Message[_0x3fecc6(0x451)]=/<(?:AUTO|AUTOSIZE|AUTO SIZE|AUTOWIDTH|AUTO WIDTH|AUTOHEIGHT|AUTO HEIGHT|AUTOPLAYER|AUTO PLAYER)>/gi,Window_Message[_0x3fecc6(0x440)]=/<(?:AUTOPARTY|AUTO PARTY|AUTOPLAYER|AUTO PLAYER|AUTOEVENT|AUTO EVENT|AUTOENEMY|AUTO ENEMY|AUTOACTOR|AUTO ACTOR):[ ](.*?)>/gi,Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x397)]=function(_0x4b7876,_0x59aa4a,_0x3d0b65){const _0x49ef97=_0x3fecc6;_0x4b7876=_0x4b7876[_0x49ef97(0x496)](Window_Message[_0x49ef97(0x451)],''),_0x4b7876=_0x4b7876[_0x49ef97(0x496)](Window_Message[_0x49ef97(0x440)],''),this[_0x49ef97(0x2fb)]=!![],this[_0x49ef97(0x4d8)]=!![],this[_0x49ef97(0x52f)](![]);const _0x33e5e1=this[_0x49ef97(0x508)](_0x4b7876);if(_0x59aa4a){let _0x5d9c73=_0x33e5e1[_0x49ef97(0x3ee)]+$gameSystem[_0x49ef97(0x54c)]()*0x2+0x6;const _0x3e016a=$gameMessage[_0x49ef97(0x32d)]()!=='',_0x25dfca=ImageManager[_0x49ef97(0x3fe)],_0x45f945=0x14;_0x5d9c73+=_0x3e016a?_0x25dfca+_0x45f945:0x4;if(_0x5d9c73%0x2!==0x0)_0x5d9c73+=0x1;$gameSystem[_0x49ef97(0x49c)](_0x5d9c73);}if(_0x3d0b65){let _0x4e2a9a=Math[_0x49ef97(0x2df)](_0x33e5e1[_0x49ef97(0x436)]/this[_0x49ef97(0x344)]());$gameSystem[_0x49ef97(0x4f3)](_0x4e2a9a);}this['updateAutoSizePosition'](),this['_refreshPauseSign'](),this[_0x49ef97(0x2fb)]=![],this['_messagePositionReset']=!![];},Window_Message['prototype'][_0x3fecc6(0x446)]=function(){const _0x537013=_0x3fecc6;this[_0x537013(0x4b7)](),this['updatePlacement'](),this['resetPositionX'](),this[_0x537013(0x48c)](),this[_0x537013(0x2e2)][_0x537013(0x472)](),this['createContents']();},Window_Message['prototype'][_0x3fecc6(0x244)]=function(_0xe835e2,_0x59999a){const _0x2a8ab9=_0x3fecc6;switch(_0xe835e2[_0x2a8ab9(0x435)]()[_0x2a8ab9(0x467)]()){case'battle\x20actor':this['_autoPositionTarget']=$gameActors[_0x2a8ab9(0x341)](_0x59999a);break;case _0x2a8ab9(0x24b):this[_0x2a8ab9(0x290)]=$gameParty['members']()[_0x59999a-0x1];break;case'battle\x20enemy':this['_autoPositionTarget']=$gameTroop[_0x2a8ab9(0x476)]()[_0x59999a-0x1];break;case _0x2a8ab9(0x19b):this[_0x2a8ab9(0x290)]=$gamePlayer;break;case'map\x20actor':const _0x22a13f=$gameActors[_0x2a8ab9(0x341)](_0x59999a)[_0x2a8ab9(0x471)]();_0x22a13f===0x0?this[_0x2a8ab9(0x290)]=$gamePlayer:this[_0x2a8ab9(0x290)]=$gamePlayer[_0x2a8ab9(0x1e3)]()[_0x2a8ab9(0x425)](_0x22a13f-0x1);break;case _0x2a8ab9(0x273):_0x59999a===0x1?this[_0x2a8ab9(0x290)]=$gamePlayer:this[_0x2a8ab9(0x290)]=$gamePlayer['followers']()[_0x2a8ab9(0x425)](_0x59999a-0x2);break;case _0x2a8ab9(0x389):this[_0x2a8ab9(0x290)]=$gameMap['event'](_0x59999a);break;}this[_0x2a8ab9(0x290)]&&this[_0x2a8ab9(0x323)]();},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x1ef)]=Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x220)],Window_Message['prototype'][_0x3fecc6(0x220)]=function(){const _0x18fa24=_0x3fecc6;this[_0x18fa24(0x323)](),VisuMZ['MessageCore']['Window_Message_synchronizeNameBox'][_0x18fa24(0x358)](this);},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x323)]=function(){const _0x5d046a=_0x3fecc6;if(!this[_0x5d046a(0x290)])return;const _0x562539=SceneManager[_0x5d046a(0x20c)];if(!_0x562539)return;const _0xec9c89=_0x562539[_0x5d046a(0x2d6)];if(!_0xec9c89)return;const _0x13ed22=_0xec9c89['findTargetSprite'](this[_0x5d046a(0x290)]);if(!_0x13ed22)return;let _0x590c6d=_0x13ed22['x'];if(SceneManager[_0x5d046a(0x3a3)]())_0x590c6d*=$gameScreen[_0x5d046a(0x3a7)]();else{if(SceneManager[_0x5d046a(0x43b)]()&&Imported[_0x5d046a(0x3ef)]){let _0x156bc3=_0x13ed22['x']-Graphics['boxWidth']*_0xec9c89[_0x5d046a(0x213)]['x'];_0x590c6d+=_0x156bc3*(_0xec9c89[_0x5d046a(0x455)]['x']-0x1);}}_0x590c6d-=this[_0x5d046a(0x3ee)]/0x2,_0x590c6d-=(Graphics[_0x5d046a(0x3ee)]-Graphics['boxWidth'])/0x2,_0x590c6d+=this[_0x5d046a(0x34b)]();let _0x4651e2=_0x13ed22['y'];if(SceneManager[_0x5d046a(0x3a3)]())_0x4651e2-=_0x13ed22[_0x5d046a(0x436)]+0x8,_0x4651e2*=$gameScreen[_0x5d046a(0x3a7)](),_0x4651e2-=this[_0x5d046a(0x436)]*$gameScreen[_0x5d046a(0x3a7)]();else{if(SceneManager[_0x5d046a(0x43b)]()&&Imported[_0x5d046a(0x3ef)]){let _0x244af6=_0x13ed22['height']*_0xec9c89[_0x5d046a(0x455)]['y'];_0x4651e2-=this['height']*_0xec9c89[_0x5d046a(0x455)]['y']+_0x244af6+0x8;let _0x447ba2=_0x13ed22['y']-Graphics[_0x5d046a(0x380)]*_0xec9c89['anchor']['y'];_0x4651e2+=_0x447ba2*(_0xec9c89[_0x5d046a(0x455)]['y']-0x1);}else _0x4651e2-=_0x13ed22[_0x5d046a(0x436)]+0x8,_0x4651e2-=this[_0x5d046a(0x436)];}_0x4651e2-=(Graphics[_0x5d046a(0x436)]-Graphics[_0x5d046a(0x380)])/0x2,_0x4651e2+=this[_0x5d046a(0x429)]();const _0x471aec=$gameSystem['getMessageWindowXyOffsets']();_0x590c6d+=_0x471aec['x'],_0x4651e2+=_0x471aec['y'],this['x']=Math[_0x5d046a(0x278)](_0x590c6d),this['y']=Math['round'](_0x4651e2),this['clampPlacementPosition'](!![],![]),this['_forcedPosition']=this[_0x5d046a(0x48f)]||{},this[_0x5d046a(0x48f)]['x']=this['x'],this[_0x5d046a(0x48f)]['y']=this['y'],this[_0x5d046a(0x48f)][_0x5d046a(0x3ee)]=this[_0x5d046a(0x3ee)],this[_0x5d046a(0x48f)]['height']=this[_0x5d046a(0x436)],this[_0x5d046a(0x384)]['updatePlacement']();},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x34b)]=function(){return 0x0;},Window_Message['prototype'][_0x3fecc6(0x429)]=function(){return 0x0;},Window_Message[_0x3fecc6(0x1d6)]['messagePositionReset']=function(){const _0x3f3ca5=_0x3fecc6;this[_0x3f3ca5(0x1d7)]=![],this[_0x3f3ca5(0x290)]=undefined,$gameSystem[_0x3f3ca5(0x295)](),this[_0x3f3ca5(0x446)](),this['openness']=0x0;},Window_Message[_0x3fecc6(0x1d6)][_0x3fecc6(0x1ba)]=function(_0x232a99){const _0x585720=_0x3fecc6;return Window_Base[_0x585720(0x1d6)][_0x585720(0x1ba)]['call'](this,_0x232a99);},Window_Message['prototype'][_0x3fecc6(0x575)]=function(_0x28c495){const _0x42d7a0=_0x3fecc6;return Window_Base[_0x42d7a0(0x1d6)][_0x42d7a0(0x575)][_0x42d7a0(0x358)](this,_0x28c495);},Window_Message[_0x3fecc6(0x1d6)]['flushTextState']=function(_0x3245c2){const _0x3de968=_0x3fecc6;this['preFlushTextState'](_0x3245c2),Window_Base[_0x3de968(0x1d6)][_0x3de968(0x3b0)]['call'](this,_0x3245c2),this[_0x3de968(0x1b7)](_0x3245c2);},Window_Message['prototype'][_0x3fecc6(0x1aa)]=function(_0x28888c){},Window_Message['prototype'][_0x3fecc6(0x1b7)]=function(_0x177bd8){},Window_NameBox[_0x3fecc6(0x1d6)][_0x3fecc6(0x24f)]=function(){return![];},Window_NameBox['prototype'][_0x3fecc6(0x2fa)]=function(){const _0x21e519=_0x3fecc6;Window_Base['prototype'][_0x21e519(0x2fa)][_0x21e519(0x358)](this),this[_0x21e519(0x248)](this[_0x21e519(0x243)]());},Window_NameBox[_0x3fecc6(0x1d6)][_0x3fecc6(0x243)]=function(){const _0x2b91d4=_0x3fecc6,_0x2e95e5=VisuMZ[_0x2b91d4(0x46b)][_0x2b91d4(0x1ed)]['General'][_0x2b91d4(0x200)];return ColorManager['textColor'](_0x2e95e5);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x316)]=Window_NameBox[_0x3fecc6(0x1d6)][_0x3fecc6(0x4fe)],Window_NameBox[_0x3fecc6(0x1d6)][_0x3fecc6(0x4fe)]=function(){const _0x487a8a=_0x3fecc6;VisuMZ['MessageCore'][_0x487a8a(0x316)][_0x487a8a(0x358)](this),this[_0x487a8a(0x2ff)](),this[_0x487a8a(0x27e)](),this[_0x487a8a(0x2a6)](),this[_0x487a8a(0x1fe)]();},Window_NameBox[_0x3fecc6(0x1d6)][_0x3fecc6(0x1ba)]=function(_0x3c0548){const _0x1d39a6=_0x3fecc6;return _0x3c0548=_0x3c0548[_0x1d39a6(0x496)](/<LEFT>/gi,this['setRelativePosition']['bind'](this,0x0)),_0x3c0548=_0x3c0548[_0x1d39a6(0x496)](/<CENTER>/gi,this[_0x1d39a6(0x2ea)][_0x1d39a6(0x42f)](this,0x5)),_0x3c0548=_0x3c0548[_0x1d39a6(0x496)](/<RIGHT>/gi,this[_0x1d39a6(0x2ea)][_0x1d39a6(0x42f)](this,0xa)),_0x3c0548=_0x3c0548[_0x1d39a6(0x496)](/<POSITION:[ ](\d+)>/gi,(_0x46897a,_0x3a016b)=>this[_0x1d39a6(0x2ea)](parseInt(_0x3a016b))),_0x3c0548=_0x3c0548[_0x1d39a6(0x496)](/<\/LEFT>/gi,''),_0x3c0548=_0x3c0548[_0x1d39a6(0x496)](/<\/CENTER>/gi,''),_0x3c0548=_0x3c0548[_0x1d39a6(0x496)](/<\/RIGHT>/gi,''),_0x3c0548=_0x3c0548[_0x1d39a6(0x467)](),Window_Base['prototype']['preConvertEscapeCharacters']['call'](this,_0x3c0548);},Window_NameBox['prototype'][_0x3fecc6(0x2ea)]=function(_0x27ffbf){return this['_relativePosition']=_0x27ffbf,'';},Window_NameBox[_0x3fecc6(0x1d6)][_0x3fecc6(0x2ff)]=function(){const _0x20f671=_0x3fecc6;if($gameMessage[_0x20f671(0x40f)]())return;this[_0x20f671(0x573)]=this[_0x20f671(0x573)]||0x0;const _0xf90e4a=this[_0x20f671(0x2f0)],_0x31f245=Math['floor'](_0xf90e4a['width']*this[_0x20f671(0x573)]/0xa);this['x']=_0xf90e4a['x']+_0x31f245-Math[_0x20f671(0x22d)](this[_0x20f671(0x3ee)]/0x2),this['x']=this['x'][_0x20f671(0x1e0)](_0xf90e4a['x'],_0xf90e4a['x']+_0xf90e4a['width']-this[_0x20f671(0x3ee)]);},Window_NameBox[_0x3fecc6(0x1d6)]['updateOffsetPosition']=function(){const _0x18cc89=_0x3fecc6;if($gameMessage[_0x18cc89(0x40f)]())return;this[_0x18cc89(0x573)]=this[_0x18cc89(0x573)]||0x0;const _0x36c91c=VisuMZ[_0x18cc89(0x46b)][_0x18cc89(0x1ed)]['General'][_0x18cc89(0x4cb)],_0x2fcb8d=VisuMZ['MessageCore'][_0x18cc89(0x1ed)]['General'][_0x18cc89(0x4e6)],_0x427b01=(0x5-this[_0x18cc89(0x573)])/0x5;this['x']+=Math[_0x18cc89(0x22d)](_0x36c91c*_0x427b01),this['y']+=_0x2fcb8d;},Window_NameBox[_0x3fecc6(0x1d6)][_0x3fecc6(0x1fe)]=function(){const _0x1e679d=_0x3fecc6,_0x1774c2=this[_0x1e679d(0x2f0)],_0x356934=_0x1774c2['y'],_0x4badbf=VisuMZ[_0x1e679d(0x46b)][_0x1e679d(0x1ed)]['General'][_0x1e679d(0x4e6)];_0x356934>this['y']&&_0x356934<this['y']+this[_0x1e679d(0x436)]-_0x4badbf&&(this['y']=_0x1774c2['y']+_0x1774c2[_0x1e679d(0x436)]);},VisuMZ[_0x3fecc6(0x46b)]['Window_NameBox_refresh']=Window_NameBox[_0x3fecc6(0x1d6)][_0x3fecc6(0x2a1)],Window_NameBox[_0x3fecc6(0x1d6)][_0x3fecc6(0x2a1)]=function(){const _0x2418b0=_0x3fecc6;this['_relativePosition']=0x0,VisuMZ[_0x2418b0(0x46b)][_0x2418b0(0x529)][_0x2418b0(0x358)](this);},Window_ChoiceList['prototype'][_0x3fecc6(0x2d0)]=function(){return![];},Window_ChoiceList['prototype'][_0x3fecc6(0x24f)]=function(){return!![];},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x301)]=function(){return $gameSystem['getChoiceListLineHeight']()+0x8;},Window_ChoiceList['prototype'][_0x3fecc6(0x374)]=function(){const _0x1c4c51=_0x3fecc6;return $gameSystem[_0x1c4c51(0x45a)]();},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x566)]=function(){const _0x3f2136=_0x3fecc6;this['refresh'](),this['selectDefault'](),this['open'](),this[_0x3f2136(0x4fc)](),this[_0x3f2136(0x1da)]();},Window_ChoiceList['prototype'][_0x3fecc6(0x27b)]=function(){const _0x43055a=_0x3fecc6;$gameMessage[_0x43055a(0x3e6)](this[_0x43055a(0x21f)]()),this[_0x43055a(0x2f0)][_0x43055a(0x1ca)](),this[_0x43055a(0x19c)](),this[_0x43055a(0x515)]&&(this[_0x43055a(0x515)][_0x43055a(0x472)](),this[_0x43055a(0x515)]['hide']());},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x43d)]=Window_ChoiceList[_0x3fecc6(0x1d6)]['callCancelHandler'],Window_ChoiceList[_0x3fecc6(0x1d6)]['callCancelHandler']=function(){const _0x729bca=_0x3fecc6;VisuMZ['MessageCore'][_0x729bca(0x43d)]['call'](this),this['_helpWindow']&&(this[_0x729bca(0x515)][_0x729bca(0x472)](),this['_helpWindow'][_0x729bca(0x373)]());},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x2a1)]=function(){const _0x46aeda=_0x3fecc6;this[_0x46aeda(0x53d)](),this[_0x46aeda(0x1b9)](),this[_0x46aeda(0x2f0)]&&(this[_0x46aeda(0x4fe)](),this[_0x46aeda(0x4f2)]()),this['createContents'](),this['updateBackground'](),this[_0x46aeda(0x3ad)](),Window_Selectable['prototype'][_0x46aeda(0x2a1)][_0x46aeda(0x358)](this);},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x1b9)]=function(){const _0x24c163=_0x3fecc6;$gameMessage[_0x24c163(0x233)]?this[_0x24c163(0x1df)]():this[_0x24c163(0x36b)](),this[_0x24c163(0x4db)](),this[_0x24c163(0x379)]();},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x1df)]=function(){const _0x59cdab=_0x3fecc6,_0x88fef2=$gameMessage[_0x59cdab(0x1f6)]();let _0x62dbb4=0x0;for(let _0x357be0 of _0x88fef2){_0x357be0=this[_0x59cdab(0x1e9)](_0x357be0);if(this[_0x59cdab(0x36a)](_0x357be0)){const _0x169130=this[_0x59cdab(0x245)](_0x357be0),_0x377b93=this[_0x59cdab(0x307)](_0x357be0);this['addCommand'](_0x169130,_0x59cdab(0x4bd),_0x377b93,_0x62dbb4);}_0x62dbb4++;}},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x36b)]=function(){const _0x288d78=_0x3fecc6,_0x4d6e97=$gameMessage[_0x288d78(0x1f6)](),_0x203772=$gameMessage[_0x288d78(0x351)](),_0x39c008=$gameMessage['maxShuffleChoices'](),_0x175b88=_0x4d6e97[_0x288d78(0x43e)];let _0x304760=0x0;for(let _0x2a84f2=0x0;_0x2a84f2<_0x175b88;_0x2a84f2++){if(this[_0x288d78(0x339)][_0x288d78(0x43e)]>=_0x39c008)break;const _0x370fbb=_0x203772[_0x2a84f2];let _0x25e624=_0x4d6e97[_0x370fbb];if(_0x25e624===undefined)continue;_0x25e624=this[_0x288d78(0x1e9)](_0x25e624);if(this[_0x288d78(0x36a)](_0x25e624)){const _0xd82255=this[_0x288d78(0x245)](_0x25e624),_0x4ec6a0=this[_0x288d78(0x307)](_0x25e624);this[_0x288d78(0x34f)](_0xd82255,'choice',_0x4ec6a0,_0x370fbb);}_0x304760++;}},Window_ChoiceList[_0x3fecc6(0x1d6)]['convertChoiceMacros']=function(_0x2821e8){const _0x3493db=_0x3fecc6;return Window_Base[_0x3493db(0x1d6)]['convertTextMacros']['call'](this,_0x2821e8);},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x36a)]=function(_0x357fe0){const _0x2fb52f=_0x3fecc6;if(Imported[_0x2fb52f(0x184)])$gameMessage[_0x2fb52f(0x324)]();if(_0x357fe0[_0x2fb52f(0x498)](/<HIDE>/i))return![];if(_0x357fe0[_0x2fb52f(0x498)](/<SHOW>/i))return!![];if(_0x357fe0['match'](/<SHOW[ ](?:|ALL )(?:SW|SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x148b8a=RegExp['$1']['split'](',')[_0x2fb52f(0x3a4)](_0x3b7c18=>Number(_0x3b7c18)||0x0);if(_0x148b8a[_0x2fb52f(0x1dd)](_0x517016=>!$gameSwitches[_0x2fb52f(0x239)](_0x517016)))return![];}if(_0x357fe0[_0x2fb52f(0x498)](/<SHOW ANY[ ](?:SW|SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x426976=RegExp['$1']['split'](',')[_0x2fb52f(0x3a4)](_0x3fed25=>Number(_0x3fed25)||0x0);if(_0x426976[_0x2fb52f(0x2bc)](_0x1d8a69=>!$gameSwitches[_0x2fb52f(0x239)](_0x1d8a69)))return![];}if(_0x357fe0[_0x2fb52f(0x498)](/<HIDE[ ](?:|ALL )(?:SW|SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x24a4c7=RegExp['$1'][_0x2fb52f(0x3f0)](',')[_0x2fb52f(0x3a4)](_0x2c1381=>Number(_0x2c1381)||0x0);if(_0x24a4c7[_0x2fb52f(0x2bc)](_0x392547=>$gameSwitches[_0x2fb52f(0x239)](_0x392547)))return![];}if(_0x357fe0[_0x2fb52f(0x498)](/<HIDE ANY[ ](?:SW|SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x4ea7c5=RegExp['$1']['split'](',')['map'](_0x325680=>Number(_0x325680)||0x0);if(_0x4ea7c5[_0x2fb52f(0x1dd)](_0x232bb8=>$gameSwitches['value'](_0x232bb8)))return![];}return!![];},Window_ChoiceList[_0x3fecc6(0x1d6)]['parseChoiceText']=function(_0x491713){const _0x17d274=_0x3fecc6;let _0x1e3c65=_0x491713;return _0x1e3c65=_0x1e3c65[_0x17d274(0x496)](/<(?:BR|LINEBREAK)>/gi,'\x0a'),_0x1e3c65=_0x1e3c65['replace'](/<LINE\x1bWrapBreak[0]BREAK>/gi,'\x0a'),_0x1e3c65;},Window_ChoiceList[_0x3fecc6(0x1d6)]['isChoiceEnabled']=function(_0x1b5c5f){const _0x54236a=_0x3fecc6;if(Imported['VisuMZ_1_EventsMoveCore'])$gameMessage[_0x54236a(0x324)]();if(_0x1b5c5f[_0x54236a(0x498)](/<DISABLE>/i))return![];if(_0x1b5c5f[_0x54236a(0x498)](/<ENABLE>/i))return!![];if(_0x1b5c5f[_0x54236a(0x498)](/<ENABLE[ ](?:|ALL )(?:SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x22c11c=RegExp['$1'][_0x54236a(0x3f0)](',')['map'](_0x99ae33=>Number(_0x99ae33)||0x0);if(_0x22c11c['some'](_0x32d96e=>!$gameSwitches['value'](_0x32d96e)))return![];}if(_0x1b5c5f['match'](/<ENABLE ANY[ ](?:SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x3cfc92=RegExp['$1'][_0x54236a(0x3f0)](',')['map'](_0x36438b=>Number(_0x36438b)||0x0);if(_0x3cfc92['every'](_0x3e476c=>!$gameSwitches[_0x54236a(0x239)](_0x3e476c)))return![];}if(_0x1b5c5f[_0x54236a(0x498)](/<DISABLE[ ](?:|ALL )(?:SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x5f2e42=RegExp['$1'][_0x54236a(0x3f0)](',')[_0x54236a(0x3a4)](_0x36fcbd=>Number(_0x36fcbd)||0x0);if(_0x5f2e42['every'](_0x2a23a6=>$gameSwitches[_0x54236a(0x239)](_0x2a23a6)))return![];}if(_0x1b5c5f['match'](/<DISABLE ANY[ ](?:SWITCH|SWITCHES):[ ](.*?)>/i)){const _0x26ffb0=RegExp['$1'][_0x54236a(0x3f0)](',')[_0x54236a(0x3a4)](_0x539005=>Number(_0x539005)||0x0);if(_0x26ffb0[_0x54236a(0x1dd)](_0x10c02=>$gameSwitches[_0x54236a(0x239)](_0x10c02)))return![];}return!![];},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x4db)]=function(){const _0x8464b4=_0x3fecc6;this[_0x8464b4(0x2cb)]={},this[_0x8464b4(0x515)]&&(this[_0x8464b4(0x515)][_0x8464b4(0x472)](),this[_0x8464b4(0x515)][_0x8464b4(0x373)]());},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x379)]=function(){const _0xd46eee=_0x3fecc6,_0x4c22c4=/<(?:HELP|HELP DESCRIPTION|DESCRIPTION)>\s*([\s\S]*)\s*<\/(?:HELP|HELP DESCRIPTION|DESCRIPTION)>/i;for(const _0x5e3280 of this[_0xd46eee(0x339)]){if(!_0x5e3280)continue;const _0x2457ec=this[_0xd46eee(0x339)][_0xd46eee(0x365)](_0x5e3280);if(_0x5e3280[_0xd46eee(0x2a3)][_0xd46eee(0x498)](_0x4c22c4)){const _0x318299=String(RegExp['$1']);this[_0xd46eee(0x2cb)][_0x2457ec]=_0x318299[_0xd46eee(0x467)](),_0x5e3280[_0xd46eee(0x2a3)]=_0x5e3280[_0xd46eee(0x2a3)][_0xd46eee(0x496)](_0x4c22c4,'')[_0xd46eee(0x467)]();}else this['_choiceHelpDescriptions'][_0x2457ec]='';}},Window_ChoiceList['prototype'][_0x3fecc6(0x1da)]=function(){const _0x3d4a2a=_0x3fecc6;if(this[_0x3d4a2a(0x339)][_0x3d4a2a(0x1dd)](_0x4e734c=>_0x4e734c['enabled']))return;this[_0x3d4a2a(0x218)](),this['close'](),$gameMessage['_choices']=[],this[_0x3d4a2a(0x2f0)][_0x3d4a2a(0x3fd)]()&&this[_0x3d4a2a(0x2f0)][_0x3d4a2a(0x255)]();},VisuMZ['MessageCore'][_0x3fecc6(0x35c)]=Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x4fe)],Window_ChoiceList['prototype'][_0x3fecc6(0x4fe)]=function(){const _0x2d9d09=_0x3fecc6;VisuMZ[_0x2d9d09(0x46b)][_0x2d9d09(0x35c)][_0x2d9d09(0x358)](this),this[_0x2d9d09(0x561)](),this[_0x2d9d09(0x2a6)]();},Window_ChoiceList['prototype']['placeCancelButton']=function(){const _0x284d1b=_0x3fecc6;if(!this['_cancelButton'])return;const _0x37aa24=0x8,_0x41e302=this[_0x284d1b(0x364)],_0x38b5fb=this['x']+this[_0x284d1b(0x3ee)],_0x1f4453=Math[_0x284d1b(0x22d)]((Graphics[_0x284d1b(0x3ee)]-Graphics[_0x284d1b(0x3a0)])/0x2);_0x38b5fb>=Graphics[_0x284d1b(0x3a0)]+_0x1f4453-_0x41e302[_0x284d1b(0x3ee)]+_0x37aa24?_0x41e302['x']=-_0x41e302[_0x284d1b(0x3ee)]-_0x37aa24:_0x41e302['x']=this[_0x284d1b(0x3ee)]+_0x37aa24,_0x41e302['y']=this[_0x284d1b(0x436)]/0x2-_0x41e302[_0x284d1b(0x436)]/0x2;},VisuMZ[_0x3fecc6(0x46b)]['Window_ChoiceList_windowX']=Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x4bc)],Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x4bc)]=function(){const _0x4c2704=_0x3fecc6;return this[_0x4c2704(0x2f0)]?this[_0x4c2704(0x1d8)]():VisuMZ[_0x4c2704(0x46b)][_0x4c2704(0x2bb)]['call'](this);},Window_ChoiceList['prototype'][_0x3fecc6(0x1d8)]=function(){const _0x5b7e84=_0x3fecc6,_0x206bc0=$gameMessage[_0x5b7e84(0x332)]();if(_0x206bc0===0x1)return(Graphics[_0x5b7e84(0x3a0)]-this[_0x5b7e84(0x272)]())/0x2;else return _0x206bc0===0x2?this['_messageWindow']['x']+this[_0x5b7e84(0x2f0)][_0x5b7e84(0x3ee)]-this[_0x5b7e84(0x272)]():this[_0x5b7e84(0x2f0)]['x'];},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x272)]=function(){const _0x37965b=_0x3fecc6,_0x162054=(this[_0x37965b(0x2b4)]()+this[_0x37965b(0x1b4)]())*this[_0x37965b(0x374)]()+this[_0x37965b(0x1ac)]*0x2;return Math[_0x37965b(0x28c)](_0x162054,Graphics[_0x37965b(0x3ee)]);},Window_ChoiceList['prototype'][_0x3fecc6(0x535)]=function(){const _0x8fb24=_0x3fecc6,_0x463ea6=$gameMessage['choices']()[_0x8fb24(0x3a4)](_0x120996=>this['convertChoiceMacros'](_0x120996))[_0x8fb24(0x3c1)](_0x49a4f6=>this[_0x8fb24(0x36a)](_0x49a4f6));let _0x53cd33=Math[_0x8fb24(0x2df)](_0x463ea6[_0x8fb24(0x43e)]/this['maxCols']());if(!$gameMessage[_0x8fb24(0x233)]){const _0x48ebe4=$gameMessage[_0x8fb24(0x506)]();_0x53cd33=Math['ceil'](Math[_0x8fb24(0x28c)](_0x48ebe4,_0x463ea6['length'])/this['maxCols']());}return Math[_0x8fb24(0x362)](0x1,Math[_0x8fb24(0x28c)](_0x53cd33,this[_0x8fb24(0x447)]()));},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x447)]=function(){const _0x2fb7a8=_0x3fecc6,_0x186f7e=this[_0x2fb7a8(0x2f0)],_0x179e64=_0x186f7e?_0x186f7e['y']:0x0,_0x329746=_0x186f7e?_0x186f7e['height']:0x0,_0x574e29=Graphics[_0x2fb7a8(0x380)]/0x2;return _0x179e64<_0x574e29&&_0x179e64+_0x329746>_0x574e29?0x4:$gameSystem[_0x2fb7a8(0x315)]();},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x2b4)]=function(){const _0x492407=_0x3fecc6;let _0x3968a3=this[_0x492407(0x338)]();for(const _0x39dfc1 of this[_0x492407(0x339)]){const _0x2d9cae=_0x39dfc1[_0x492407(0x2a3)],_0x416b34=this[_0x492407(0x2c6)](_0x2d9cae),_0x39b741=this[_0x492407(0x25d)](_0x2d9cae)[_0x492407(0x3ee)]+_0x416b34,_0x447dc8=Math[_0x492407(0x2df)](_0x39b741)+this['itemPadding']()*0x2;_0x3968a3=Math[_0x492407(0x362)](_0x3968a3,_0x447dc8);}return _0x3968a3;},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x338)]=function(){const _0x2abdd5=_0x3fecc6;let _0x4fdbd1=$gameSystem[_0x2abdd5(0x1b2)]();const _0x246d14=$gameMessage[_0x2abdd5(0x1f6)]();for(const _0x1b0e8c of _0x246d14){_0x1b0e8c['match'](/<CHOICE WIDTH:[ ](\d+)>/gi)&&(_0x4fdbd1=Math[_0x2abdd5(0x362)](_0x4fdbd1,Number(RegExp['$1'])));}return Math[_0x2abdd5(0x362)](_0x4fdbd1,0x1);},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x561)]=function(){const _0x5d0f92=_0x3fecc6,_0x43df2f=$gameSystem['getChoiceMessageDistance']()||0x0,_0x794a6d=this['_messageWindow']['y'],_0x6b2ffa=this[_0x5d0f92(0x2f0)][_0x5d0f92(0x436)],_0x512f36=this['_messageWindow']['_nameBoxWindow'],_0x555b58=_0x512f36[_0x5d0f92(0x3b6)]>0x0&&_0x512f36['width']>0x0,_0x5b00b0=_0x555b58?_0x512f36[_0x5d0f92(0x436)]:0x0;if(_0x43df2f<0x0&&(this[_0x5d0f92(0x2f0)]['isClosed']()||this[_0x5d0f92(0x2f0)][_0x5d0f92(0x41f)]()))this['y']=Math[_0x5d0f92(0x278)]((Graphics[_0x5d0f92(0x380)]-this['height'])/0x2);else{if(_0x794a6d>=Graphics[_0x5d0f92(0x380)]/0x2)_0x43df2f>=0x0?this['y']-=_0x43df2f:this['y']=Math[_0x5d0f92(0x22d)]((_0x794a6d-this[_0x5d0f92(0x436)]-_0x5b00b0)/0x2);else{if(_0x43df2f>=0x0)this['y']+=_0x43df2f;else{const _0x4790e9=Graphics['boxHeight']-(_0x794a6d+_0x6b2ffa+_0x5b00b0);this['y']+=Math[_0x5d0f92(0x22d)]((_0x4790e9-this['height'])/0x2)+_0x5b00b0;}}}},Window_ChoiceList['prototype']['drawItem']=function(_0x5619ae){const _0x89375e=_0x3fecc6,_0x3c84de=this[_0x89375e(0x286)](_0x5619ae);if(_0x3c84de){const _0x3c327d=ImageManager[_0x89375e(0x18b)](_0x3c84de),_0x52d7a9=this['choiceAlignText'](),_0x4954c6=_0x52d7a9+this[_0x89375e(0x1db)](_0x5619ae),_0x36310b=this[_0x89375e(0x411)](_0x5619ae);_0x3c327d[_0x89375e(0x277)](this[_0x89375e(0x19a)][_0x89375e(0x42f)](this,_0x5619ae,!![],_0x4954c6,_0x36310b,_0x3c327d));return;}this[_0x89375e(0x223)](_0x5619ae);},Window_ChoiceList['prototype'][_0x3fecc6(0x223)]=function(_0x754bfc){const _0x30f7f1=_0x3fecc6,_0x71fe83=this['itemRectWithPadding'](_0x754bfc),_0x317a8a=this[_0x30f7f1(0x306)](),_0x843ab5=_0x317a8a+this[_0x30f7f1(0x1db)](_0x754bfc);this['changePaintOpacity'](this[_0x30f7f1(0x2d9)](_0x754bfc));const _0x27f70c=this[_0x30f7f1(0x25d)](_0x843ab5)['height'],_0x55aad0=_0x71fe83['x']+this[_0x30f7f1(0x2c6)](_0x843ab5),_0x424a8e=Math['max'](_0x71fe83['y'],_0x71fe83['y']+Math[_0x30f7f1(0x278)]((_0x71fe83['height']-_0x27f70c)/0x2));this[_0x30f7f1(0x3de)](_0x843ab5,_0x55aad0,_0x424a8e,_0x71fe83['width']),this[_0x30f7f1(0x39c)](_0x754bfc),this['requestChoiceBackgroundImage'](_0x754bfc,_0x843ab5,_0x71fe83);},Window_ChoiceList[_0x3fecc6(0x1d6)]['choiceAlignText']=function(){const _0xe42a9a=_0x3fecc6;return $gameSystem[_0xe42a9a(0x1de)]()!==_0xe42a9a(0x3bd)?_0xe42a9a(0x263)['format']($gameSystem[_0xe42a9a(0x1de)]()):'';},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x2c6)]=function(_0x43aa87){const _0x116ddc=_0x3fecc6;let _0x5cc87c=0x0;return _0x43aa87[_0x116ddc(0x498)](/<(?:CHOICE|CHOICE |)INDENT:[ ](\d+)>/gi)&&(_0x5cc87c=Number(RegExp['$1'])),_0x5cc87c;},Window_ChoiceList['prototype'][_0x3fecc6(0x39c)]=function(_0x2fb013){const _0xe61317=_0x3fecc6;if(!Imported[_0xe61317(0x2fd)])return;const _0x48c8a9=this['commandName'](_0x2fb013);let _0x3e10ba=![],_0x49a2ad=![],_0x5eb736=ColorManager['itemBackColor1'](),_0x161f37=ColorManager[_0xe61317(0x54b)]();if(_0x48c8a9[_0xe61317(0x498)](/<(?:BGCOLOR|BG COLOR):[ ](.*?),(.*?)>/gi))_0x5eb736=ColorManager[_0xe61317(0x403)](RegExp['$1'])[_0xe61317(0x467)](),_0x161f37=ColorManager[_0xe61317(0x403)](RegExp['$2'])[_0xe61317(0x467)](),_0x3e10ba=!![];else{if(_0x48c8a9[_0xe61317(0x498)](/<(?:BGCOLOR|BG COLOR):[ ](.*?)>/gi)){let _0x441b36=String(RegExp['$1'])['toLowerCase']()[_0xe61317(0x467)]();switch(_0x441b36){case _0xe61317(0x3c2):_0x5eb736=_0x161f37=_0xe61317(0x4a8),_0x49a2ad=!![];break;case _0xe61317(0x3b8):_0x5eb736=_0x161f37='#fbaf5d',_0x49a2ad=!![];break;case'yellow':_0x5eb736=_0x161f37=_0xe61317(0x543),_0x49a2ad=!![];break;case'green':_0x5eb736=_0x161f37=_0xe61317(0x548),_0x49a2ad=!![];break;case _0xe61317(0x4ed):_0x5eb736=_0x161f37=_0xe61317(0x414),_0x49a2ad=!![];break;case _0xe61317(0x185):case _0xe61317(0x1e7):_0x5eb736=_0x161f37=_0xe61317(0x38c),_0x49a2ad=!![];break;case'brown':_0x5eb736=_0x161f37=_0xe61317(0x4e8),_0x49a2ad=!![];break;case _0xe61317(0x1ec):_0x5eb736=_0x161f37=_0xe61317(0x1bd),_0x49a2ad=!![];break;case _0xe61317(0x2da):_0x5eb736=_0x161f37='#ffffff',_0x49a2ad=!![];break;case _0xe61317(0x361):case'grey':_0x5eb736=_0x161f37=_0xe61317(0x22f),_0x49a2ad=!![];break;case'black':_0x5eb736=_0x161f37='#707070',_0x49a2ad=!![];break;case _0xe61317(0x3e7):_0x5eb736=_0x161f37=ColorManager[_0xe61317(0x260)](),_0x49a2ad=!![];break;case'no':_0x5eb736=_0x161f37=ColorManager[_0xe61317(0x2d1)](),_0x49a2ad=!![];break;case'system':_0x5eb736=_0x161f37=ColorManager[_0xe61317(0x3a8)](),_0x49a2ad=!![];break;case _0xe61317(0x369):_0x5eb736=_0x161f37=ColorManager['crisisColor'](),_0x49a2ad=!![];break;default:_0x5eb736=_0x161f37=ColorManager[_0xe61317(0x403)](_0x441b36),_0x49a2ad=!![];break;}_0x3e10ba=!![];}}if(!_0x3e10ba)return;const _0x41619b=this[_0xe61317(0x265)](_0x2fb013);this[_0xe61317(0x385)][_0xe61317(0x461)](_0x41619b['x'],_0x41619b['y'],_0x41619b[_0xe61317(0x3ee)],_0x41619b['height']),this[_0xe61317(0x284)](_0x41619b,_0x5eb736,_0x161f37,_0x49a2ad);},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x284)]=function(_0x48a2cf,_0x1c709b,_0x5abf50,_0x2da5c3){const _0x4d84dd=_0x3fecc6,_0x488403=ColorManager[_0x4d84dd(0x398)](),_0x2b4daa=ColorManager[_0x4d84dd(0x4ec)](),_0x212f0c=_0x1c709b??ColorManager[_0x4d84dd(0x398)](),_0x1a0967=_0x5abf50??_0x1c709b,_0x12bce3=_0x48a2cf['x'],_0x11f33e=_0x48a2cf['y'],_0x3cc440=_0x48a2cf[_0x4d84dd(0x3ee)],_0x55b28e=_0x48a2cf[_0x4d84dd(0x436)];this[_0x4d84dd(0x385)][_0x4d84dd(0x2bd)](_0x12bce3,_0x11f33e,_0x3cc440,_0x55b28e,_0x212f0c,_0x1a0967,!![]),_0x2da5c3&&this[_0x4d84dd(0x385)][_0x4d84dd(0x2bd)](_0x12bce3,_0x11f33e,_0x3cc440,_0x55b28e,_0x488403,_0x1a0967,!![]),this[_0x4d84dd(0x385)]['strokeRect'](_0x12bce3,_0x11f33e,_0x3cc440,_0x55b28e,_0x488403);},Window_ChoiceList['prototype'][_0x3fecc6(0x286)]=function(_0x397d25){const _0x2771ff=_0x3fecc6,_0x34c976=this[_0x2771ff(0x306)](),_0x13aeff=_0x34c976+this[_0x2771ff(0x1db)](_0x397d25);let _0x2d9cab='';if(_0x13aeff['match'](/<FG(?:| )(?:IMG|IMAGE|PIC|PICTURE):[ ](.*?)>/i))_0x2d9cab=String(RegExp['$1'])['trim']();else _0x13aeff['match'](/<FG(?:| )(?:IMG|IMAGE|PIC|PICTURE)[ ]*(.*?):[ ](.*?)>/i)&&(_0x2d9cab=String(RegExp['$2'])[_0x2771ff(0x467)]());return _0x2d9cab;},Window_ChoiceList['prototype'][_0x3fecc6(0x4d6)]=function(_0x4e9274,_0x2e3df9,_0x433779){const _0x28625c=_0x3fecc6;let _0x419170='';if(_0x2e3df9[_0x28625c(0x498)](/<BG(?:| )(?:IMG|IMAGE|PIC|PICTURE):[ ](.*?)>/i))_0x419170=String(RegExp['$1'])[_0x28625c(0x467)]();else _0x2e3df9[_0x28625c(0x498)](/<BG(?:| )(?:IMG|IMAGE|PIC|PICTURE)[ ]*(.*?):[ ](.*?)>/i)&&(_0x419170=String(RegExp['$2'])['trim']());if(_0x419170){const _0xaac831=ImageManager[_0x28625c(0x18b)](_0x419170);_0xaac831[_0x28625c(0x277)](this[_0x28625c(0x19a)][_0x28625c(0x42f)](this,_0x4e9274,![],_0x2e3df9,_0x433779,_0xaac831));}},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x19a)]=function(_0x5a3cb3,_0x3f82b4,_0x459b7d,_0x5d150f,_0x1042d2){const _0x48b301=_0x3fecc6,_0x3f7edf=this[_0x48b301(0x306)](),_0x5929b3=_0x3f7edf+this[_0x48b301(0x1db)](_0x5a3cb3);if(_0x459b7d!==_0x5929b3)return;const _0x1ac458=this[_0x48b301(0x411)](_0x5a3cb3);if(['x','y',_0x48b301(0x3ee),'height'][_0x48b301(0x1dd)](_0x4f6d21=>_0x1ac458[_0x4f6d21]!==_0x5d150f[_0x4f6d21]))return;let _0xa03c8d=0x0,_0x1da514='';if(_0x3f82b4&&_0x5929b3[_0x48b301(0x498)](/<BG(?:| )(?:IMG|IMAGE|PIC|PICTURE):[ ](.*?)>/i)){}else{if(_0x3f82b4&&_0x5929b3['match'](/<FG(?:| )(?:IMG|IMAGE|PIC|PICTURE)[ ]*(.*?):[ ](.*?)>/i))_0x1da514=String(RegExp['$1'])[_0x48b301(0x435)]()[_0x48b301(0x467)]();else!_0x3f82b4&&_0x5929b3[_0x48b301(0x498)](/<BG(?:| )(?:IMG|IMAGE|PIC|PICTURE)[ ]*(.*?):[ ](.*?)>/i)&&(_0x1da514=String(RegExp['$1'])[_0x48b301(0x435)]()[_0x48b301(0x467)]());}switch(_0x1da514){case _0x48b301(0x4ae):case _0x48b301(0x2ed):case _0x48b301(0x21a):case _0x48b301(0x570):case _0x48b301(0x3fa):case _0x48b301(0x3ac):case'1':_0xa03c8d=0x1;break;case _0x48b301(0x39a):case'lower-center':case _0x48b301(0x527):case _0x48b301(0x45f):case _0x48b301(0x4c5):case'down\x20center':case'down':case'2':_0xa03c8d=0x2;break;case _0x48b301(0x275):case _0x48b301(0x207):case _0x48b301(0x521):case'downright':case _0x48b301(0x25c):case _0x48b301(0x417):case'3':_0xa03c8d=0x3;break;case'midleft':case _0x48b301(0x205):case'left':case'4':_0xa03c8d=0x4;break;case'midcenter':case _0x48b301(0x41e):case _0x48b301(0x442):case _0x48b301(0x2e0):case'5':_0xa03c8d=0x5;break;case _0x48b301(0x357):case _0x48b301(0x254):case _0x48b301(0x49e):case'6':_0xa03c8d=0x6;break;case _0x48b301(0x564):case _0x48b301(0x1ee):case'upper\x20left':case'upleft':case _0x48b301(0x445):case _0x48b301(0x23d):case'7':_0xa03c8d=0x7;break;case'uppercenter':case _0x48b301(0x559):case _0x48b301(0x1b3):case _0x48b301(0x370):case'up-center':case'up\x20center':case'up':case'8':_0xa03c8d=0x8;break;case _0x48b301(0x1b8):case _0x48b301(0x266):case _0x48b301(0x44b):case _0x48b301(0x206):case _0x48b301(0x422):case _0x48b301(0x2b5):case'9':_0xa03c8d=0x9;break;}const _0x8a9f1d=_0x3f82b4?this[_0x48b301(0x2e2)]:this[_0x48b301(0x385)],_0x41e984=this['itemRect'](_0x5a3cb3);!_0x3f82b4&&_0x8a9f1d[_0x48b301(0x461)](_0x41e984['x']-0x1,_0x41e984['y']-0x1,_0x41e984[_0x48b301(0x3ee)]+0x2,_0x41e984['height']+0x2);const _0x1a226b=_0x41e984['x']+0x2,_0x491532=_0x41e984['y']+0x2,_0x14bebf=_0x41e984[_0x48b301(0x3ee)]-0x4,_0x2b6dbd=_0x41e984['height']-0x4,_0x32b942=_0x1042d2[_0x48b301(0x3ee)],_0x39f05f=_0x1042d2[_0x48b301(0x436)];let _0x1c3796=_0x1a226b,_0x54cbc9=_0x491532,_0x46c082=_0x14bebf,_0x112614=_0x2b6dbd;const _0x4eb09b=_0x14bebf/_0x32b942,_0xb849be=_0x2b6dbd/_0x39f05f;let _0x4d37b5=Math['min'](_0x4eb09b,_0xb849be);if(_0x3f82b4)_0x4d37b5=Math[_0x48b301(0x28c)](_0x4d37b5,0x1);_0xa03c8d!==0x0&&(_0x46c082=Math['round'](_0x32b942*_0x4d37b5),_0x112614=Math['round'](_0x39f05f*_0x4d37b5));switch(_0xa03c8d){case 0x1:case 0x4:case 0x7:_0x1c3796=_0x1a226b;break;case 0x2:case 0x5:case 0x8:_0x1c3796+=Math[_0x48b301(0x278)]((_0x14bebf-_0x46c082)/0x2);break;case 0x3:case 0x6:case 0x9:_0x1c3796+=_0x14bebf-_0x46c082;break;}switch(_0xa03c8d){case 0x7:case 0x8:case 0x9:_0x54cbc9=_0x491532;break;case 0x4:case 0x5:case 0x6:_0x54cbc9+=Math[_0x48b301(0x278)]((_0x2b6dbd-_0x112614)/0x2);break;case 0x1:case 0x2:case 0x3:_0x54cbc9+=_0x2b6dbd-_0x112614;break;}_0x8a9f1d[_0x48b301(0x1ce)](_0x1042d2,0x0,0x0,_0x32b942,_0x39f05f,_0x1c3796,_0x54cbc9,_0x46c082,_0x112614),_0x3f82b4&&this[_0x48b301(0x223)](_0x5a3cb3);},Window_ChoiceList[_0x3fecc6(0x1d6)][_0x3fecc6(0x525)]=function(){const _0x3b5af7=_0x3fecc6;this[_0x3b5af7(0x515)][_0x3b5af7(0x472)]();if(!this[_0x3b5af7(0x2cb)])return;const _0x39d5c0=this[_0x3b5af7(0x471)]();this[_0x3b5af7(0x2cb)][_0x39d5c0]?(this[_0x3b5af7(0x515)][_0x3b5af7(0x3ce)](this[_0x3b5af7(0x2cb)][_0x39d5c0]),this[_0x3b5af7(0x515)]['show']()):(this[_0x3b5af7(0x515)][_0x3b5af7(0x472)](),this['_helpWindow'][_0x3b5af7(0x373)]());},Window_EventItem[_0x3fecc6(0x1d6)][_0x3fecc6(0x1a5)]=function(){const _0x40e16d=_0x3fecc6,_0xa5506a=$gameMessage[_0x40e16d(0x386)]();_0xa5506a===_0x40e16d(0x1e4)&&Imported['VisuMZ_1_SkillsStatesCore']?this[_0x40e16d(0x3f5)]():Window_ItemList[_0x40e16d(0x1d6)]['makeItemList'][_0x40e16d(0x358)](this);},Window_EventItem[_0x3fecc6(0x1d6)]['makeSkillList']=function(){const _0x22b662=_0x3fecc6,_0x5316f5=$gameMessage[_0x22b662(0x209)]();this['_data']=_0x5316f5?_0x5316f5[_0x22b662(0x3aa)]()['filter'](_0x1c8bb1=>this[_0x22b662(0x3c6)](_0x1c8bb1)):[],this['includes'](null)&&this['_data']['push'](null);},VisuMZ[_0x3fecc6(0x46b)][_0x3fecc6(0x4f5)]=Window_EventItem['prototype'][_0x3fecc6(0x3c6)],Window_EventItem[_0x3fecc6(0x1d6)][_0x3fecc6(0x3c6)]=function(_0x5c89e0){const _0x57c19b=_0x3fecc6,_0x2e8043=$gameMessage[_0x57c19b(0x386)]();if(_0x2e8043===_0x57c19b(0x240)){if(!DataManager['isWeapon'](_0x5c89e0))return![];const _0x3b89d9=$gameMessage[_0x57c19b(0x32b)]();if(_0x3b89d9>0x0){if(_0x5c89e0[_0x57c19b(0x33b)]!==_0x3b89d9)return![];}return!![];}else{if(_0x2e8043===_0x57c19b(0x531)){if(!DataManager['isArmor'](_0x5c89e0))return![];const _0x7eafe0=$gameMessage[_0x57c19b(0x501)]();if(_0x7eafe0>0x0){if(_0x5c89e0['atypeId']!==_0x7eafe0)return![];}const _0xc294dd=$gameMessage['itemChoiceEtypeId']();if(_0xc294dd>0x0){if(_0x5c89e0[_0x57c19b(0x256)]!==_0xc294dd)return![];}return!![];}else{if(_0x2e8043===_0x57c19b(0x1e4)){if(!DataManager[_0x57c19b(0x4ff)](_0x5c89e0))return![];const _0x97e162=$gameMessage['itemChoiceActor']();if(_0x97e162[_0x57c19b(0x1ae)](_0x5c89e0))return![];if(!_0x97e162['isSkillTypeMatchForUse'](_0x5c89e0))return![];const _0x185f47=$gameMessage[_0x57c19b(0x4dd)]();if(_0x185f47>0x0){const _0xe4a7e2=DataManager[_0x57c19b(0x20a)](_0x5c89e0);if(!_0xe4a7e2[_0x57c19b(0x3c6)](_0x185f47))return![];}return!![];}else return VisuMZ[_0x57c19b(0x46b)][_0x57c19b(0x4f5)][_0x57c19b(0x358)](this,_0x5c89e0);}}},VisuMZ[_0x3fecc6(0x46b)]['Window_ItemList_drawItemNumber']=Window_ItemList[_0x3fecc6(0x1d6)][_0x3fecc6(0x214)],Window_ItemList[_0x3fecc6(0x1d6)]['drawItemNumber']=function(_0x19f0c7,_0xdc9f98,_0x390555,_0x4eeef5){const _0x2e0918=_0x3fecc6,_0x52673b=$gameMessage['itemChoiceItypeId']();if(_0x52673b===_0x2e0918(0x1e4)){const _0x1b84be=$gameMessage[_0x2e0918(0x209)]();this[_0x2e0918(0x43c)](_0x1b84be,_0x19f0c7,_0xdc9f98,_0x390555,_0x4eeef5);}else VisuMZ['MessageCore'][_0x2e0918(0x30f)][_0x2e0918(0x358)](this,_0x19f0c7,_0xdc9f98,_0x390555,_0x4eeef5);},Window_MapName[_0x3fecc6(0x1d6)][_0x3fecc6(0x557)]=function(){const _0x57ad87=_0x3fecc6;this[_0x57ad87(0x2e2)]['clear']();let _0x5cbdd6=$gameMap[_0x57ad87(0x3d0)]();if(_0x5cbdd6){const _0x49fa51=this['innerWidth'];this[_0x57ad87(0x4a2)](0x0,0x0,_0x49fa51,this['lineHeight']()),_0x5cbdd6=this['realignMapName'](_0x5cbdd6);const _0x5effd6=this['textSizeEx'](_0x5cbdd6)[_0x57ad87(0x3ee)];this['drawTextEx'](_0x5cbdd6,Math[_0x57ad87(0x22d)]((_0x49fa51-_0x5effd6)/0x2),0x0);}},Window_MapName[_0x3fecc6(0x1d6)]['realignMapName']=function(_0x2ea684){const _0x508330=_0x3fecc6;if(_0x2ea684['match'](/<LEFT>/gi))this['x']=0x0;else{if(_0x2ea684[_0x508330(0x498)](/<CENTER>/gi))this['x']=Math[_0x508330(0x22d)]((Graphics[_0x508330(0x3a0)]-this[_0x508330(0x3ee)])/0x2);else _0x2ea684['match'](/<RIGHT>/gi)&&(this['x']=Graphics[_0x508330(0x3a0)]-this[_0x508330(0x3ee)]);}_0x2ea684=_0x2ea684[_0x508330(0x496)](/<(?:LEFT|CENTER|RIGHT)>/gi,''),_0x2ea684=_0x2ea684['replace'](/<\/(?:LEFT|CENTER|RIGHT)>/gi,'');if(_0x2ea684[_0x508330(0x498)](/<TOP>/gi))this['y']=0x0;else{if(_0x2ea684[_0x508330(0x498)](/<MIDDLE>/gi))this['y']=Math[_0x508330(0x22d)]((Graphics[_0x508330(0x380)]-this[_0x508330(0x436)])/0x2);else _0x2ea684['match'](/<BOTTOM>/gi)&&(this['y']=Graphics[_0x508330(0x380)]-this[_0x508330(0x436)]);}return _0x2ea684=_0x2ea684['replace'](/<(?:TOP|MIDDLE|BOTTOM)>/gi,''),_0x2ea684=_0x2ea684[_0x508330(0x496)](/<\/(?:TOP|MIDDLE|BOTTOM)>/gi,''),_0x2ea684[_0x508330(0x498)](/<X:[ ]([\+\-]\d+)>/gi)&&(this['x']+=Number(RegExp['$1']),_0x2ea684=_0x2ea684[_0x508330(0x496)](/<X:[ ]([\+\-]\d+)>/gi,'')),_0x2ea684['match'](/<Y:[ ]([\+\-]\d+)>/gi)&&(this['y']+=Number(RegExp['$1']),_0x2ea684=_0x2ea684[_0x508330(0x496)](/<Y:[ ]([\+\-]\d+)>/gi,'')),_0x2ea684;};
